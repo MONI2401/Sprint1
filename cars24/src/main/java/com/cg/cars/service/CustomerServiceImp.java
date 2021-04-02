@@ -27,7 +27,6 @@ public class CustomerServiceImp implements ICustomerService {
 	public List<CustomerDTO> removeCustomer(long custId) {
 		repo.deleteById((int) custId);
 		List<Customer> list = repo.findAll();
-
 		return CustomerUtils.convertToCustomerDtoList(list);
 
 	}
@@ -41,6 +40,7 @@ public class CustomerServiceImp implements ICustomerService {
 
 	@Override
 	public List<CustomerDTO> getCustomer(long custId) {
+		// need to do
 		return null;
 
 	}
@@ -54,7 +54,8 @@ public class CustomerServiceImp implements ICustomerService {
 
 	@Override
 	public List<CustomerDTO> getCustomersByLocation() {
-		// TODO Auto-generated method stub
+		// need to do
+		
 		return null;
 	}
 
