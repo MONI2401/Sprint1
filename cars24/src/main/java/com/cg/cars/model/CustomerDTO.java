@@ -1,6 +1,9 @@
 package com.cg.cars.model;
 
+
+
 import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,7 +20,7 @@ public class CustomerDTO {
 	private String name;
 	private String email;
 	private String contactNo;
-	private LocalDate dob;
+	private Date dob;
 	private Address address;
 
 	public String getUserId() {
@@ -52,11 +55,11 @@ public class CustomerDTO {
 		this.contactNo = contactNo;
 	}
 
-	public LocalDate getDob() {
+	public Date getDob() {
 		return dob;
 	}
 
-	public void setDob(LocalDate dob) {
+	public void setDob(Date dob) {
 		this.dob = dob;
 	}
 
@@ -68,7 +71,7 @@ public class CustomerDTO {
 		this.address = address;
 	}
 
-	public CustomerDTO(String userId, String name, String email, String contactNo, LocalDate dob, Address address) {
+	public CustomerDTO(String userId, String name, String email, String contactNo, Date dob, Address address) {
 		super();
 		this.userId = userId;
 		this.name = name;

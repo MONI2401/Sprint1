@@ -1,5 +1,14 @@
 package com.cg.cars.entities;
 
+<<<<<<< HEAD
+=======
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+>>>>>>> monisha
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -79,6 +88,14 @@ public class Customer {
 	// public void setAddress(Address address) {
 	// 	this.address = address;
 	// }
+<<<<<<< HEAD
+=======
+	
+	public Customer() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+>>>>>>> monisha
 	public Customer(String userId, String name, String email, String contactNo, Date dob, Address address) {
 		super();
 		this.addresses=new ArrayList<Address>();
@@ -95,7 +112,11 @@ public class Customer {
 		for(Address address : addresses)
 			addressBuilder.append(address.toString()+"\n");
 		return "Customer [userId=" + userId + ", name=" + name + ", email=" + email + ", contactNo=" + contactNo
+<<<<<<< HEAD
 				+ ", dob=" + dob + ", address=" + addressBuilder.toString() + "]";
+=======
+				+ ", dob=" + dob + ", address=" + addresses + "]";
+>>>>>>> monisha
 	}
 
 
