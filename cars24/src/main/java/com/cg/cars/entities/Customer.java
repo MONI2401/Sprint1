@@ -17,6 +17,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.sun.istack.NotNull;
+
 
 @Entity
 @Table(name="Customer")
@@ -26,19 +28,24 @@ public class Customer {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private String userId;
 	
+	@NotNull()
 	@Column(name="name",nullable=false,length=50)
 	private String name;
 
+	@NotNull()
 	@Column(name="email",nullable=false,unique=true,length = 255)
 	private String email;
 
+	@NotNull()
 	@Column(name="contactno",nullable=false,unique=true,length = 10)
 	private String contactNo;
 
+	@NotNull()
 	@Column(name="dob",nullable = false)
 	@Temporal(TemporalType.DATE)
 	private  Date dob;
 
+	
 	@ManyToMany(targetEntity = Address.class,fetch = FetchType.EAGER,mappedBy = "addressId",cascade = CascadeType.REFRESH)
 	@JoinColumn(name="addressId",nullable = false)
 	private List<Address> addresses;

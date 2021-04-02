@@ -6,6 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.sun.istack.NotNull;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ManyToMany;
@@ -20,21 +23,26 @@ public class Address {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int addressId;
 
+	@NotNull()
 	@Column(name="doorno",nullable = false)
 	private String doorNo;
 
+	@NotNull()
 	@Column(name="street",nullable = false)
 	private String street;
 
 	@Column(name="area")
 	private String area;
 
+	@NotNull()
 	@Column(name="city",nullable=false)
 	private String city;
 
+	@NotNull()
 	@Column(name="state",nullable = false)
 	private String state;
 
+	@NotNull()
 	@Column(name="pincode",nullable=false)
 	private int pincode;
 
