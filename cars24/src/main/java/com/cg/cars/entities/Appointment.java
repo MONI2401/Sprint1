@@ -1,22 +1,47 @@
 package com.cg.cars.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import java.time.LocalDate;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import java.time.LocalTime;
+import java.util.Date;
 
 @Entity
 @Table(name="appointment")
 public class Appointment {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long appointmentId;
+
+	@Column(name="location",nullable=false)
 	private String location;
+
+	@Column(name="inspectionType",nullable = false)
 	private String inspectionType;
-	private LocalDate preferredDate;
+
+	@Column(name="preferredDate",nullable = false)
+	@Temporal(TemporalType.DATE)
+	private Date preferredDate;
+
+	@Column(name="preferredTime",nullable = false)
 	private LocalTime preferredTime;
+
+	@ManyToOne(targetEntity = Customer.class, optional = false,cascade = CascadeType.REFRESH)
+	@JoinColumn(table = "userId",nullable = false)
 	private Customer customer;
+
+	@OneToOne(targetEntity = Payment.class,cascade = CascadeType.ALL,optional = false,mappedBy = "paymentId")
 	private Payment payment;
 	/**
 	 * @return the appointmentId
@@ -57,13 +82,13 @@ public class Appointment {
 	/**
 	 * @return the preferredDate
 	 */
-	public LocalDate getPreferredDate() {
+	public Date getPreferredDate() {
 		return preferredDate;
 	}
 	/**
 	 * @param preferredDate the preferredDate to set
 	 */
-	public void setPreferredDate(LocalDate preferredDate) {
+	public void setPreferredDate(Date preferredDate) {
 		this.preferredDate = preferredDate;
 	}
 	/**
@@ -100,6 +125,24 @@ public class Appointment {
 	 * @param payment the payment to set
 	 */
 	public void setPayment(Payment payment) {
+		this.payment = payment;
+	}
+	/**
+	 * @param appointmentId
+	 * @param location
+	 * @param inspectionType
+	 * @param preferredDate
+	 * @param preferredTime
+	 * @param customer
+	 * @param payment
+	 */
+	public Appointment(long appointmentId, String location, String inspectionType, Date preferredDate,
+			LocalTime preferredTime,  Payment payment) {
+		this.appointmentId = appointmentId;
+		this.location = location;
+		this.inspectionType = inspectionType;
+		this.preferredDate = preferredDate;
+		this.preferredTime = preferredTime;
 		this.payment = payment;
 	}
 

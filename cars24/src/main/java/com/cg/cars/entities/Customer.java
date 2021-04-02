@@ -1,7 +1,5 @@
 package com.cg.cars.entities;
 
-import java.time.LocalDate;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -16,7 +14,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.JoinColumn;
 import java.util.List;
 import java.util.ArrayList;
-import javax.persistence.JoinTable;
 import java.util.Date;
 
 
@@ -43,7 +40,7 @@ public class Customer {
 
 	@ManyToMany(targetEntity = Address.class,fetch = FetchType.EAGER,mappedBy = "addressId",cascade = CascadeType.REFRESH)
 	@JoinColumn(name="addressId",nullable = false)
-	private List<Address> address;
+	private List<Address> addresses;
 
 
 	public String getUserId() {
@@ -82,15 +79,15 @@ public class Customer {
 	// public void setAddress(Address address) {
 	// 	this.address = address;
 	// }
-	public Customer(String userId, String name, String email, String contactNo, LocalDate dob, Address address) {
+	public Customer(String userId, String name, String email, String contactNo, Date dob, Address address) {
 		super();
-		this.address=new ArrayList<Address>();
+		this.addresses=new ArrayList<Address>();
 		this.userId = userId;
 		this.name = name;
 		this.email = email;
 		this.contactNo = contactNo;
 		this.dob = dob;
-		this.address = address;
+		addresses.add(address);
 	}
 	public Customer() {
 		super();
@@ -98,8 +95,11 @@ public class Customer {
 	}
 	@Override
 	public String toString() {
+		StringBuilder addressBuilder=new StringBuilder();
+		for(Address address : addresses)
+			addressBuilder.append(address.toString()+"\n");
 		return "Customer [userId=" + userId + ", name=" + name + ", email=" + email + ", contactNo=" + contactNo
-				+ ", dob=" + dob + ", address=" + address + "]";
+				+ ", dob=" + dob + ", address=" + addressBuilder.toString() + "]";
 	}
 
 
