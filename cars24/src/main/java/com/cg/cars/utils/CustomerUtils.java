@@ -7,45 +7,38 @@ import com.cg.cars.entities.Customer;
 import com.cg.cars.model.CustomerDTO;
 
 public class CustomerUtils {
-		public static List<CustomerDTO> convertToCustomerDtoList(List<Customer> list){
-			List<CustomerDTO> dtolist = new ArrayList<CustomerDTO>();
-			for(Customer customer : list) 
-				dtolist.add(convertToCustomerDto(customer));
-			return dtolist;
-		}
-		
-		public static Customer convertToCustomer(CustomerDTO dto) {
-			Customer cus = new Customer();
-		
-				cus.setUserId(dto.getUserId());
-				cus.setName(dto.getName());
-				cus.setEmail(dto.getEmail());
-				cus.setContactNo(dto.getContactNo());
-				cus.setDob(cus.getDob());
-			
-				return cus;
-			
-		}
-		
-		
-			
-			public static CustomerDTO convertToCustomerDto(Customer cus) {
-				CustomerDTO dto = new CustomerDTO();
-				
-				dto.setUserId(cus.getUserId());
-				dto.setName(cus.getName());
-				dto.setEmail(cus.getEmail());
-				dto.setContactNo(cus.getContactNo());
-				dto.setDob(cus.getDob());
-				
-				
-				return dto;
-			}
-
-			
-			
-		
-
+	
+	public static List<CustomerDTO> convertToCustomerDtoList(List<Customer> list)
+	{
+		List<CustomerDTO> customerDTOList = new ArrayList<CustomerDTO>();
+		for (Customer payment : list)
+			customerDTOList.add(convertToCustomerDto(payment));
+	    return customerDTOList;
 	}
-
-
+	
+	public static Customer convertToCustomer(CustomerDTO customerDTO) {
+		Customer customer = new Customer();
+		
+		customer.setUserId(customerDTO.getUserId());
+		customer.setName(customerDTO.getName());
+		customer.setEmail(customerDTO.getEmail());
+		customer.setContactNo(customerDTO.getContactNo());
+		customer.setDob(customerDTO.getDob());
+		//customer.setAddress(customerDTO.getAddress());
+		
+		return customer;
+	}
+	
+	public static CustomerDTO convertToCustomerDto(Customer customer) {
+		CustomerDTO customerDTO = new CustomerDTO();
+		
+		customerDTO.setUserId(customer.getUserId());
+		customerDTO.setName(customer.getName());
+		customerDTO.setEmail(customer.getEmail());
+		customerDTO.setContactNo(customer.getContactNo());
+		customerDTO.setDob(customer.getDob());
+		//customerDTO.setAddress(customer.getAddress());
+		
+		return customerDTO;
+	}
+}
