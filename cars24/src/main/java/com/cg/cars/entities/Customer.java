@@ -1,5 +1,6 @@
 package com.cg.cars.entities;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class Customer {
 
 	@ManyToMany(targetEntity = Address.class,fetch = FetchType.EAGER,mappedBy = "addressId",cascade = CascadeType.REFRESH)
 	@JoinColumn(name="addressId",nullable = false)
-	private List<Address> address;
+	private List<Address> addresses;
 
 
 	public String getUserId() {
@@ -84,19 +85,20 @@ public class Customer {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Customer(String userId, String name, String email, String contactNo, Date dob, List<Address> address) {
+	public Customer(String userId, String name, String email, String contactNo, Date dob, Address address) {
 		super();
+		this.addresses=new ArrayList<Address>();
 		this.userId = userId;
 		this.name = name;
 		this.email = email;
 		this.contactNo = contactNo;
 		this.dob = dob;
-		this.address = address;
+		addresses.add(address);
 	}
 	@Override
 	public String toString() {
 		return "Customer [userId=" + userId + ", name=" + name + ", email=" + email + ", contactNo=" + contactNo
-				+ ", dob=" + dob + ", address=" + address + "]";
+				+ ", dob=" + dob + ", address=" + addresses + "]";
 	}
 
 
