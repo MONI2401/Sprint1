@@ -137,6 +137,7 @@ public class Appointment {
 	 */
 	public Appointment(long appointmentId, String location, String inspectionType, Date preferredDate,
 			LocalTime preferredTime,  Payment payment) {
+				super();
 		this.appointmentId = appointmentId;
 		this.location = location;
 		this.inspectionType = inspectionType;
