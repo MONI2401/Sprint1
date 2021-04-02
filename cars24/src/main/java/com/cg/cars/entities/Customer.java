@@ -1,10 +1,19 @@
 package com.cg.cars.entities;
 
+<<<<<<< HEAD
+=======
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+>>>>>>> 8de52acba8443efac5db11077271e381491d0514
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+<<<<<<< HEAD
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -15,6 +24,13 @@ import javax.persistence.JoinColumn;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
+=======
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+>>>>>>> 8de52acba8443efac5db11077271e381491d0514
 
 
 @Entity
@@ -40,7 +56,11 @@ public class Customer {
 
 	@ManyToMany(targetEntity = Address.class,fetch = FetchType.EAGER,mappedBy = "addressId",cascade = CascadeType.REFRESH)
 	@JoinColumn(name="addressId",nullable = false)
+<<<<<<< HEAD
 	private List<Address> addresses;
+=======
+	private List<Address> address;
+>>>>>>> 8de52acba8443efac5db11077271e381491d0514
 
 
 	public String getUserId() {
@@ -79,7 +99,16 @@ public class Customer {
 	// public void setAddress(Address address) {
 	// 	this.address = address;
 	// }
+<<<<<<< HEAD
 	public Customer(String userId, String name, String email, String contactNo, Date dob, Address address) {
+=======
+	
+	public Customer() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public Customer(String userId, String name, String email, String contactNo, Date dob, List<Address> address) {
+>>>>>>> 8de52acba8443efac5db11077271e381491d0514
 		super();
 		this.addresses=new ArrayList<Address>();
 		this.userId = userId;
@@ -88,10 +117,6 @@ public class Customer {
 		this.contactNo = contactNo;
 		this.dob = dob;
 		addresses.add(address);
-	}
-	public Customer() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 	@Override
 	public String toString() {
