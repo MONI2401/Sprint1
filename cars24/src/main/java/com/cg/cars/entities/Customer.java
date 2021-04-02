@@ -1,5 +1,13 @@
 package com.cg.cars.entities;
 
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -79,6 +87,11 @@ public class Customer {
 	// public void setAddress(Address address) {
 	// 	this.address = address;
 	// }
+	
+	public Customer() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public Customer(String userId, String name, String email, String contactNo, Date dob, Address address) {
 		super();
 		this.addresses=new ArrayList<Address>();

@@ -146,4 +146,9 @@ public class Appointment {
 		this.payment = payment;
 	}
 
+	@Override
+	public String toString()
+	{
+		return "Appointment [Appointment Id="+this.appointmentId+" location="+this.location+" preferred date="+this.preferredDate.toString() + " preferred time="+this.preferredTime.toString()+ " ]";
+	}
 }

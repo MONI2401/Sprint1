@@ -4,44 +4,58 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.cg.cars.dao.ICustomerRepository;
 import com.cg.cars.entities.Customer;
 import com.cg.cars.model.CustomerDTO;
+import com.cg.cars.utils.CustomerUtils;
 
+@Service
 public class CustomerServiceImp implements ICustomerService {
+
+	@Autowired
+	ICustomerRepository repo;
 
 	@Override
 	public Customer addCustomer(Customer customer) {
-		// TODO Auto-generated method stub
-		return null;
+		return repo.save(customer);
 	}
 
 	@Override
-	public Customer removeCustomer(long custId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<CustomerDTO> removeCustomer(long custId) {
+		repo.deleteById((int) custId);
+		List<Customer> list = repo.findAll();
+		return CustomerUtils.convertToCustomerDtoList(list);
+
 	}
 
 	@Override
-	public CustomerDTO updateCustomer(long custId, Customer customer) {
-		// TODO Auto-generated method stub
-		return null;
+	public CustomerDTO updateCustomer(long custId, Customer cus) {
+		Customer customer = repo.save(cus);
+
+		return CustomerUtils.convertToCustomerDto(customer);
 	}
 
 	@Override
-	public CustomerDTO getCustomer(long custId) {
-		// TODO Auto-generated method stub
+	public List<CustomerDTO> getCustomer(long custId) {
+		// need to do
 		return null;
+
 	}
 
 	@Override
 	public List<CustomerDTO> getAllCustomers() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Customer> list = repo.findAll();
+
+		return CustomerUtils.convertToCustomerDtoList(list);
 	}
 
 	@Override
 	public List<CustomerDTO> getCustomersByLocation() {
-		// TODO Auto-generated method stub
+		// need to do
+		
 		return null;
 	}
 
