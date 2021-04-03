@@ -1,23 +1,33 @@
 package com.cg.cars.entities;
 
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+<<<<<<< HEAD
 import javax.validation.constraints.NotBlank;
 
+=======
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Date;
+>>>>>>> 3bf54c15f5818b5a9326b91e0820e11a69bbea42
 
 
 @Entity
@@ -106,8 +116,11 @@ public class Customer {
 	}
 	@Override
 	public String toString() {
+		StringBuilder addressBuilder=new StringBuilder();
+		for(Address address : addresses)
+			addressBuilder.append(address.toString()+"\n");
 		return "Customer [userId=" + userId + ", name=" + name + ", email=" + email + ", contactNo=" + contactNo
-				+ ", dob=" + dob + ", address=" + addresses + "]";
+				+ ", dob=" + dob + ", address=" + addressBuilder.toString() + "]";
 	}
 	
 

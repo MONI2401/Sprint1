@@ -2,7 +2,10 @@ package com.cg.cars.model;
 
 
 
+<<<<<<< HEAD
 import java.util.ArrayList;
+=======
+>>>>>>> 3bf54c15f5818b5a9326b91e0820e11a69bbea42
 import java.util.Date;
 import java.util.List;
 
