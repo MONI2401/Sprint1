@@ -1,9 +1,5 @@
 package com.cg.cars.service;
 
-<<<<<<< HEAD
-public interface IPaymentService {
-
-=======
 import java.util.List;
 
 import com.cg.cars.entities.Payment;
@@ -15,5 +11,5 @@ public interface IPaymentService {
 	public PaymentDTO updatePayment(Payment payment);
 	public PaymentDTO getPaymentDetails(int id);
 	public List<PaymentDTO> getAllPaymentDetails();
->>>>>>> refs/remotes/origin/avinash
+
 }

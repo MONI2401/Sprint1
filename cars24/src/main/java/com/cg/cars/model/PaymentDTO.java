@@ -1,8 +1,5 @@
 package com.cg.cars.model;
 
-<<<<<<< HEAD
-public class PaymentDTO {
-=======
 import javax.persistence.GeneratedValue;
 
 import javax.persistence.GenerationType;
@@ -60,8 +57,5 @@ public class PaymentDTO {
 	public String toString() {
 		return "Payment [paymentId=" + paymentId + ", type=" + type + ", status=" + status + ", card=" + card + "]";
 	}
-	
-	
->>>>>>> refs/remotes/origin/avinash
 
 }

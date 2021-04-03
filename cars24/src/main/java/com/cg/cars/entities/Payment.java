@@ -1,12 +1,6 @@
 package com.cg.cars.entities;
 
-<<<<<<< HEAD
-public class Payment {
-	private long paymentId;
-	private String type;
-	private String status;
-	private Card card;
-=======
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,10 +75,6 @@ public class Payment {
 	public String toString() {
 		return "Payment [paymentId=" + paymentId + ", type=" + type + ", status=" + status + ", card=" + cards + "]";
 	}
-	
-	
-	
-	
->>>>>>> refs/remotes/origin/avinash
+
 
 }

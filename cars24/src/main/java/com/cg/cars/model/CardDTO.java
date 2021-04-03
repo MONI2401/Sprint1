@@ -1,9 +1,5 @@
 package com.cg.cars.model;
 
-<<<<<<< HEAD
-public class CardDTO {
-
-=======
 
 import java.util.Date;
 
@@ -66,6 +62,4 @@ public class CardDTO {
 		return "Card [id=" + id + ", cardName=" + cardName + ", cardNumber=" + cardNumber + ", cardExpiry=" + cardExpiry
 				+ ", cvv=" + cvv + "]";
 	}
-	
->>>>>>> refs/remotes/origin/avinash
 }

@@ -1,6 +1,5 @@
 package com.cg.cars.service;
 
-<<<<<<< HEAD
 import java.util.List;
 
 import com.cg.cars.entities.Car;
@@ -17,9 +16,5 @@ public interface ICarService {
 	public CarDTO getCarsByBrand(String brand);
 
 
-=======
-public interface ICarService {
->>>>>>> refs/remotes/origin/avinash
-	
 
 }

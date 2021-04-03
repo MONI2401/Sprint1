@@ -1,7 +1,7 @@
 package com.cg.cars.entities;
 
 import javax.persistence.Entity;
-<<<<<<< HEAD
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -152,24 +152,4 @@ public class Appointment {
 	{
 		return "Appointment [Appointment Id="+this.appointmentId+" location="+this.location+" preferred date="+this.preferredDate.toString() + " preferred time="+this.preferredTime.toString()+ " ]";
 	}
-=======
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.time.LocalDate;
-import java.time.LocalTime;
-
-@Entity
-@Table(name="appointment")
-public class Appointment {
-	
-	@Id
-	private long appointmentId;
-	private String location;
-	private String inspectionType;
-	private LocalDate preferredDate;
-	private LocalTime preferredTime;
-	private Customer customer;
-	private Payment payment;
-
->>>>>>> refs/remotes/origin/avinash
 }

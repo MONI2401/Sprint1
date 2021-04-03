@@ -1,14 +1,5 @@
 package com.cg.cars.entities;
 
-<<<<<<< HEAD
-import java.time.LocalDate;
-
-public class Card {
-	private String cardName;
-	private String cardNumber;
-    private LocalDate cardExpiry;
-    private int cvv;
-=======
 import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -107,9 +98,6 @@ public class Card {
 		return "Card [id=" + id + ", cardName=" + cardName + ", cardNumber=" + cardNumber + ", cardExpiry=" + cardExpiry
 				+ ", cvv=" + cvv + "]";
 	}
-	
-    
-    
->>>>>>> refs/remotes/origin/avinash
+
 
 }

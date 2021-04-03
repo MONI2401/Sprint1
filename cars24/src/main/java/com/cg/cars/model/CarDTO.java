@@ -1,6 +1,5 @@
 package com.cg.cars.model;
 
-<<<<<<< HEAD
 import java.util.Date;
 
 import javax.persistence.GeneratedValue;
@@ -72,8 +71,6 @@ public class CarDTO {
 		return "CarDTO [carId=" + carId + ", brand=" + brand + ", model=" + model + ", variant=" + variant
 				+ ", registrationYear=" + registrationYear + ", registrationState=" + registrationState + "]";
 	}
-=======
-public class CarDTO {
->>>>>>> refs/remotes/origin/avinash
+
 
 }

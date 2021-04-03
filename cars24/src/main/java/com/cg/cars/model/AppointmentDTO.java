@@ -1,6 +1,5 @@
 package com.cg.cars.model;
 
-<<<<<<< HEAD
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import java.util.Date;
@@ -158,8 +157,5 @@ public class AppointmentDTO {
     {
         return "Appointment [Appointment Id="+this.appointmentId+" location="+this.location+" preferred date="+this.preferredDate.toString() + " preferred time="+this.preferredTime.toString()+ " ]";
     }
-=======
-public class AppointmentDTO {
 
->>>>>>> refs/remotes/origin/avinash
 }
