@@ -27,7 +27,7 @@ ICarRepository carrepo;
 	@Override
 	public CarDTO removeCar(int id) {
 		Car car=new Car();
-		car=carrepo.getOne((int) id);
+		car=carrepo.getOne( id);
 		carrepo.deleteById((int) id);
 		return CarUtils.convertToCarDto(car);
 	}
