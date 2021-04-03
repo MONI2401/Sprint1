@@ -1,5 +1,6 @@
 package com.cg.cars.model;
 
+<<<<<<< HEAD
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
@@ -69,5 +70,8 @@ public class AddressDTO {
 				+ state + ", pincode=" + pincode + "]";
 	}
 	
+=======
+public class AddressDTO {
+>>>>>>> refs/remotes/origin/avinash
 
 }

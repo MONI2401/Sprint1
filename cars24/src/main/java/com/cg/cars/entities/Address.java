@@ -1,5 +1,6 @@
 package com.cg.cars.entities;
 
+<<<<<<< HEAD
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -221,3 +222,14 @@ public class Address {
 
 }
 >>>>>>> 8de52acba8443efac5db11077271e381491d0514
+=======
+public class Address {
+	private String doorNo;
+	private String street;
+	private String area;
+	private String city;
+	private String state;
+	private int pincode;
+
+}
+>>>>>>> refs/remotes/origin/avinash
