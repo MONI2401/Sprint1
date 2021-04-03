@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name="Card")
@@ -20,29 +21,33 @@ public class Card {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private int id;
 	
-	@Column(name="cardname",nullable=false)
+	@NotBlank(message = "Card name cannot be blank")
+	@Column(name="cardname",length =25)
 	private String cardName;
 	
-	@Column(name="cardnumber",nullable=false)
+	@NotBlank(message = "Card number cannot be blank")
+	@Column(name="cardnumber",unique = true,length=16 )
 	private String cardNumber;
 	
-	@Column(name="cardexpirydate",nullable=false)
+	@NotBlank(message = "Card expiry date cannot be blank")
+	@Column(name="cardexpirydate")
 	@Temporal(TemporalType.DATE)
     private Date cardExpiry;
 	
-	@Column(name="cvv",nullable=false)
+	@NotBlank(message = "Card cvv cannot be blank")
+	@Column(name="cvv",length = 3,unique = true)
     private int cvv;
 	
 	@ManyToOne(targetEntity = Payment.class,fetch = FetchType.EAGER,cascade = CascadeType.REFRESH)
-	@JoinColumn(name="paymentId",nullable=true)
+	@JoinColumn(name="paymentId")
 	private Payment payment;
 	
-	public long getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getCardName() {
@@ -76,7 +81,7 @@ public class Card {
 		this.payment = payment;
 	}
 	
-	public Card(long id, String cardName, String cardNumber, Date cardExpiry, int cvv, Payment payment) {
+	public Card(int id, String cardName, String cardNumber, Date cardExpiry, int cvv, Payment payment) {
 		super();
 		this.id = id;
 		this.cardName = cardName;

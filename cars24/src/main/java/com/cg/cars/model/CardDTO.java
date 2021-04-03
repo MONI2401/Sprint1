@@ -1,6 +1,7 @@
 package com.cg.cars.model;
 
-import java.time.LocalDate;
+
+import java.util.Date;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,15 +11,15 @@ import org.springframework.stereotype.Component;
 public class CardDTO {
 	
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private int id;
 	private String cardName;
 	private String cardNumber;
-    private LocalDate cardExpiry;
+    private Date cardExpiry;
     private int cvv;
-	public long getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getCardName() {
@@ -33,10 +34,10 @@ public class CardDTO {
 	public void setCardNumber(String cardNumber) {
 		this.cardNumber = cardNumber;
 	}
-	public LocalDate getCardExpiry() {
+	public Date getCardExpiry() {
 		return cardExpiry;
 	}
-	public void setCardExpiry(LocalDate cardExpiry) {
+	public void setCardExpiry(Date cardExpiry) {
 		this.cardExpiry = cardExpiry;
 	}
 	public int getCvv() {
@@ -45,7 +46,7 @@ public class CardDTO {
 	public void setCvv(int cvv) {
 		this.cvv = cvv;
 	}
-	public CardDTO(int id,String cardName, String cardNumber, LocalDate cardExpiry, int cvv) {
+	public CardDTO(int id,String cardName, String cardNumber, Date cardExpiry, int cvv) {
 		super();
 		this.id=id;
 		this.cardName = cardName;

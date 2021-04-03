@@ -12,14 +12,14 @@ import com.cg.cars.entities.Card;
 public class PaymentDTO {
 	
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long paymentId;
+	private int paymentId;
 	private String type;
 	private String status;
 	private Card card;
-	public long getPaymentId() {
+	public int getPaymentId() {
 		return paymentId;
 	}
-	public void setPaymentId(long paymentId) {
+	public void setPaymentId(int paymentId) {
 		this.paymentId = paymentId;
 	}
 	public String getType() {
@@ -42,7 +42,7 @@ public class PaymentDTO {
 	}
 	
 	
-	public PaymentDTO(long paymentId, String type, String status, Card card) {
+	public PaymentDTO(int paymentId, String type, String status, Card card) {
 		super();
 		this.paymentId = paymentId;
 		this.type = type;
