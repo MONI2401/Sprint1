@@ -11,8 +11,8 @@ public class CustomerUtils {
 	public static List<CustomerDTO> convertToCustomerDtoList(List<Customer> list)
 	{
 		List<CustomerDTO> customerDTOList = new ArrayList<CustomerDTO>();
-		for (Customer payment : list)
-			customerDTOList.add(convertToCustomerDto(payment));
+		for (Customer cus: list)
+			customerDTOList.add(convertToCustomerDto(cus));
 	    return customerDTOList;
 	}
 	
@@ -24,7 +24,7 @@ public class CustomerUtils {
 		customer.setEmail(customerDTO.getEmail());
 		customer.setContactNo(customerDTO.getContactNo());
 		customer.setDob(customerDTO.getDob());
-		//customer.setAddress(customerDTO.getAddress());
+		customer.setAddresses(customerDTO.getAddress());
 		
 		return customer;
 	}
@@ -37,7 +37,7 @@ public class CustomerUtils {
 		customerDTO.setEmail(customer.getEmail());
 		customerDTO.setContactNo(customer.getContactNo());
 		customerDTO.setDob(customer.getDob());
-		//customerDTO.setAddress(customer.getAddress());
+		customerDTO.setAddress(customer.getAddresses());
 		
 		return customerDTO;
 	}

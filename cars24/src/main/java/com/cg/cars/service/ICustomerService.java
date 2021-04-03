@@ -7,10 +7,10 @@ import com.cg.cars.model.CustomerDTO;
 
 public interface ICustomerService {
 	public CustomerDTO addCustomer(Customer customer);
-	public CustomerDTO removeCustomer(long custId);
+	public CustomerDTO removeCustomer(int custId);
 	public CustomerDTO updateCustomer( Customer customer);
-	public CustomerDTO getCustomer(long custId);
+	public CustomerDTO getCustomer(int custId);
 	public List<CustomerDTO> getAllCustomers(); 
-	public List<CustomerDTO> getCustomersByLocation();
+	public CustomerDTO getCustomersByCity(String city);
 
 }

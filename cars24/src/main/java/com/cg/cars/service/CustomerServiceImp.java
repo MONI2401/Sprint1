@@ -28,7 +28,7 @@ public class CustomerServiceImp implements ICustomerService {
 	}
 
 	@Override
-	public CustomerDTO removeCustomer(long custId) {
+	public CustomerDTO removeCustomer(int custId) {
 		
 		Customer customertemp=new Customer();
 		customertemp=customerRepo.getOne((int) custId);
@@ -43,8 +43,9 @@ public class CustomerServiceImp implements ICustomerService {
 		return CustomerUtils.convertToCustomerDto(updateCustomer);
 	}
 
+	
 	@Override
-	public CustomerDTO getCustomer(long custId) {
+	public CustomerDTO getCustomer(int custId) {
 		Customer getCustomer=new Customer();
 		getCustomer=customerRepo.findById((int) custId).orElse(null);
 		return CustomerUtils.convertToCustomerDto(getCustomer);
@@ -59,8 +60,10 @@ public class CustomerServiceImp implements ICustomerService {
 	}
 	
 	@Override
-	public List<CustomerDTO> getCustomersByLocation() {
-		return null;
+	public CustomerDTO getCustomersByCity(String city) {
+		Customer getCusCity=new Customer();
+		getCusCity= customerRepo.findByCity(city);
+		return CustomerUtils.convertToCustomerDto(getCusCity);
 		
 	}
 

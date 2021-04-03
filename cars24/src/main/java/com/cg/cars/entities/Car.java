@@ -1,6 +1,6 @@
 package com.cg.cars.entities;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -21,7 +21,7 @@ import javax.persistence.TemporalType;
 public class Car {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long carId;
+	private int carId;
 	
 	@Column(name="Brand",nullable=false,length=50)
 	private String brand;
@@ -34,7 +34,7 @@ public class Car {
 	
 	@Column(name="REG_YR",nullable = false)
 	@Temporal(TemporalType.DATE)
-	private LocalDate registrationYear;
+	private Date registrationYear;
 	
 	@Column(name="REG_State",nullable = false)
 	private String registrationState;
@@ -44,11 +44,11 @@ public class Car {
 	@JoinColumn(name="userId",nullable=false)
 	private List<Customer> customers;
 
-	public long getCarId() {
+	public int getCarId() {
 		return carId;
 	}
 
-	public void setCarId(long carId) {
+	public void setCarId(int carId) {
 		this.carId = carId;
 	}
 
@@ -76,11 +76,11 @@ public class Car {
 		this.variant = variant;
 	}
 
-	public LocalDate getRegistrationYear() {
+	public Date getRegistrationYear() {
 		return registrationYear;
 	}
 
-	public void setRegistrationYear(LocalDate registrationYear) {
+	public void setRegistrationYear(Date registrationYear) {
 		this.registrationYear = registrationYear;
 	}
 
@@ -97,7 +97,7 @@ public class Car {
 		
 	}
 
-	public Car(long carId, String brand, String model, String variant, LocalDate registrationYear,
+	public Car(int carId, String brand, String model, String variant, Date registrationYear,
 			String registrationState) {
 		super();
 		this.carId = carId;

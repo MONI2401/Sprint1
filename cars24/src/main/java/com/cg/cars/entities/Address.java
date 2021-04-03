@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import com.sun.istack.NotNull;
 
@@ -23,26 +24,26 @@ public class Address {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int addressId;
 
-	@NotNull()
-	@Column(name="doorno",nullable = false)
+	@NotBlank(message = "Customer Door No Should NOT be Blank")
+	@Column(name="doorno")
 	private String doorNo;
 
-	@NotNull()
-	@Column(name="street",nullable = false)
+	@NotBlank(message = "Street name Should NOT be Blank")
+	@Column(name="street")
 	private String street;
 
 	@Column(name="area")
 	private String area;
 
-	@NotNull()
+	@NotBlank(message = "Area name Should NOT be Blank")
 	@Column(name="city",nullable=false)
 	private String city;
 
-	@NotNull()
+	@NotBlank(message = "Customer name Should NOT be Blank")
 	@Column(name="state",nullable = false)
 	private String state;
 
-	@NotNull()
+	@NotBlank(message = "Pincode Should NOT be Blank")
 	@Column(name="pincode",nullable=false)
 	private int pincode;
 
