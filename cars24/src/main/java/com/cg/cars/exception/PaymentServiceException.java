@@ -1,4 +1,4 @@
-package com.cg.cars.exceptions;
+package com.cg.cars.exception;
 
 @SuppressWarnings("serial")
 public class PaymentServiceException extends RuntimeException {
