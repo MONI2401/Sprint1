@@ -2,9 +2,16 @@ package com.cg.cars.dao;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 import com.cg.cars.entities.Order;
 
-public interface IOrderRepository {
+@Repository
+public interface IOrderRepository extends JpaRepository<Order, Integer> {
+	
+	
+	
 	public Order addOrder(Order order);
 	public Order removeOrder(long id);
 	public Order  updateOrder(long id, Order order);

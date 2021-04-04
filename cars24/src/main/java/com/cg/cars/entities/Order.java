@@ -29,12 +29,13 @@ public class Order {
 	@Column(name="billingDate",nullable = true)
     private LocalDate billingDate;
 	
-	@ManyToOne(targetEntity = Customer.class, optional = false,cascade = CascadeType.REFRESH)
+	@ManyToOne(targetEntity = Customer.class, optional = true,cascade = CascadeType.REFRESH)
 	@JoinColumn(table = "userId",nullable = true)
 	private Customer customer;
 	
-	@OneToOne(targetEntity = Payment.class,cascade = CascadeType.ALL,optional = true,mappedBy = "paymentId")
-	private Payment payment;
+	@Column(name="paymentMethod",nullable = true)
+    private String paymentMethod;
+	
 	
 	public long getOrderId() {
 		return (long) orderId;
@@ -71,11 +72,11 @@ public class Order {
 		this.customer = customer;
 	}
 	
-	public Payment getPayment() {
-		return payment;
+	public String getPaymentMethod() {
+		return paymentMethod;
 	}
-	public void setPayment(Payment payment) {
-		this.payment = payment;
+	public void setPaymentMethod(String paymentMethod) {
+		this.paymentMethod = paymentMethod;
 	}
 	
 	public Order(long orderId, double amount, LocalDate billingDate, Customer customer, Payment payment)
@@ -84,7 +85,7 @@ public class Order {
 		this.amount = amount;
 		this.billingDate =billingDate;
 		this.customer = customer;
-		this.payment = payment;
+		this.paymentMethod = paymentMethod;
 	}
 
 }
