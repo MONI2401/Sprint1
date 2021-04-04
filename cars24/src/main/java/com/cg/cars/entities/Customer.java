@@ -19,6 +19,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 
 
+
 @Entity
 @Table(name="Customer")
 public class Customer {
@@ -105,11 +106,8 @@ public class Customer {
 	}
 	@Override
 	public String toString() {
-		StringBuilder addressBuilder=new StringBuilder();
-		for(Address address : addresses)
-			addressBuilder.append(address.toString()+"\n");
 		return "Customer [userId=" + userId + ", name=" + name + ", email=" + email + ", contactNo=" + contactNo
-				+ ", dob=" + dob + ", address=" + addressBuilder.toString() + "]";
+				+ ", dob=" + dob + ", address=" + addresses + "]";
 	}
 	
 

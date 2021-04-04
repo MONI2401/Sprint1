@@ -72,5 +72,4 @@ public class CarDTO {
 				+ ", registrationYear=" + registrationYear + ", registrationState=" + registrationState + "]";
 	}
 
-
 }

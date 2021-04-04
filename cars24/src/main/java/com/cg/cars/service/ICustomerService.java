@@ -13,5 +13,4 @@ public interface ICustomerService {
 	public List<CustomerDTO> getAllCustomers(); 
 	public CustomerDTO getCustomersByCity(String city);
 
-
 }

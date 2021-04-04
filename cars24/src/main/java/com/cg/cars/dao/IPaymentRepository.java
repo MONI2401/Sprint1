@@ -1,15 +1,13 @@
 package com.cg.cars.dao;
 
-
+import java.util.List;
 
 import com.cg.cars.entities.Payment;
 
-
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
-
-@Repository
-public interface IPaymentRepository extends JpaRepository<Payment,Integer> {
-
+public interface IPaymentRepository {
+	public Payment addPayment(Payment payment);
+	public Payment removePayment(long id);
+	public Payment updatePayment(long id, Payment payment);
+	public Payment getPaymentDetails(long id);
+	public List<Payment> getAllPaymentDetails();
 }
