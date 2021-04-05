@@ -11,7 +11,6 @@ import javax.persistence.GenerationType;
 
 import org.springframework.stereotype.Component;
 
-import com.cg.cars.entities.Address;
 import com.cg.cars.entities.Customer;
 
 @Component
@@ -28,7 +27,7 @@ public class OrderDTO {
 		return orderId;
 	}
 
-	public void setOrderId(int orderId) {
+	public void setOrderId(long orderId) {
 		this.orderId = orderId;
 	}
 
@@ -56,7 +55,7 @@ public class OrderDTO {
 		return customer;
 	}
 
-	public void setCustomer(List<Customer> customer) {
+	public void setCustomer(List<Customer>customer) {
 		this.customer = customer;
 	}
 
@@ -88,4 +87,8 @@ public class OrderDTO {
 	public String toString() {
 		return "Order[orderId=" + orderId + ", amount=" + amount+ ", billingDate=" + billingDate + ", customer=" + customer + ", paymentMethod=" + paymentMethod + "]";
 
-}}
+}
+
+	
+		
+	}

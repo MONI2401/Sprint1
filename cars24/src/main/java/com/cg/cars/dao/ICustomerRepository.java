@@ -1,15 +1,13 @@
 package com.cg.cars.dao;
 
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.cg.cars.entities.Customer;
 
-public interface ICustomerRepository {
+public interface ICustomerRepository extends JpaRepository<Customer, Long>{
 
-	public Customer addCustomer(Customer customer);
-	public Customer removeCustomer(long custId);
-	public Customer updateCustomer(long custId, Customer customer);
-	public Customer getCustomer(long custId);
-	public List<Customer> getAllCustomers(); 
-	public List<Customer> getCustomersByLocation();
+	@Query("SELECT c FROM Customer c,Address a WHERE a.city=:city and c.address=a.addressId")
+	public Customer findByCity(@Param("city") String city);
 }
