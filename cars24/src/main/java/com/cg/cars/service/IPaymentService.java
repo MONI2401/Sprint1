@@ -7,8 +7,8 @@ import com.cg.cars.model.PaymentDTO;
 
 public interface IPaymentService {
 	public PaymentDTO addPayment(Payment payment);
-	public PaymentDTO removePayment(int id);
+	public PaymentDTO removePayment(long id);
 	public PaymentDTO updatePayment(Payment payment);
-	public PaymentDTO getPaymentDetails(int id);
+	public PaymentDTO getPaymentDetails(long id);
 	public List<PaymentDTO> getAllPaymentDetails();
 }

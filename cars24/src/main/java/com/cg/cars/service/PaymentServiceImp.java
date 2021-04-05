@@ -26,7 +26,7 @@ public class PaymentServiceImp implements IPaymentService{
 	}
 
 	@Override
-	public PaymentDTO removePayment(int id)  {
+	public PaymentDTO removePayment(long id)  {
 		Payment payment = new Payment();
 		payment=paymentRepository.getOne(id);
 		paymentRepository.deleteById(id);
@@ -41,7 +41,7 @@ public class PaymentServiceImp implements IPaymentService{
 	}
 
 	@Override
-	public PaymentDTO getPaymentDetails(int id)  {
+	public PaymentDTO getPaymentDetails(long id)  {
 		Payment getPayment= new Payment();
 		getPayment=paymentRepository.findById(id).orElse(null);
 		return PaymentUtils.convertToPaymentDto(getPayment);
