@@ -1,10 +1,6 @@
 package com.cg.cars.model;
 
-
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDate;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,18 +13,18 @@ import com.cg.cars.entities.Address;
 public class CustomerDTO {
 
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int userId;
+	private long userId;
 	private String name;
 	private String email;
 	private String contactNo;
-	private Date dob;
-	private List<Address> address;
+	private LocalDate dob;
+	private Address address;
 
-	public int getUserId() {
+	public long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(long userId) {
 		this.userId = userId;
 	}
 
@@ -56,37 +52,35 @@ public class CustomerDTO {
 		this.contactNo = contactNo;
 	}
 
-	public Date getDob() {
+	public LocalDate getDob() {
 		return dob;
 	}
 
-	public void setDob(Date dob) {
+	public void setDob(LocalDate dob) {
 		this.dob = dob;
 	}
-	
 
-	public List<Address> getAddress() {
+	public Address getAddress() {
 		return address;
 	}
 
-	public void setAddress(List<Address> address) {
+	public void setAddress(Address address) {
 		this.address = address;
 	}
 
-	public CustomerDTO(int userId, String name, String email, String contactNo, Date dob, Address add) {
+	public CustomerDTO(int userId, String name, String email, String contactNo, LocalDate dob, Address add) {
 		super();
-		this.address=new ArrayList<Address>();
 		this.userId = userId;
 		this.name = name;
 		this.email = email;
 		this.contactNo = contactNo;
 		this.dob = dob;
-		address.add(add);
+		this.address = add;
 	}
 
 	public CustomerDTO() {
 		super();
-		// TODO Auto-generated constructor stub
+
 	}
 
 	@Override

@@ -17,31 +17,30 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="Car")
+@Table(name = "Car")
 public class Car {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int carId;
-	
-	@Column(name="Brand",nullable=false,length=50)
+
+	@Column(name = "Brand", nullable = false, length = 50)
 	private String brand;
-	
-	@Column(name="Model",nullable=false,length=50)
+
+	@Column(name = "Model", nullable = false, length = 50)
 	private String model;
-	
-	@Column(name="Variant",nullable=false,length=50)
+
+	@Column(name = "Variant", nullable = false, length = 50)
 	private String variant;
-	
-	@Column(name="REG_YR",nullable = false)
+
+	@Column(name = "REG_YR", nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date registrationYear;
-	
-	@Column(name="REG_State",nullable = false)
+
+	@Column(name = "REG_State", nullable = false)
 	private String registrationState;
 
-	
-	@ManyToOne(targetEntity = Customer.class,fetch = FetchType.EAGER,cascade = CascadeType.REFRESH)
-	@JoinColumn(name="userId",nullable=false)
+	@ManyToOne(targetEntity = Customer.class, fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "userId", nullable = false)
 	private List<Customer> customers;
 
 	public int getCarId() {
@@ -94,11 +93,10 @@ public class Car {
 
 	public Car() {
 		super();
-		
+
 	}
 
-	public Car(int carId, String brand, String model, String variant, Date registrationYear,
-			String registrationState) {
+	public Car(int carId, String brand, String model, String variant, Date registrationYear, String registrationState) {
 		super();
 		this.carId = carId;
 		this.brand = brand;
@@ -113,7 +111,5 @@ public class Car {
 		return "Car [carId=" + carId + ", brand=" + brand + ", model=" + model + ", variant=" + variant
 				+ ", registrationYear=" + registrationYear + ", registrationState=" + registrationState + "]";
 	}
-	
-	
 
 }

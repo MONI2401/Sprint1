@@ -1,15 +1,19 @@
 package com.cg.cars.dao;
 
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 
 import com.cg.cars.entities.Appointment;
 
-public interface IAppointmentRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
-	public Appointment addAppointment(Appointment appointment);
-	public Appointment removeAppointment(long id); 
-	public Appointment updateAppointment(long id, Appointment appointment);
-	public Appointment getAppointment(long id);
-	public List<Appointment> getAllAppointments(); 
-	public List<Appointment> getOpenAppointments();
+@Repository
+public interface IAppointmentRepository extends JpaRepository<Appointment, Long> {
+
+	@Query("SELECT appointment FROM Appointment appointment where appointment.preferredDate > :date AND appointment.preferredTime > :time ")
+	public List<Appointment> getOpenAppointments(@Param("date") Date date, @Param("time") LocalTime time);
 }

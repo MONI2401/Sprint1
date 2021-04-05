@@ -15,56 +15,58 @@ import com.cg.cars.utils.CustomerUtils;
 
 @Service
 public class CustomerServiceImp implements ICustomerService {
-	
+
 	@Autowired
 	ICustomerRepository customerRepo;
-	
+
 	@Override
-	public CustomerDTO addCustomer(Customer customer) 
-	{
-		Customer addCustomer=new Customer();
-		addCustomer=customerRepo.save(customer);
+	public CustomerDTO addCustomer(Customer customer) {
+		Customer addCustomer = new Customer();
+		addCustomer = customerRepo.save(customer);
 		return CustomerUtils.convertToCustomerDto(addCustomer);
 	}
 
 	@Override
-	public CustomerDTO removeCustomer(int custId) {
-		
-		Customer customertemp=new Customer();
-		customertemp=customerRepo.getOne((int) custId);
-		customerRepo.deleteById((int) custId);
+	public CustomerDTO removeCustomer(long custId) {
+
+		Customer customertemp = new Customer();
+		customertemp = customerRepo.getOne((long) custId);
+		customerRepo.deleteById((long) custId);
 		return CustomerUtils.convertToCustomerDto(customertemp);
 	}
 
 	@Override
 	public CustomerDTO updateCustomer(Customer customer) {
-		Customer updateCustomer=new Customer();
-		updateCustomer=customerRepo.save(customer);
+		Customer updateCustomer = new Customer();
+		updateCustomer = customerRepo.save(customer);
 		return CustomerUtils.convertToCustomerDto(updateCustomer);
 	}
 
-	
 	@Override
-	public CustomerDTO getCustomer(int custId) {
-		Customer getCustomer=new Customer();
-		getCustomer=customerRepo.findById((int) custId).orElse(null);
+	public CustomerDTO getCustomer(long custId) {
+		Customer getCustomer = new Customer();
+		getCustomer = customerRepo.findById((long) custId).orElse(null);
 		return CustomerUtils.convertToCustomerDto(getCustomer);
 	}
 
 	@Override
 	public List<CustomerDTO> getAllCustomers() {
-		List<Customer> getCustomer=new ArrayList<Customer>();
-		getCustomer=customerRepo.findAll();
+		List<Customer> getCustomer = new ArrayList<Customer>();
+		getCustomer = customerRepo.findAll();
 		return CustomerUtils.convertToCustomerDtoList(getCustomer);
-		
+
 	}
-	
+
 	@Override
-	public CustomerDTO getCustomersByCity(String city) {
-		Customer getCusCity=new Customer();
-		getCusCity= customerRepo.findByCity(city);
-		return CustomerUtils.convertToCustomerDto(getCusCity);
-		
+	public List<CustomerDTO> getCustomersByCity(String city) {
+		List<Customer> getCusCity = new ArrayList<Customer>();
+		getCusCity = customerRepo.findByCity(city);
+		return CustomerUtils.convertToCustomerDtoList(getCusCity);
+
+	}
+
+	public static boolean isValidCustomer(Customer cus) {
+		return validateUserMail(cus) && validateUserName(cus) && ValidateUserContact(cus);
 	}
 
 	public static boolean validateUserName(Customer cus) {
@@ -104,17 +106,4 @@ public class CustomerServiceImp implements ICustomerService {
 		return flag;
 	}
 
-	public static boolean ValidateUserDOB(Customer cus) {
-		boolean flag = false;
-		String regex = "^[0-3]?[0-9]/[0-3]?[0-9]/(?:[0-9]{2})?[0-9]{2}$";
-		Pattern pattern = Pattern.compile(regex);
-		Matcher matcher = pattern.matcher((CharSequence) cus.getDob());
-		boolean result = matcher.matches();
-		if (result) {
-			flag = true;
-		}
-		return flag;
-	}
-
-	
 }
