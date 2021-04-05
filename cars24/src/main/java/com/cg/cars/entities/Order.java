@@ -22,7 +22,7 @@ import javax.validation.constraints.NotBlank;
 
 
 @Entity
-@Table(name="Order")
+@Table(name="Orders")
 public class Order {
 	
 	@Id
