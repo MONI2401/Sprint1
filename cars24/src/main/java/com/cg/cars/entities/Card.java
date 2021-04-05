@@ -40,8 +40,7 @@ public class Card {
 	@Column(name="cvv",length = 3,unique = true)
     private int cvv;
 	
-	@ManyToOne(targetEntity = Payment.class,fetch = FetchType.EAGER,cascade = CascadeType.REFRESH)
-	@JoinColumn(name="paymentId")
+	@ManyToOne(targetEntity = Payment.class,fetch = FetchType.EAGER)
 	private Payment payment;
 	
 	public int getId() {

@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 
 @Entity
@@ -28,9 +29,13 @@ public class Payment {
 	@NotBlank(message="Status cannot be blank")
 	@Column(name="status")
 	private String status;
+
+   @OneToOne(targetEntity = Appointment.class)
+    @JoinColumn(name="appointmentId")
+    private Appointment appointment;
+
 	
-	@OneToMany(targetEntity = Card.class,fetch=FetchType.EAGER,mappedBy = "id", cascade = CascadeType.REFRESH)
-	@JoinColumn(name="id")
+	@OneToMany(targetEntity = Card.class,fetch=FetchType.EAGER,mappedBy = "id")
 	private List<Card> cards;
 	public int getPaymentId() {
 		return paymentId;
@@ -74,6 +79,32 @@ public class Payment {
 	public String toString() {
 		return "Payment [paymentId=" + paymentId + ", type=" + type + ", status=" + status + ", card=" + cards + "]";
 	}
+    /**
+     * @return the appointment
+     */
+    public Appointment getAppointment() {
+        return appointment;
+    }
+    /**
+     * @param appointment the appointment to set
+     */
+    public void setAppointment(Appointment appointment) {
+        this.appointment = appointment;
+    }
+    /**
+     * @param paymentId
+     * @param type
+     * @param status
+     * @param appointment
+     * @param cards
+     */
+    public Payment(int paymentId,String type, String status, Appointment appointment, List<Card> cards) {
+        this.paymentId = paymentId;
+        this.type = type;
+        this.status = status;
+        this.appointment = appointment;
+        this.cards = cards;
+    }
 	
 	
 	
