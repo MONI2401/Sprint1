@@ -16,7 +16,7 @@ public class PaymentUtils {
 	    return cardDtoList;
 	}
 	
-	public static Payment convertToPaymnet(PaymentDTO paymentDto) {
+	public static Payment convertToPayment(PaymentDTO paymentDto) {
 		Payment payment = new Payment();
 		
 		payment.setPaymentId(paymentDto.getPaymentId());

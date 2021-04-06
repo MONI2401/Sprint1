@@ -26,13 +26,13 @@ public class PaymentController {
 		@Autowired
 		IPaymentService paymentService;
 		
-		@PostMapping("/addPayment")
+		@PostMapping(path="/addPayment",consumes ="application/json")
 		public ResponseEntity<PaymentDTO> addPayment(@RequestBody Payment payment) {
 			PaymentDTO resultpayment = paymentService.addPayment(payment);
 			return new ResponseEntity<PaymentDTO>(resultpayment, HttpStatus.OK);
 		}
 		
-		@DeleteMapping("/removePayment/{paymentId}")
+		@DeleteMapping(path="/deletePayment/{paymentId}",produces="application/json")
 		public PaymentDTO removePayment(@PathVariable long paymentId)  {
 			return paymentService.removePayment(paymentId);
 		}
@@ -43,13 +43,13 @@ public class PaymentController {
 			return new ResponseEntity<PaymentDTO>(resultPayment, HttpStatus.OK);
 		}
 		
-		@GetMapping("/getPaymentDetails/{paymentId}")
+		@GetMapping(path="/getPaymentDetails/{paymentId}",produces = "application/json")
 		public ResponseEntity<PaymentDTO> GetPaymentDetails(@PathVariable long paymentId)  {
 			PaymentDTO resultPayment = paymentService.getPaymentDetails(paymentId);
 			return new ResponseEntity<PaymentDTO>(resultPayment, HttpStatus.OK);
 		}
 		
-		@GetMapping("/getAllPaymentDetails")
+		@GetMapping(path="/getAllPaymentDetails",produces = "application/json")
 		public ResponseEntity<List<PaymentDTO>> getAllPayment() {
 			List<PaymentDTO> resultPayment = paymentService.getAllPaymentDetails();
 			return new ResponseEntity<List<PaymentDTO>>(resultPayment, HttpStatus.OK);

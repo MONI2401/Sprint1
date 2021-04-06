@@ -25,10 +25,10 @@ ICarRepository carrepo;
 	}
 
 	@Override
-	public CarDTO removeCar(int id) {
+	public CarDTO removeCar(long id) {
 		Car car=new Car();
-		car=carrepo.getOne( id);
-		carrepo.deleteById((int) id);
+		car=carrepo.getOne(id);
+		carrepo.deleteById((long) id);
 		return CarUtils.convertToCarDto(car);
 	}
 
@@ -40,7 +40,7 @@ ICarRepository carrepo;
 	}
 
 	@Override
-	public CarDTO getCar(int id) {
+	public CarDTO getCar(long id) {
 		Car getcar= new Car();
 		getcar=carrepo.findById( id).orElse(null);
 		return CarUtils.convertToCarDto(getcar);
@@ -53,11 +53,11 @@ ICarRepository carrepo;
 		return CarUtils.convertToCarDtoList(getCar);
 	}
 
-	/*
-	 * @Override public CarDTO getCarsByCity(String city) { Car getCarCity=new
-	 * Car(); getCarCity= carrepo.findByCity(city); return
-	 * CarUtils.convertToCarDto(getCarCity); }
-	 */
+	
+	  @Override public CarDTO getCarsByCity(String city) { Car getCarCity=new
+	  Car(); getCarCity= carrepo.findByCity(city); 
+	  return CarUtils.convertToCarDto(getCarCity); }
+	 
 
 	@Override
 	public CarDTO getCarsByModel(String model) {

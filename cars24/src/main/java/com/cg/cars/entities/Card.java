@@ -1,15 +1,11 @@
 package com.cg.cars.entities;
 
 import java.util.Date;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -40,8 +36,6 @@ public class Card {
 	@Column(name="cvv",length = 3,unique = true)
     private int cvv;
 	
-	@ManyToOne(targetEntity = Payment.class,fetch = FetchType.EAGER)
-	private Payment payment;
 	
 	public int getId() {
 		return id;
@@ -73,21 +67,14 @@ public class Card {
 	public void setCvv(int cvv) {
 		this.cvv = cvv;
 	}
-	public Payment getPayment() {
-		return payment;
-	}
-	public void setPayment(Payment payment) {
-		this.payment = payment;
-	}
-	
-	public Card(int id, String cardName, String cardNumber, Date cardExpiry, int cvv, Payment payment) {
+		
+	public Card(int id, String cardName, String cardNumber, Date cardExpiry, int cvv) {
 		super();
 		this.id = id;
 		this.cardName = cardName;
 		this.cardNumber = cardNumber;
 		this.cardExpiry = cardExpiry;
 		this.cvv = cvv;
-		this.payment = payment;
 	}
 	public Card() {
 		super();

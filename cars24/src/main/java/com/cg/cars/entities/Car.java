@@ -21,7 +21,7 @@ import javax.persistence.TemporalType;
 public class Car {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int carId;
+	private long carId;
 	
 	@Column(name="Brand",nullable=false,length=50)
 	private String brand;
@@ -44,11 +44,11 @@ public class Car {
 	@JoinColumn(name="userId",nullable=false)
 	private List<Customer> customers;
 
-	public int getCarId() {
+	public long getCarId() {
 		return carId;
 	}
 
-	public void setCarId(int carId) {
+	public void setCarId(long carId) {
 		this.carId = carId;
 	}
 
@@ -97,7 +97,7 @@ public class Car {
 		
 	}
 
-	public Car(int carId, String brand, String model, String variant, Date registrationYear,
+	public Car(long carId, String brand, String model, String variant, Date registrationYear,
 			String registrationState) {
 		super();
 		this.carId = carId;

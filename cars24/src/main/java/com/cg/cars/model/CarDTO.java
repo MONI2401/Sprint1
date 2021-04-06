@@ -10,16 +10,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class CarDTO {
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int carId;
+	private long carId;
 	private String brand;
 	private String model;
 	private String variant;
 	private Date registrationYear;
 	private String registrationState;
-	public int getCarId() {
+	public long getCarId() {
 		return carId;
 	}
-	public void setCarId(int carId) {
+	public void setCarId(long carId) {
 		this.carId = carId;
 	}
 	public String getBrand() {
