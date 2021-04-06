@@ -34,7 +34,7 @@ public class CustomerController {
 				&& CustomerServiceImp.validateUserName(customer)) {
 			CustomerDTO resultcustomer = customerService.addCustomer(customer);
 			return new ResponseEntity<CustomerDTO>(resultcustomer, HttpStatus.OK);
-		} else
+		} 
 			return new ResponseEntity<CustomerDTO>(new CustomerDTO(), HttpStatus.EXPECTATION_FAILED);
 
 	}
