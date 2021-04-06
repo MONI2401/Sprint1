@@ -1,6 +1,6 @@
 package com.cg.cars.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,18 +10,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class CarDTO {
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int carId;
+	private long carId;
 	private String brand;
 	private String model;
 	private String variant;
-	private Date registrationYear;
+	private LocalDate registrationYear;
 	private String registrationState;
 
-	public int getCarId() {
+	public long getCarId() {
 		return carId;
 	}
 
-	public void setCarId(int carId) {
+	public void setCarId(long carId) {
 		this.carId = carId;
 	}
 
@@ -49,11 +49,11 @@ public class CarDTO {
 		this.variant = variant;
 	}
 
-	public Date getRegistrationYear() {
+	public LocalDate getRegistrationYear() {
 		return registrationYear;
 	}
 
-	public void setRegistrationYear(Date registrationYear) {
+	public void setRegistrationYear(LocalDate registrationYear) {
 		this.registrationYear = registrationYear;
 	}
 
@@ -65,7 +65,7 @@ public class CarDTO {
 		this.registrationState = registrationState;
 	}
 
-	public CarDTO(int carId, String brand, String model, String variant, Date registrationYear,
+	public CarDTO(long carId, String brand, String model, String variant, LocalDate registrationYear,
 			String registrationState) {
 		super();
 		this.carId = carId;

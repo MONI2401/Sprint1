@@ -1,7 +1,7 @@
 package com.cg.cars.entities;
 
+import java.io.Serializable;
 import java.time.LocalDate;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,64 +9,41 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 
 @Entity
-@Table(name="Card")
-public class Card {
+@Table(name = "card")
+public class Card implements Serializable {
 	
+	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
 	private long id;
 	
-	@NotBlank(message = "Card name cannot be blank")
-	@Column(name="cardname",length =25)
+	@Column(name = "card_name",nullable = false)
+	@NotBlank(message = "Card Name Should Not Be Blank")
 	private String cardName;
 	
-	@NotBlank(message = "Card number cannot be blank")
-	@Column(name="cardnumber",unique = true,length=16 )
+	@Column(name = "card_number",nullable = false,unique = true)
+	@NotNull(message = "Card Number Should Not Be Null")
 	private String cardNumber;
+    
+	@Column(name = "card_expiry_date",nullable = false)
+	@NotNull(message = "Card Expiry Date Should Not Be Null")
+	private LocalDate cardExpiry;
+    
+	@Column(name = "cvv",nullable = false)
+	@NotNull(message = "Card Cvv Number Should Not Be Null")
+	private int cvv;
 	
-	@NotBlank(message = "Card expiry date cannot be blank")
-	@Column(name="cardexpirydate")
+	public Card() {
+		super();
+	}
 
-    private LocalDate cardExpiry;
-	
-	@NotBlank(message = "Card cvv cannot be blank")
-	@Column(name="cvv",length = 3,unique = true)
-    private int cvv;
-	
-	
-	public long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public String getCardName() {
-		return cardName;
-	}
-	public void setCardName(String cardName) {
-		this.cardName = cardName;
-	}
-	public String getCardNumber() {
-		return cardNumber;
-	}
-	public void setCardNumber(String cardNumber) {
-		this.cardNumber = cardNumber;
-	}
-	public LocalDate getCardExpiry() {
-		return cardExpiry;
-	}
-	public void setCardExpiry(LocalDate cardExpiry) {
-		this.cardExpiry = cardExpiry;
-	}
-	public int getCvv() {
-		return cvv;
-	}
-	public void setCvv(int cvv) {
-		this.cvv = cvv;
-	}
-		
 	public Card(long id, String cardName, String cardNumber, LocalDate cardExpiry, int cvv) {
 		super();
 		this.id = id;
@@ -75,16 +52,52 @@ public class Card {
 		this.cardExpiry = cardExpiry;
 		this.cvv = cvv;
 	}
-	public Card() {
-		super();
+
+	public long getId() {
+		return id;
 	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getCardName() {
+		return cardName;
+	}
+
+	public void setCardName(String cardName) {
+		this.cardName = cardName;
+	}
+
+	public String getCardNumber() {
+		return cardNumber;
+	}
+
+	public void setCardNumber(String cardNumber) {
+		this.cardNumber = cardNumber;
+	}
+
+	public LocalDate getCardExpiry() {
+		return cardExpiry;
+	}
+
+	public void setCardExpiry(LocalDate cardExpiry) {
+		this.cardExpiry = cardExpiry;
+	}
+
+	public int getCvv() {
+		return cvv;
+	}
+
+	public void setCvv(int cvv) {
+		this.cvv = cvv;
+	}
+
 	@Override
 	public String toString() {
 		return "Card [id=" + id + ", cardName=" + cardName + ", cardNumber=" + cardNumber + ", cardExpiry=" + cardExpiry
 				+ ", cvv=" + cvv + "]";
 	}
 	
-    
-    
-
+	
 }

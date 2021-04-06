@@ -33,10 +33,10 @@ public class Order {
 	private Customer customer;
 
 	@OneToOne(targetEntity = Payment.class)
-	private String paymentMethod;
+	private Payment paymentMethod;
 
 	public long getOrderId() {
-		return (long) orderId;
+		return  orderId;
 	}
 
 	public void setOrderId(long orderId) {
@@ -67,11 +67,11 @@ public class Order {
 		this.customer = customer;
 	}
 
-	public String getPaymentMethod() {
+	public Payment getPaymentMethod() {
 		return paymentMethod;
 	}
 
-	public void setPaymentMethod(String paymentMethod) {
+	public void setPaymentMethod(Payment paymentMethod) {
 		this.paymentMethod = paymentMethod;
 	}
 

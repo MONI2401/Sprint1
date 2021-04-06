@@ -33,7 +33,7 @@ public class OrderUtils {
 		orderDTO.setOrderId(order.getOrderId());
 		orderDTO.setAmount(order.getAmount());
 		orderDTO.setBillingDate(order.getBillingDate());
-		orderDTO.setCustomer((List<Customer>) order.getCustomer());
+		orderDTO.setCustomer(order.getCustomer());
 		orderDTO.setPaymentMethod(order.getPaymentMethod());
 
 		return orderDTO;

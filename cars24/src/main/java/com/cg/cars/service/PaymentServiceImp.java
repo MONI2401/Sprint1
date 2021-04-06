@@ -4,14 +4,15 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.cg.cars.dao.IPaymentRepository;
 import com.cg.cars.entities.Payment;
 import com.cg.cars.exception.PaymentServiceException;
 import com.cg.cars.model.PaymentDTO;
 import com.cg.cars.utils.PaymentUtils;
-
 
 @Service
 public class PaymentServiceImp implements IPaymentService {
@@ -144,8 +145,8 @@ public class PaymentServiceImp implements IPaymentService {
 	public  boolean validateCardName(Payment payment) {
 		boolean flag = false;
 		Pattern pattern = Pattern.compile("^[a-zA-Z ]*$");
-		CharSequence cs= payment.getCards().getCardName();
-		if (pattern.matcher(cs).matches() && !payment.getCards().getCardName().isBlank()) {
+		CharSequence cs= payment.getCard().getCardName();
+		if (pattern.matcher(cs).matches() && !payment.getCard().getCardName().isBlank()) {
 			flag = true;
 		} 
 		else 
@@ -158,8 +159,8 @@ public class PaymentServiceImp implements IPaymentService {
 	public  boolean validateCardNumber(Payment payment) {
 		boolean flag = false;
 		Pattern pattern = Pattern.compile("^[0-9]*$");
-		CharSequence cs= payment.getCards().getCardNumber();
-		if ((pattern.matcher(cs).matches()) && payment.getCards().getCardNumber().length() == 16 ) 
+		CharSequence cs= payment.getCard().getCardNumber();
+		if ((pattern.matcher(cs).matches()) && payment.getCard().getCardNumber().length() == 16 ) 
 		{
 			flag = true;
 		} 
@@ -173,7 +174,7 @@ public class PaymentServiceImp implements IPaymentService {
 	public boolean validateCvv(Payment payment) {
 		boolean flag = false;
 		Pattern pattern = Pattern.compile("^[0-9]{3}$");
-		String stringCvv = String.valueOf(payment.getCards().getCvv());
+		String stringCvv = String.valueOf(payment.getCard().getCvv());
 		CharSequence cs= stringCvv ;
 		if ((pattern.matcher(cs).matches())) {
 			flag = true;
@@ -188,7 +189,7 @@ public class PaymentServiceImp implements IPaymentService {
 
 	public  boolean validateCardExpiry(Payment payment) {
 		boolean flag = false;
-		if (payment.getCards().getCardExpiry() != null && payment.getCards().getCardExpiry().isAfter(LocalDate.now())) {
+		if (payment.getCard().getCardExpiry() != null && payment.getCard().getCardExpiry().isAfter(LocalDate.now())) {
 			flag = true;
 		} 
 		else 

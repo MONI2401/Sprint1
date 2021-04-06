@@ -1,15 +1,13 @@
 package com.cg.cars.model;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
 import org.springframework.stereotype.Component;
 
 import com.cg.cars.entities.Customer;
+import com.cg.cars.entities.Payment;
 
 @Component
 public class OrderDTO {
@@ -18,8 +16,8 @@ public class OrderDTO {
 	private long orderId;
 	private Double amount;
 	private LocalDate billingDate;
-	private List<Customer> customer;
-	private String paymentMethod;
+	private Customer customer;
+	private Payment paymentMethod;
 
 	public long getOrderId() {
 		return orderId;
@@ -45,29 +43,28 @@ public class OrderDTO {
 		this.billingDate = billingDate;
 	}
 
-	public List<Customer> getCustomer() {
+	public Customer getCustomer() {
 		return customer;
 	}
 
-	public void setCustomer(List<Customer> customer) {
+	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
 
-	public String getPaymentMethod() {
+	public Payment getPaymentMethod() {
 		return paymentMethod;
 	}
 
-	public void setPaymentMethod(String paymentMethod) {
+	public void setPaymentMethod(Payment paymentMethod) {
 		this.paymentMethod = paymentMethod;
 	}
 
-	public OrderDTO(long orderId, Double amount, LocalDate billingLocalDate, Customer cus, String paymentMethod) {
+	public OrderDTO(long orderId, Double amount, LocalDate billingLocalDate, Customer cus, Payment paymentMethod) {
 		super();
-		this.customer = new ArrayList<Customer>();
 		this.orderId = orderId;
 		this.amount = amount;
 		this.billingDate = billingLocalDate;
-		customer.add(cus);
+		this.customer=cus;
 		this.paymentMethod = paymentMethod;
 	}
 

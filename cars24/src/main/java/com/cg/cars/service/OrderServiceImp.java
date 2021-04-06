@@ -49,7 +49,7 @@ public class OrderServiceImp implements IOrderService {
 
 	public static boolean validatePaymentMethod(Order order) {
 		boolean flag = false;
-		if (order.getPaymentMethod() == "Cash" || order.getPaymentMethod() == "Card") {
+		if (order.getPaymentMethod().getType()=="Cash" || order.getPaymentMethod().getType() == "Card") {
 			flag = true;
 		}
 		return flag;

@@ -6,16 +6,22 @@ import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.cg.cars.entities.Customer;
 import com.cg.cars.model.CustomerDTO;
 import com.cg.cars.service.CustomerServiceImp;
 
 class CustomerServiceImpTest {
+
+	static Customer customer = new Customer();
+
 	@Autowired
 	CustomerServiceImp service;
 
 	@Test
 	void testAddCustomer() {
-		fail("Not yet implemented");
+		
+		customer.setName("Monisha");
+		assertEquals("Monisha", customer.getName());
 	}
 
 	@Test
