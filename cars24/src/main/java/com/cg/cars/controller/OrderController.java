@@ -23,7 +23,7 @@ import com.cg.cars.service.IOrderService;
 public class OrderController {
 
 	@Autowired
-	IOrderService orderService;
+	private IOrderService orderService;
 
 	@PostMapping("/addOrder")
 	public ResponseEntity<OrderDTO> addOrder(@RequestBody Order order) {

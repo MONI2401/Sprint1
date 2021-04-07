@@ -1,8 +1,6 @@
 package com.cg.cars.entities;
 
 import java.time.LocalDate;
-import java.util.Date;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,12 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "Car")
-public class Car {
+public class Car implements Comparable<Car> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long carId;
@@ -39,7 +35,7 @@ public class Car {
 	private String registrationState;
 
 	@ManyToOne(targetEntity = Customer.class, fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "userId",referencedColumnName = "userid", nullable = false)
+	@JoinColumn(name = "userId", referencedColumnName = "userid", nullable = false)
 	private Customer customers;
 
 	public long getCarId() {
@@ -52,6 +48,14 @@ public class Car {
 
 	public String getBrand() {
 		return brand;
+	}
+
+	public Customer getCustomers() {
+		return customers;
+	}
+
+	public void setCustomers(Customer customers) {
+		this.customers = customers;
 	}
 
 	public void setBrand(String brand) {
@@ -95,7 +99,8 @@ public class Car {
 
 	}
 
-	public Car(int carId, String brand, String model, String variant, LocalDate registrationYear, String registrationState) {
+	public Car(long carId, String brand, String model, String variant, LocalDate registrationYear,
+			String registrationState, Customer customers) {
 		super();
 		this.carId = carId;
 		this.brand = brand;
@@ -103,12 +108,28 @@ public class Car {
 		this.variant = variant;
 		this.registrationYear = registrationYear;
 		this.registrationState = registrationState;
+		this.customers = customers;
 	}
 
 	@Override
 	public String toString() {
 		return "Car [carId=" + carId + ", brand=" + brand + ", model=" + model + ", variant=" + variant
-				+ ", registrationYear=" + registrationYear + ", registrationState=" + registrationState + "]";
+				+ ", registrationYear=" + registrationYear + ", registrationState=" + registrationState + ", customers="
+				+ customers + "]";
 	}
 
+	@Override
+	public int compareTo(Car o) {
+		
+		return (int) (this.carId-o.carId + this.brand.compareTo(o.brand) + this.model.compareTo(o.model)
+		+ this.variant.compareTo(o.variant) + this.registrationYear.compareTo(o.registrationYear) +
+		this.registrationState.compareTo(o.registrationState)+ this.customers.compareTo(o.customers));
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		Car c = (Car) o;
+		return this.compareTo(c) == 0;
+	}
+	
 }

@@ -8,9 +8,10 @@ import javax.persistence.GenerationType;
 import org.springframework.stereotype.Component;
 
 import com.cg.cars.entities.Address;
+import com.cg.cars.entities.Customer;
 
 @Component
-public class CustomerDTO {
+public class CustomerDTO implements Comparable<CustomerDTO> {
 
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long userId;
@@ -88,5 +89,19 @@ public class CustomerDTO {
 		return "Customer [userId=" + userId + ", name=" + name + ", email=" + email + ", contactNo=" + contactNo
 				+ ", dob=" + dob + ", address=" + address + "]";
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		CustomerDTO c = (CustomerDTO) o;
+		return this.compareTo(c) == 0;
+	}
+
+	@Override
+	public int compareTo(CustomerDTO o) {
+
+		return (int) (this.userId - o.userId) + this.contactNo.compareTo(o.contactNo) +this.email.compareTo(o.email)+
+				this.dob.compareTo(o.dob)+this.address.compareTo(o.address);
+	}
+
 
 }

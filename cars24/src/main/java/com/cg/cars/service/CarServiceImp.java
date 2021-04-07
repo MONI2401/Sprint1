@@ -15,7 +15,7 @@ import com.cg.cars.utils.CarUtils;
 public class CarServiceImp implements ICarService {
 
 	@Autowired
-	ICarRepository carrepo;
+	private ICarRepository carrepo;
 
 	@Override
 	public CarDTO addCar(Car car) {
@@ -54,17 +54,13 @@ public class CarServiceImp implements ICarService {
 	}
 
 	@Override
-	public CarDTO getCarsByModel(String model) {
-		Car getCarModel = new Car();
-		getCarModel = carrepo.findByModel(model);
-		return CarUtils.convertToCarDto(getCarModel);
+	public List<CarDTO> getCarsByModel(String model) {
+		return CarUtils.convertToCarDtoList(carrepo.findByModel(model));
 	}
 
 	@Override
-	public CarDTO getCarsByBrand(String brand) {
-		Car getCarBrand = new Car();
-		getCarBrand = carrepo.findByBrand(brand);
-		return CarUtils.convertToCarDto(getCarBrand);
+	public List<CarDTO> getCarsByBrand(String brand) {
+		return CarUtils.convertToCarDtoList(carrepo.findByBrand(brand));
 	}
 
 }

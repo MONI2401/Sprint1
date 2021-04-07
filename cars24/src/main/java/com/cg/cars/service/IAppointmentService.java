@@ -1,14 +1,8 @@
 package com.cg.cars.service;
 
-import java.time.LocalTime;
-import java.util.Date;
 import java.util.List;
 
 import com.cg.cars.entities.Appointment;
-import com.cg.cars.exception.InvalidAppointmentDateException;
-import com.cg.cars.exception.InvalidAppointmentInspectionTypeException;
-import com.cg.cars.exception.InvalidAppointmentLocationException;
-import com.cg.cars.exception.InvalidAppointmentTimeException;
 import com.cg.cars.model.AppointmentDTO;
 
 public interface IAppointmentService {
@@ -25,5 +19,4 @@ public interface IAppointmentService {
 
 	public List<AppointmentDTO> getOpenAppointments();
 
-	
 }

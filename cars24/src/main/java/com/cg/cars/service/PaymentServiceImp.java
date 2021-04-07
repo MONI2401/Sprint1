@@ -18,28 +18,21 @@ import com.cg.cars.utils.PaymentUtils;
 public class PaymentServiceImp implements IPaymentService {
 
 	@Autowired
-	IPaymentRepository paymentRepository;
+	private IPaymentRepository paymentRepository;
 
 	@Override
 	public PaymentDTO addPayment(Payment payment) throws PaymentServiceException {
 		Optional<Payment> paymentTemp = paymentRepository.findById(payment.getPaymentId());
-		if (paymentTemp.isEmpty() )
-		{
-			if( validatePaymentType(payment)  && validatePaymentStatus(payment)  
-				&& validateCardName(payment) && validateCvv(payment)  
-			&& validateCardNumber(payment) && validateCardExpiry(payment) )
-			{
+		if (paymentTemp.isEmpty()) {
+			if (validatePaymentType(payment) && validatePaymentStatus(payment) && validateCardName(payment)
+					&& validateCvv(payment) && validateCardNumber(payment) && validateCardExpiry(payment)) {
 				Payment addPayment = paymentRepository.save(payment);
 				return PaymentUtils.convertToPaymentDto(addPayment);
-			}
-			else
-			{
+			} else {
 				throw new PaymentServiceException("Enter the valid payment detials");
 			}
-		
-		} 
-		else 
-		{
+
+		} else {
 			throw new PaymentServiceException("Payment already exists ");
 		}
 	}
@@ -47,19 +40,13 @@ public class PaymentServiceImp implements IPaymentService {
 	@Override
 	public PaymentDTO removePayment(long paymentId) throws PaymentServiceException {
 		Optional<Payment> payment = paymentRepository.findById(paymentId);
-		if (payment.isEmpty()) 
-		{
+		if (payment.isEmpty()) {
 			throw new PaymentServiceException("Payment does not exist for paymenId to delete");
-		} 
-		else 
-		{
+		} else {
 			paymentRepository.deleteById(paymentId);
-			if(payment.isPresent())
-			{
+			if (payment.isPresent()) {
 				return PaymentUtils.convertToPaymentDto(payment.get());
-			}
-			else
-			{
+			} else {
 				throw new PaymentServiceException("Payment is not present ");
 			}
 		}
@@ -68,22 +55,15 @@ public class PaymentServiceImp implements IPaymentService {
 	@Override
 	public PaymentDTO updatePayment(long paymentId, Payment payment) throws PaymentServiceException {
 		Optional<Payment> paymentTemp = paymentRepository.findById(paymentId);
-		if ( !paymentTemp.isEmpty() )
-		{
-			if(	validatePaymentStatus(payment) && validatePaymentType(payment)
-				&&  validateCardName(payment) && validateCardNumber(payment) 
-				&& validateCvv(payment) && validateCardExpiry(payment) )
-			{
+		if (!paymentTemp.isEmpty()) {
+			if (validatePaymentStatus(payment) && validatePaymentType(payment) && validateCardName(payment)
+					&& validateCardNumber(payment) && validateCvv(payment) && validateCardExpiry(payment)) {
 				Payment updatePayment = paymentRepository.save(payment);
 				return PaymentUtils.convertToPaymentDto(updatePayment);
-			}
-			else
-			{
+			} else {
 				throw new PaymentServiceException("Enter the valid payment detials");
 			}
-		}
-		else 
-		{
+		} else {
 			throw new PaymentServiceException("Payment does not exist for PaymentId");
 		}
 	}
@@ -93,9 +73,7 @@ public class PaymentServiceImp implements IPaymentService {
 		Optional<Payment> paymentTemp = paymentRepository.findById(paymentId);
 		if (paymentTemp.isEmpty()) {
 			throw new PaymentServiceException("Payment does not exist fro paymentId");
-		} 
-		else 
-		{
+		} else {
 			Payment getPayment = paymentRepository.findById(paymentId).orElse(null);
 			return PaymentUtils.convertToPaymentDto(getPayment);
 		}
@@ -106,66 +84,55 @@ public class PaymentServiceImp implements IPaymentService {
 		List<Payment> paymentTemp = paymentRepository.findAll();
 		if (paymentTemp.isEmpty()) {
 			throw new PaymentServiceException("Payments not found");
-		} 
-		else 
-		{
+		} else {
 			List<Payment> getAllPayment = paymentRepository.findAll();
 			return PaymentUtils.convertToPaymentDtoList(getAllPayment);
 		}
 	}
 
-	public  boolean validatePaymentType(Payment payment) {
-		boolean flag = false;
-		Pattern pattern = Pattern.compile("^[A-Za-z]*$"); 
-		CharSequence cs= payment.getType();
-		if (pattern.matcher(cs).matches() && !payment.getType().isBlank()) {
-			flag = true;
-		} 
-		else 
-		{
-			flag = false;
-		}
-		return flag;
-	}
-
-	public  boolean validatePaymentStatus(Payment payment) {
+	public boolean validatePaymentType(Payment payment) {
 		boolean flag = false;
 		Pattern pattern = Pattern.compile("^[A-Za-z]*$");
-		CharSequence cs= payment.getStatus();
+		CharSequence cs = payment.getType();
+		if (pattern.matcher(cs).matches() && !payment.getType().isBlank()) {
+			flag = true;
+		} else {
+			flag = false;
+		}
+		return flag;
+	}
+
+	public boolean validatePaymentStatus(Payment payment) {
+		boolean flag = false;
+		Pattern pattern = Pattern.compile("^[A-Za-z]*$");
+		CharSequence cs = payment.getStatus();
 		if (pattern.matcher(cs).matches() && !payment.getStatus().isBlank()) {
 			flag = true;
-		} 
-		else
-		{
+		} else {
 			flag = false;
 		}
 		return flag;
 	}
 
-	public  boolean validateCardName(Payment payment) {
+	public boolean validateCardName(Payment payment) {
 		boolean flag = false;
 		Pattern pattern = Pattern.compile("^[a-zA-Z ]*$");
-		CharSequence cs= payment.getCard().getCardName();
+		CharSequence cs = payment.getCard().getCardName();
 		if (pattern.matcher(cs).matches() && !payment.getCard().getCardName().isBlank()) {
 			flag = true;
-		} 
-		else 
-		{
+		} else {
 			flag = false;
 		}
 		return flag;
 	}
 
-	public  boolean validateCardNumber(Payment payment) {
+	public boolean validateCardNumber(Payment payment) {
 		boolean flag = false;
 		Pattern pattern = Pattern.compile("^[0-9]*$");
-		CharSequence cs= payment.getCard().getCardNumber();
-		if ((pattern.matcher(cs).matches()) && payment.getCard().getCardNumber().length() == 16 ) 
-		{
+		CharSequence cs = payment.getCard().getCardNumber();
+		if ((pattern.matcher(cs).matches()) && payment.getCard().getCardNumber().length() == 16) {
 			flag = true;
-		} 
-		else 
-		{
+		} else {
 			flag = false;
 		}
 		return flag;
@@ -175,25 +142,21 @@ public class PaymentServiceImp implements IPaymentService {
 		boolean flag = false;
 		Pattern pattern = Pattern.compile("^[0-9]{3}$");
 		String stringCvv = String.valueOf(payment.getCard().getCvv());
-		CharSequence cs= stringCvv ;
+		CharSequence cs = stringCvv;
 		if ((pattern.matcher(cs).matches())) {
 			flag = true;
-		} 
-		else 
-		{
+		} else {
 			flag = false;
 		}
 		return flag;
 
 	}
 
-	public  boolean validateCardExpiry(Payment payment) {
+	public boolean validateCardExpiry(Payment payment) {
 		boolean flag = false;
 		if (payment.getCard().getCardExpiry() != null && payment.getCard().getCardExpiry().isAfter(LocalDate.now())) {
 			flag = true;
-		} 
-		else 
-		{
+		} else {
 			flag = false;
 		}
 		return flag;

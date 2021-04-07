@@ -17,16 +17,18 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cg.cars.entities.Car;
 import com.cg.cars.model.CarDTO;
 import com.cg.cars.service.ICarService;
+import com.cg.cars.utils.CarUtils;
 
 @RestController
 @RequestMapping("/api/showCar")
 public class CarController {
 
 	@Autowired
-	ICarService carService;
+	private ICarService carService;
 
 	@PostMapping(path = "/addCar", consumes = "application/json")
 	public ResponseEntity<CarDTO> addCar(@RequestBody Car car) {
+		//System.out.println("Car"+car);
 		CarDTO resultCar = carService.addCar(car);
 		return new ResponseEntity<CarDTO>(resultCar, HttpStatus.OK);
 	}
@@ -62,16 +64,14 @@ public class CarController {
 
 	}
 
-	@GetMapping("/ getCarsByModel/{model}")
-	public ResponseEntity<CarDTO> getCarsByModel(@PathVariable String model) {
-		CarDTO resultCar = carService.getCarsByModel(model);
-		return new ResponseEntity<CarDTO>(resultCar, HttpStatus.OK);
+	@GetMapping("/getCarsByModel/{model}")
+	public ResponseEntity <List<CarDTO>> getCarsByModel(@PathVariable String model) {
+		return new ResponseEntity<List<CarDTO>> (carService.getCarsByModel(model),HttpStatus.OK); 
 	}
 
-	@GetMapping("/getCarsByModel/{city}")
-	public ResponseEntity<CarDTO> getCarsByBrand(@PathVariable String brand) {
-		CarDTO resultCar = carService.getCarsByBrand(brand);
-		return new ResponseEntity<CarDTO>(resultCar, HttpStatus.OK);
+	@GetMapping("/getCarsByBrand/{brand}")
+	public ResponseEntity<List<CarDTO>> getCarsByBrand(@PathVariable String brand) {
+		return new ResponseEntity<List<CarDTO>> (carService.getCarsByBrand(brand),HttpStatus.OK); 
 	}
 
 }

@@ -64,7 +64,7 @@ public class OrderDTO {
 		this.orderId = orderId;
 		this.amount = amount;
 		this.billingDate = billingLocalDate;
-		this.customer=cus;
+		this.customer = cus;
 		this.paymentMethod = paymentMethod;
 	}
 

@@ -5,8 +5,10 @@ import javax.persistence.GenerationType;
 
 import org.springframework.stereotype.Component;
 
+import com.cg.cars.entities.Address;
+
 @Component
-public class AddressDTO {
+public class AddressDTO implements Comparable<AddressDTO> {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private String doorNo;
 	private String street;
@@ -84,4 +86,17 @@ public class AddressDTO {
 				+ state + ", pincode=" + pincode + "]";
 	}
 
+	@Override
+	public int compareTo(AddressDTO o) {
+		
+		return this.pincode-o.pincode+this.area.compareTo(o.area)+this.city.compareTo(o.city)+this.doorNo.compareTo(o.doorNo)
+		+this.state.compareTo(o.state)+this.street.compareTo(o.street);
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		return this.compareTo((AddressDTO)o)==0;
+	}
+
+	
 }

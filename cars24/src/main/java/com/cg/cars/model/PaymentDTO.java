@@ -6,29 +6,30 @@ import org.springframework.stereotype.Component;
 
 import com.cg.cars.entities.Card;
 
-
-
 @Component
 public class PaymentDTO {
-	
+
 	private long paymentId;
-	
+
 	private String type;
-	
+
 	private String status;
-	
+
+
+
 	private Card card;
-	
+
 	public PaymentDTO() {
 		super();
 	}
 
-	public PaymentDTO(long paymentId, String type, String status,long id, String cardName, String cardNumber, LocalDate cardExpiry, int cvv) {
+	public PaymentDTO(long paymentId, String type, String status, long id, String cardName, String cardNumber,
+			LocalDate cardExpiry, int cvv) {
 		super();
 		this.paymentId = paymentId;
 		this.type = type;
 		this.status = status;
-		this.card = new Card (id,cardName,cardNumber,cardExpiry,cvv);
+		this.card = new Card(id, cardName, cardNumber, cardExpiry, cvv);
 	}
 
 	public long getPaymentId() {
@@ -59,7 +60,7 @@ public class PaymentDTO {
 		return card;
 	}
 
-	public void setCard( Card card) {
+	public void setCard(Card card) {
 		this.card = card;
 	}
 

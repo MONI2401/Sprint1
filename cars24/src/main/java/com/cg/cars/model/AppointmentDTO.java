@@ -1,15 +1,17 @@
 package com.cg.cars.model;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import java.util.Date;
-import java.time.LocalTime;
-import com.cg.cars.entities.Customer;
-import com.cg.cars.entities.Payment;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+
+import com.cg.cars.entities.Customer;
+import com.cg.cars.entities.Payment;
 
 @Component
 @Scope(value = "prototype")
@@ -22,7 +24,7 @@ public class AppointmentDTO {
 
 	private String inspectionType;
 
-	private Date preferredDate;
+	private LocalDate preferredDate;
 
 	private LocalTime preferredTime;
 
@@ -55,11 +57,11 @@ public class AppointmentDTO {
 		this.inspectionType = inspectionType;
 	}
 
-	public Date getPreferredDate() {
+	public LocalDate getPreferredDate() {
 		return preferredDate;
 	}
 
-	public void setPreferredDate(Date preferredDate) {
+	public void setPreferredDate(LocalDate preferredDate) {
 		this.preferredDate = preferredDate;
 	}
 
@@ -87,7 +89,7 @@ public class AppointmentDTO {
 		this.payment = payment;
 	}
 
-	public AppointmentDTO(long appointmentId, String location, String inspectionType, Date preferredDate,
+	public AppointmentDTO(long appointmentId, String location, String inspectionType, LocalDate preferredDate,
 			LocalTime preferredTime, Payment payment) {
 		super();
 		this.appointmentId = appointmentId;

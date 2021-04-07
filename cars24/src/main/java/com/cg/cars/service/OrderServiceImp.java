@@ -15,7 +15,7 @@ import com.cg.cars.utils.OrderUtils;
 public class OrderServiceImp implements IOrderService {
 
 	@Autowired
-	IOrderRepository orderRepo;
+	private IOrderRepository orderRepo;
 
 	@Override
 	public OrderDTO addOrder(Order order) {
@@ -49,7 +49,7 @@ public class OrderServiceImp implements IOrderService {
 
 	public static boolean validatePaymentMethod(Order order) {
 		boolean flag = false;
-		if (order.getPaymentMethod().getType()=="Cash" || order.getPaymentMethod().getType() == "Card") {
+		if (order.getPaymentMethod().getType() == "Cash" || order.getPaymentMethod().getType() == "Card") {
 			flag = true;
 		}
 		return flag;

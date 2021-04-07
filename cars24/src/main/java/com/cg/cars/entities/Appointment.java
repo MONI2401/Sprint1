@@ -1,5 +1,8 @@
 package com.cg.cars.entities;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,9 +13,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Column;
-import java.time.LocalTime;
-import java.util.Date;
 import javax.validation.constraints.NotBlank;
 
 @Entity
@@ -32,9 +32,8 @@ public class Appointment {
 	private String inspectionType;
 
 	@Column(name = "preferredDate", nullable = false)
-	@Temporal(TemporalType.DATE)
 	@NotBlank(message = "Preferred Date cannot be blank")
-	private Date preferredDate;
+	private LocalDate preferredDate;
 
 	@Column(name = "preferredTime", nullable = false)
 	@NotBlank(message = "Preferred Time cannot be blank")
@@ -74,11 +73,11 @@ public class Appointment {
 		this.inspectionType = inspectionType;
 	}
 
-	public Date getPreferredDate() {
+	public LocalDate getPreferredDate() {
 		return preferredDate;
 	}
 
-	public void setPreferredDate(Date preferredDate) {
+	public void setPreferredDate(LocalDate preferredDate) {
 		this.preferredDate = preferredDate;
 	}
 
@@ -106,7 +105,7 @@ public class Appointment {
 		this.payment = payment;
 	}
 
-	public Appointment(long appointmentId, String location, String inspectionType, Date preferredDate,
+	public Appointment(long appointmentId, String location, String inspectionType, LocalDate preferredDate,
 			LocalTime preferredTime, Payment payment) {
 		super();
 		this.appointmentId = appointmentId;

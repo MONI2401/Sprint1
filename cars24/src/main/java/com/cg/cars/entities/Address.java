@@ -5,7 +5,7 @@ import javax.persistence.Embeddable;
 import javax.validation.constraints.NotBlank;
 
 @Embeddable
-public class Address {
+public class Address implements Comparable<Address> {
 
 	@Column(name = "doorno", nullable = false)
 	@NotBlank(message = "DoorNo should not be blank")
@@ -97,6 +97,18 @@ public class Address {
 	public String toString() {
 		return "Address [doorNo=" + doorNo + ", street=" + street + ", area=" + area + ", city=" + city + ", state="
 				+ state + ", pinCode=" + pinCode + "]";
+	}
+
+	@Override
+	public int compareTo(Address o) {
+		
+		return this.pinCode-o.pinCode+this.area.compareTo(o.area)+this.city.compareTo(o.city)+this.doorNo.compareTo(o.doorNo)
+		+this.state.compareTo(o.state)+this.street.compareTo(o.street);
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		return this.compareTo((Address)o)==0;
 	}
 
 }

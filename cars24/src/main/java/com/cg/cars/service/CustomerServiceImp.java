@@ -17,7 +17,7 @@ import com.cg.cars.utils.CustomerUtils;
 public class CustomerServiceImp implements ICustomerService {
 
 	@Autowired
-	ICustomerRepository customerRepo;
+	private ICustomerRepository customerRepo;
 
 	@Override
 	public CustomerDTO addCustomer(Customer customer) {
@@ -29,10 +29,10 @@ public class CustomerServiceImp implements ICustomerService {
 	@Override
 	public CustomerDTO removeCustomer(long custId) {
 
-		Customer customertemp = new Customer();
-		customertemp = customerRepo.getOne((long) custId);
+		CustomerDTO customertemp ;
+		customertemp = CustomerUtils.convertToCustomerDto(customerRepo.getOne(custId));
 		customerRepo.deleteById((long) custId);
-		return CustomerUtils.convertToCustomerDto(customertemp);
+		return customertemp;
 	}
 
 	@Override

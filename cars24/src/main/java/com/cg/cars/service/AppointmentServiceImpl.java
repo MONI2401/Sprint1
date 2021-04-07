@@ -1,8 +1,12 @@
 package com.cg.cars.service;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.cg.cars.dao.IAppointmentRepository;
 import com.cg.cars.entities.Appointment;
@@ -13,14 +17,11 @@ import com.cg.cars.exception.InvalidAppointmentTimeException;
 import com.cg.cars.model.AppointmentDTO;
 import com.cg.cars.utils.AppointmentUtils;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 @Service
 public class AppointmentServiceImpl implements IAppointmentService {
 
 	@Autowired
-	IAppointmentRepository repo;
+	private IAppointmentRepository repo;
 
 	@Override
 	public AppointmentDTO addAppointment(Appointment appointment) {
@@ -57,7 +58,7 @@ public class AppointmentServiceImpl implements IAppointmentService {
 	public List<AppointmentDTO> getOpenAppointments() {
 		return AppointmentUtils.convertToAppointmentDTOList(repo.getOpenAppointments(new Date(), LocalTime.now()));
 	}
-	
+
 	public static boolean isValidAppointment(Appointment appointment)
 			throws InvalidAppointmentDateException, InvalidAppointmentTimeException {
 		return isValidAppointmentDate(appointment.getPreferredDate())
@@ -65,9 +66,9 @@ public class AppointmentServiceImpl implements IAppointmentService {
 				&& CustomerServiceImp.isValidCustomer(appointment.getCustomer());
 	}
 
-	public static boolean isValidAppointmentDate(Date date) throws InvalidAppointmentDateException {
-		if (new Date().compareTo(date) < 0) {
-			throw new InvalidAppointmentDateException(date.toString() + " is less than today's date");
+	public static boolean isValidAppointmentDate(LocalDate localDate) throws InvalidAppointmentDateException {
+		if (LocalDate.now().compareTo(localDate) < 0) {
+			throw new InvalidAppointmentDateException(localDate.toString() + " is less than today's date");
 		}
 		return true;
 	}

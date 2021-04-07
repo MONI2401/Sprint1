@@ -1,6 +1,5 @@
 package com.cg.cars.entities;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
@@ -12,15 +11,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "payment")
-public class Payment implements Serializable {
+public class Payment  {
 
-	private static final long serialVersionUID = 1L;
+	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,17 +33,7 @@ public class Payment implements Serializable {
 	@NotBlank(message = "Payment Status Should Not Be Blank")
 	private String status;
 
-	@OneToOne(targetEntity = Appointment.class)
-	@JoinColumn(name = "appointmentId")
-	private Appointment appointment;
-
-	public Appointment getAppointment() {
-		return appointment;
-	}
-
-	public void setAppointment(Appointment appointment) {
-		this.appointment = appointment;
-	}
+	
 
 	@ManyToOne(targetEntity = Card.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "card_id", referencedColumnName = "id", nullable = false)
@@ -65,14 +53,11 @@ public class Payment implements Serializable {
 
 	}
 
-	public Payment(long paymentId,  String type, String status, Appointment appointment, Card card) {
-		this.paymentId = paymentId;
-		this.type = type;
-		this.status = status;
-		this.appointment = appointment;
-		this.card = card;
-	}
-	public Payment(long paymentId,  String type, String status, Card card) {
+	
+
+	
+
+	public Payment(long paymentId, String type, String status, Card card) {
 		this.paymentId = paymentId;
 		this.type = type;
 		this.status = status;

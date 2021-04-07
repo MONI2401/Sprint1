@@ -36,7 +36,7 @@ public class Order {
 	private Payment paymentMethod;
 
 	public long getOrderId() {
-		return  orderId;
+		return orderId;
 	}
 
 	public void setOrderId(long orderId) {

@@ -18,11 +18,12 @@ public class CarUtils {
 		Car Car = new Car();
 
 		Car.setCarId(CarDTO.getCarId());
-		Car.setModel(Car.getModel());
-		Car.setBrand(Car.getBrand());
-		Car.setRegistrationState(Car.getRegistrationState());
-		Car.setRegistrationYear(Car.getRegistrationYear());
-		Car.setVariant(Car.getVariant());
+		Car.setModel(CarDTO.getModel());
+		Car.setBrand(CarDTO.getBrand());
+		Car.setRegistrationState(CarDTO.getRegistrationState());
+		Car.setRegistrationYear(CarDTO.getRegistrationYear());
+		Car.setVariant(CarDTO.getVariant());
+		Car.setCustomers(CarDTO.getCustomer());
 
 		return Car;
 	}
@@ -36,6 +37,7 @@ public class CarUtils {
 		CarDTO.setVariant(Car.getVariant());
 		CarDTO.setRegistrationState(Car.getRegistrationState());
 		CarDTO.setRegistrationYear(Car.getRegistrationYear());
+		CarDTO.setCustomer(Car.getCustomers());
 		return CarDTO;
 	}
 

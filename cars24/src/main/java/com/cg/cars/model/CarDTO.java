@@ -7,8 +7,11 @@ import javax.persistence.GenerationType;
 
 import org.springframework.stereotype.Component;
 
+import com.cg.cars.entities.Car;
+import com.cg.cars.entities.Customer;
+
 @Component
-public class CarDTO {
+public class CarDTO implements Comparable<CarDTO>{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long carId;
 	private String brand;
@@ -16,6 +19,7 @@ public class CarDTO {
 	private String variant;
 	private LocalDate registrationYear;
 	private String registrationState;
+	private Customer customer;
 
 	public long getCarId() {
 		return carId;
@@ -61,12 +65,15 @@ public class CarDTO {
 		return registrationState;
 	}
 
-	public void setRegistrationState(String registrationState) {
-		this.registrationState = registrationState;
+	@Override
+	public String toString() {
+		return "CarDTO [carId=" + carId + ", brand=" + brand + ", model=" + model + ", variant=" + variant
+				+ ", registrationYear=" + registrationYear + ", registrationState=" + registrationState + ", customer="
+				+ customer + "]";
 	}
 
 	public CarDTO(long carId, String brand, String model, String variant, LocalDate registrationYear,
-			String registrationState) {
+			String registrationState, Customer customers) {
 		super();
 		this.carId = carId;
 		this.brand = brand;
@@ -74,17 +81,40 @@ public class CarDTO {
 		this.variant = variant;
 		this.registrationYear = registrationYear;
 		this.registrationState = registrationState;
+		this.customer = customers;
 	}
 
 	public CarDTO() {
 		super();
+		
+	}
 
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	public void setRegistrationState(String registrationState) {
+		this.registrationState = registrationState;
 	}
 
 	@Override
-	public String toString() {
-		return "CarDTO [carId=" + carId + ", brand=" + brand + ", model=" + model + ", variant=" + variant
-				+ ", registrationYear=" + registrationYear + ", registrationState=" + registrationState + "]";
+	public int compareTo(CarDTO o) {
+		
+		return (int) (this.carId-o.carId + this.brand.compareTo(o.brand) + this.model.compareTo(o.model)
+		+ this.variant.compareTo(o.variant) + this.registrationYear.compareTo(o.registrationYear) +
+		this.registrationState.compareTo(o.registrationState)+ this.customer.compareTo(o.customer));
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		CarDTO c = (CarDTO) o;
+		return this.compareTo(c) == 0;
+	}
+
+	
 
 }
