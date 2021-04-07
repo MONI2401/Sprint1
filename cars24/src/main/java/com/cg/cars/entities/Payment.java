@@ -1,7 +1,7 @@
 package com.cg.cars.entities;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
+import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,103 +11,102 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-public class Payment {
-	
+@Table(name = "payment")
+public class Payment implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int paymentId;
-	
-	@NotBlank(message = "Type cannot be blank")
-	@Column(name="type")
+	@Column(name = "paymentId")
+	private long paymentId;
+
+	@Column(name = "type", nullable = false)
+	@NotBlank(message = "Payment type Should Not Be Blank")
 	private String type;
-	
-	@NotBlank(message="Status cannot be blank")
-	@Column(name="status")
+
+	@Column(name = "status", nullable = false)
+	@NotBlank(message = "Payment Status Should Not Be Blank")
 	private String status;
 
-   @OneToOne(targetEntity = Appointment.class)
-    @JoinColumn(name="appointmentId")
-    private Appointment appointment;
+	@OneToOne(targetEntity = Appointment.class)
+	@JoinColumn(name = "appointmentId")
+	private Appointment appointment;
 
-	
-	@OneToMany(targetEntity = Card.class,fetch=FetchType.EAGER,mappedBy = "id")
-	private List<Card> cards;
-	public int getPaymentId() {
-		return paymentId;
+	public Appointment getAppointment() {
+		return appointment;
 	}
-	public void setPaymentId(int paymentId) {
-		this.paymentId = paymentId;
+
+	public void setAppointment(Appointment appointment) {
+		this.appointment = appointment;
 	}
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
-	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
-	
-	
-	public List<Card> getCards() {
-		return cards;
-	}
-	public void setCards(List<Card> cards) {
-		this.cards = cards;
-	}
+
+	@ManyToOne(targetEntity = Card.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "card_id", referencedColumnName = "id", nullable = false)
+	private Card card;
+
 	public Payment() {
 		super();
 	}
-	
-	public Payment(int paymentId,String type,String status, Card card) {
+
+	public Payment(long paymentId, String type, String status, long id, String cardName, String cardNumber,
+			LocalDate cardExpiry, int cvv) {
 		super();
-		this.cards=new ArrayList<Card>();
+		this.card = new Card(id, cardName, cardNumber, cardExpiry, cvv);
 		this.paymentId = paymentId;
 		this.type = type;
 		this.status = status;
-		cards.add(card);
+
 	}
+
+	public Payment(long paymentId,  String type, String status, Appointment appointment, Card card) {
+		this.paymentId = paymentId;
+		this.type = type;
+		this.status = status;
+		this.appointment = appointment;
+		this.card = card;
+	}
+
+	public long getPaymentId() {
+		return paymentId;
+	}
+
+	public void setPaymentId(long paymentId) {
+		this.paymentId = paymentId;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public Card getCard() {
+		return card;
+	}
+
+	public void setCard(Card card) {
+		this.card = card;
+	}
+
 	@Override
 	public String toString() {
-		return "Payment [paymentId=" + paymentId + ", type=" + type + ", status=" + status + ", card=" + cards + "]";
+		return "Payment [paymentId=" + paymentId + ", type=" + type + ", status=" + status + ", card=" + card + "]";
 	}
-    /**
-     * @return the appointment
-     */
-    public Appointment getAppointment() {
-        return appointment;
-    }
-    /**
-     * @param appointment the appointment to set
-     */
-    public void setAppointment(Appointment appointment) {
-        this.appointment = appointment;
-    }
-    /**
-     * @param paymentId
-     * @param type
-     * @param status
-     * @param appointment
-     * @param cards
-     */
-    public Payment(int paymentId,String type, String status, Appointment appointment, List<Card> cards) {
-        this.paymentId = paymentId;
-        this.type = type;
-        this.status = status;
-        this.appointment = appointment;
-        this.cards = cards;
-    }
-	
-	
-	
-	
-
 }
