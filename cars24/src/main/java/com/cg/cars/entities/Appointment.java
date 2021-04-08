@@ -1,8 +1,5 @@
 package com.cg.cars.entities;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,31 +8,33 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.Column;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "appointment")
+@Table(name="appointment")
 public class Appointment {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long appointmentId;
+	private int appointmentId;
 
-	@Column(name = "location", nullable = false)
+	@Column(name="location",nullable=false)
 	@NotBlank(message = "Location cannot be blank")
 	private String location;
 
-	@Column(name = "inspectionType", nullable = false)
+	@Column(name="inspectionType",nullable = false)
 	@NotBlank(message = "Inspection type cannot be blank")
 	private String inspectionType;
 
-	@Column(name = "preferredDate", nullable = false)
+	@Column(name="preferredDate",nullable = false)
 	@NotBlank(message = "Preferred Date cannot be blank")
 	private LocalDate preferredDate;
 
-	@Column(name = "preferredTime", nullable = false)
+	@Column(name="preferredTime",nullable = false)
 	@NotBlank(message = "Preferred Time cannot be blank")
 	private LocalTime preferredTime;
 
@@ -45,69 +44,106 @@ public class Appointment {
 	private Customer customer;
 
 	@OneToOne(targetEntity = Payment.class)
-	@JoinColumn(name = "paymentId")
+    @JoinColumn(name="paymentId")
 	@NotBlank(message = "Payment cannot be blank")
 	private Payment payment;
-
-	public long getAppointmentId() {
+	/**
+	 * @return the appointmentId
+	 */
+	public int getAppointmentId() {
 		return appointmentId;
 	}
-
-	public void setAppointmentId(long appointmentId) {
+	/**
+	 * @param appointmentId the appointmentId to set
+	 */
+	public void setAppointmentId(int appointmentId) {
 		this.appointmentId = appointmentId;
 	}
-
+	/**
+	 * @return the location
+	 */
 	public String getLocation() {
 		return location;
 	}
-
+	/**
+	 * @param location the location to set
+	 */
 	public void setLocation(String location) {
 		this.location = location;
 	}
-
+	/**
+	 * @return the inspectionType
+	 */
 	public String getInspectionType() {
 		return inspectionType;
 	}
-
+	/**
+	 * @param inspectionType the inspectionType to set
+	 */
 	public void setInspectionType(String inspectionType) {
 		this.inspectionType = inspectionType;
 	}
-
+	/**
+	 * @return the preferredDate
+	 */
 	public LocalDate getPreferredDate() {
 		return preferredDate;
 	}
-
+	/**
+	 * @param preferredDate the preferredDate to set
+	 */
 	public void setPreferredDate(LocalDate preferredDate) {
 		this.preferredDate = preferredDate;
 	}
-
+	/**
+	 * @return the preferredTime
+	 */
 	public LocalTime getPreferredTime() {
 		return preferredTime;
 	}
-
+	/**
+	 * @param preferredTime the preferredTime to set
+	 */
 	public void setPreferredTime(LocalTime preferredTime) {
 		this.preferredTime = preferredTime;
 	}
-
+	/**
+	 * @return the customer
+	 */
 	public Customer getCustomer() {
 		return customer;
 	}
-
+	/**
+	 * @param customer the customer to set
+	 */
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
-
+	/**
+	 * @return the payment
+	 */
 	public Payment getPayment() {
 		return payment;
 	}
-
+	/**
+	 * @param payment the payment to set
+	 */
 	public void setPayment(Payment payment) {
 		this.payment = payment;
 	}
 
-	public Appointment(long appointmentId, String location, String inspectionType, LocalDate preferredDate,
-			LocalTime preferredTime, Payment payment) {
-		super();
+	/**
+	 * @param appointmentId
+	 * @param location
+	 * @param inspectionType
+	 * @param preferredDate
+	 * @param preferredTime
+	 * @param customer
+	 * @param payment
+	 */
+	public Appointment(int appointmentId, String location, String inspectionType, LocalDate preferredDate,
+			LocalTime preferredTime,  Payment payment) {
+				super();
 		this.appointmentId = appointmentId;
 		this.location = location;
 		this.inspectionType = inspectionType;
@@ -115,15 +151,21 @@ public class Appointment {
 		this.preferredTime = preferredTime;
 		this.payment = payment;
 	}
-
-	@Override
-	public String toString() {
-		return "Appointment [appointmentId=" + appointmentId + ", customer=" + customer + ", inspectionType="
-				+ inspectionType + ", location=" + location + ", payment=" + payment + ", preferredDate="
-				+ preferredDate + ", preferredTime=" + preferredTime + "]";
-	}
-
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    
+    @Override
+    public String toString() {
+        return "Appointment [appointmentId=" + appointmentId + ", customer=" + customer + ", inspectionType="
+                + inspectionType + ", location=" + location + ", payment=" + payment + ", preferredDate="
+                + preferredDate + ", preferredTime=" + preferredTime + "]";
+    }
+	/**
+	 * 
+	 */
 	public Appointment() {
 	}
 
+	
 }

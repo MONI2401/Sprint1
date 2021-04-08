@@ -10,7 +10,7 @@ public interface ICarService {
 
 	public CarDTO removeCar(long id);
 
-	public CarDTO updateCar(Car car);
+	public CarDTO updateCar(long id, Car car);
 
 	public CarDTO getCar(long id);
 

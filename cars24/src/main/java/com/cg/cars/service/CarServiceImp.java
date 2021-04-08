@@ -11,11 +11,26 @@ import com.cg.cars.entities.Car;
 import com.cg.cars.model.CarDTO;
 import com.cg.cars.utils.CarUtils;
 
+/**
+*Author     :Shivam Dwivedi
+*Date       :08-04-2021
+*Description:This is  Car Service Class that 
+*			 provide services to add a car, remove a car, update a car 
+*            and to view car details
+**/
+
 @Service
 public class CarServiceImp implements ICarService {
 
 	@Autowired
 	private ICarRepository carrepo;
+	
+	/**
+	*Description	:To add Car to the database
+	*Input Params	:Car object to be added to the database
+	*Return Value	:CarDTO object
+	*Exception	:CarServiceException-It is raised when car already exist   
+	**/
 
 	@Override
 	public CarDTO addCar(Car car) {
@@ -24,6 +39,13 @@ public class CarServiceImp implements ICarService {
 		return CarUtils.convertToCarDto(addcar);
 	}
 
+	/**
+	*Description	:To delete Car from the database
+	*Input Params	:Car id to be deleted from the database
+	*Return Value	:CarDTO object of the Car been deleted
+	*Exception	:CarServiceException-It is raised when car ID doesn't exist   
+	**/
+	
 	@Override
 	public CarDTO removeCar(long id) {
 		Car car = new Car();
@@ -32,12 +54,26 @@ public class CarServiceImp implements ICarService {
 		return CarUtils.convertToCarDto(car);
 	}
 
+	/**
+
+	*Description	:To update Car details to the database
+	*Input Params	:Car to be updated in the database
+	*Return Value	:CarDTO object of the Car been updated
+	*Exception	:CarServiceException-It is raised when car doesn't exist   
+	**/
+	
 	@Override
-	public CarDTO updateCar(Car car) {
-		Car updcar = new Car();
-		updcar = carrepo.save(car);
+	public CarDTO updateCar(long id,Car car) {
+		Car updcar =  carrepo.save(car);
 		return CarUtils.convertToCarDto(updcar);
 	}
+	
+	/**
+	*Description	:To fetch Car details from the database
+	*Input Params	:Car ID object to be fetched from the database
+	*Return Value	:CarDTO object of the Car been fetched
+	*Exception	:CarServiceException-It is raised when car Id doesn't exist   
+	**/
 
 	@Override
 	public CarDTO getCar(long id) {
@@ -45,6 +81,12 @@ public class CarServiceImp implements ICarService {
 		getcar = carrepo.findById(id).orElse(null);
 		return CarUtils.convertToCarDto(getcar);
 	}
+	
+	/**
+	*Description	:To fetch all Car details from the database
+	*Return Value	:List<CarDTO> object of the Order been fetched
+	*Exception	:CarServiceException-It is raised when car not found  
+	**/
 
 	@Override
 	public List<CarDTO> getAllCars() {
@@ -53,11 +95,25 @@ public class CarServiceImp implements ICarService {
 		return CarUtils.convertToCarDtoList(getCar);
 	}
 
+	/**
+	*Description	:To fetch Car details based on model from the database
+	*Input Params	:Car Model  to be fetched from the database
+	*Return Value	:CarDTO object of the Car been fetched
+	*Exception	:CarServiceException-It is raised when car not found  
+	**/
+	
 	@Override
 	public List<CarDTO> getCarsByModel(String model) {
 		return CarUtils.convertToCarDtoList(carrepo.findByModel(model));
 	}
 
+	/**
+	*Description	:To fetch Car details based on brand from the database
+	*Input Params	:Car brand  to be fetched from the database
+	*Return Value	:CarDTO object of the Car been fetched
+	*Exception	:CarServiceException-It is raised when car not found  
+	**/
+	
 	@Override
 	public List<CarDTO> getCarsByBrand(String brand) {
 		return CarUtils.convertToCarDtoList(carrepo.findByBrand(brand));

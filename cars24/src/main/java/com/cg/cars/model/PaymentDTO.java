@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import com.cg.cars.entities.Card;
 
 @Component
-public class PaymentDTO {
+public class PaymentDTO implements Comparable<PaymentDTO>{
 
 	private long paymentId;
 
@@ -67,6 +67,17 @@ public class PaymentDTO {
 	@Override
 	public String toString() {
 		return "Payment [paymentId=" + paymentId + ", type=" + type + ", status=" + status + ", card=" + card + "]";
+	}
+
+	@Override
+	public int compareTo(PaymentDTO o) {
+		return (int) (this.paymentId - o.paymentId) + this.type.compareTo(o.type) +this.status.compareTo(o.status)+
+				this.card.compareTo(o.card);
+	}
+	@Override
+	public boolean equals(Object o) {
+		PaymentDTO p = (PaymentDTO) o;
+		return this.compareTo(p) == 0;
 	}
 
 }

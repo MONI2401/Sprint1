@@ -1,111 +1,166 @@
 package com.cg.cars.model;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import com.cg.cars.entities.Customer;
+import com.cg.cars.entities.Payment;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.cg.cars.entities.Customer;
-import com.cg.cars.entities.Payment;
-
 @Component
 @Scope(value = "prototype")
 public class AppointmentDTO {
 
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long appointmentId;
+
+    @GeneratedValue(strategy = GenerationType.AUTO)
+	private int appointmentId;
 
 	private String location;
 
 	private String inspectionType;
+	
+	private String preferredDate;
 
-	private LocalDate preferredDate;
+	private String preferredTime;
 
-	private LocalTime preferredTime;
-
-	@Autowired
+    @Autowired
 	private Customer customer;
 
 	private Payment payment;
 
-	public long getAppointmentId() {
-		return appointmentId;
-	}
+    /**
+     * @return the appointmentId
+     */
+    public int getAppointmentId() {
+        return appointmentId;
+    }
 
-	public void setAppointmentId(long appointmentId) {
-		this.appointmentId = appointmentId;
-	}
+    /**
+     * @param appointmentId the appointmentId to set
+     */
+    public void setAppointmentId(int appointmentId) {
+        this.appointmentId = appointmentId;
+    }
 
-	public String getLocation() {
-		return location;
-	}
+    /**
+     * @return the location
+     */
+    public String getLocation() {
+        return location;
+    }
 
-	public void setLocation(String location) {
-		this.location = location;
-	}
+    /**
+     * @param location the location to set
+     */
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
-	public String getInspectionType() {
-		return inspectionType;
-	}
+    /**
+     * @return the inspectionType
+     */
+    public String getInspectionType() {
+        return inspectionType;
+    }
 
-	public void setInspectionType(String inspectionType) {
-		this.inspectionType = inspectionType;
-	}
+    /**
+     * @param inspectionType the inspectionType to set
+     */
+    public void setInspectionType(String inspectionType) {
+        this.inspectionType = inspectionType;
+    }
 
-	public LocalDate getPreferredDate() {
-		return preferredDate;
-	}
+    /**
+     * @return the preferredDate
+     */
+    public String getPreferredDate() {
+        return preferredDate;
+    }
 
-	public void setPreferredDate(LocalDate preferredDate) {
-		this.preferredDate = preferredDate;
-	}
+    /**
+     * @param preferredDate the preferredDate to set
+     */
+    public void setPreferredDate(String preferredDate) {
+        this.preferredDate = preferredDate;
+    }
 
-	public LocalTime getPreferredTime() {
-		return preferredTime;
-	}
+    /**
+     * @return the preferredTime
+     */
+    public String getPreferredTime() {
+        return preferredTime;
+    }
 
-	public void setPreferredTime(LocalTime preferredTime) {
-		this.preferredTime = preferredTime;
-	}
+    /**
+     * @param preferredTime the preferredTime to set
+     */
+    public void setPreferredTime(String preferredTime) {
+        this.preferredTime = preferredTime;
+    }
 
-	public Customer getCustomer() {
-		return customer;
-	}
+    /**
+     * @return the customer
+     */
+    public Customer getCustomer() {
+        return customer;
+    }
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
+    /**
+     * @param customer the customer to set
+     */
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
 
-	public Payment getPayment() {
-		return payment;
-	}
+    /**
+     * @return the payment
+     */
+    public Payment getPayment() {
+        return payment;
+    }
 
-	public void setPayment(Payment payment) {
-		this.payment = payment;
-	}
+    /**
+     * @param payment the payment to set
+     */
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
 
-	public AppointmentDTO(long appointmentId, String location, String inspectionType, LocalDate preferredDate,
-			LocalTime preferredTime, Payment payment) {
-		super();
-		this.appointmentId = appointmentId;
-		this.location = location;
-		this.inspectionType = inspectionType;
-		this.preferredDate = preferredDate;
-		this.preferredTime = preferredTime;
-		this.payment = payment;
-	}
+    /**
+     * 
+     */
 
-	@Override
-	public String toString() {
-		return "Appointment [Appointment Id=" + this.appointmentId + " location=" + this.location + " preferred date="
-				+ this.preferredDate.toString() + " preferred time=" + this.preferredTime.toString() + " ]";
-	}
+    /**
+     * @param appointmentId
+     * @param location
+     * @param inspectionType
+     * @param preferredDate
+     * @param preferredTime
+     * @param customer
+     * @param payment
+     */
+    public AppointmentDTO(int appointmentId, String location, String inspectionType, String preferredDate,
+            String preferredTime,  Payment payment) {
+                super();
+        this.appointmentId = appointmentId;
+        this.location = location;
+        this.inspectionType = inspectionType;
+        this.preferredDate = preferredDate;
+        this.preferredTime = preferredTime;
+        this.payment = payment;
+    }
 
-	public AppointmentDTO() {
-	}
+    @Override
+    public String toString()
+    {
+        return "Appointment [Appointment Id="+this.appointmentId+" location="+this.location+" preferred date="+this.preferredDate.toString() + " preferred time="+this.preferredTime.toString()+ " ]";
+    }
+
+    /**
+     * 
+     */
+    public AppointmentDTO() {
+    }
 }

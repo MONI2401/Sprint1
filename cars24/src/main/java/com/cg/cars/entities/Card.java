@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "card")
-public class Card implements Serializable {
+public class Card implements Serializable,Comparable<Card> {
 	
 	
 	private static final long serialVersionUID = 1L;
@@ -52,6 +52,8 @@ public class Card implements Serializable {
 		this.cardExpiry = cardExpiry;
 		this.cvv = cvv;
 	}
+	
+	
 
 	public long getId() {
 		return id;
@@ -97,6 +99,18 @@ public class Card implements Serializable {
 	public String toString() {
 		return "Card [id=" + id + ", cardName=" + cardName + ", cardNumber=" + cardNumber + ", cardExpiry=" + cardExpiry
 				+ ", cvv=" + cvv + "]";
+	}
+
+	@Override
+	public int compareTo(Card o) {
+		return (int) (this.id - o.id) + this.cardName.compareTo(o.cardName) +this.cardNumber.compareTo(o.cardNumber)+
+				this.cardExpiry.compareTo(o.cardExpiry)+this.cvv - o.cvv;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		Card c = (Card) o;
+		return this.compareTo(c) == 0;
 	}
 	
 	

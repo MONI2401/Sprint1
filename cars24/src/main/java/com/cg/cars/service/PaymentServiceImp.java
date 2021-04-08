@@ -14,11 +14,26 @@ import com.cg.cars.exception.PaymentServiceException;
 import com.cg.cars.model.PaymentDTO;
 import com.cg.cars.utils.PaymentUtils;
 
+/**
+*Author     : Avinash
+*Date       :08-04-2021
+*Description:This is  Payment Service Class that 
+*			 provide services to add a payment, remove payment, update payment 
+*            and to view payment details
+**/
+
 @Service
 public class PaymentServiceImp implements IPaymentService {
 
 	@Autowired
 	private IPaymentRepository paymentRepository;
+	
+	/**
+	 * Description  :To add Payment to the database 
+	 * Input Params :Payment object to be added to the database 
+	 * Return Value :PaymentDTO object 
+	 * Exception    : PaymentServiceException - It is raised when payment already exist
+	 **/
 
 	@Override
 	public PaymentDTO addPayment(Payment payment) throws PaymentServiceException {
@@ -37,6 +52,13 @@ public class PaymentServiceImp implements IPaymentService {
 		}
 	}
 
+	/**
+	 * Description :To delete Payment from the database 
+	 * Input Params :Payment id to be deleted from the database 
+	 * Return Value :PaymentDTO object of the payment been deleted 
+	 * Exception :PaymentServiceException-It is raised when payment ID doesn't exist
+	 **/
+	
 	@Override
 	public PaymentDTO removePayment(long paymentId) throws PaymentServiceException {
 		Optional<Payment> payment = paymentRepository.findById(paymentId);
@@ -52,6 +74,14 @@ public class PaymentServiceImp implements IPaymentService {
 		}
 	}
 
+	/**
+	 * 
+	 * Description :To update Payment details to the database 
+	 * Input Params :Payment to be updated in the database 
+	 * Return Value :PaymentDTO object of the payment been updated 
+	 * Exception :PaymentServiceException-It is raised when payment doesn't exist
+	 **/
+	
 	@Override
 	public PaymentDTO updatePayment(long paymentId, Payment payment) throws PaymentServiceException {
 		Optional<Payment> paymentTemp = paymentRepository.findById(paymentId);
@@ -68,6 +98,13 @@ public class PaymentServiceImp implements IPaymentService {
 		}
 	}
 
+	/**
+	 * Description :To fetch Payment details from the database 
+	 * Input Params :Payment ID object to be fetched from the database 
+	 * Return Value :PaymentDTO object of the payment been fetched 
+	 * Exception :PaymentServiceException-It is raised when payment Id doesn't exist
+	 **/
+	
 	@Override
 	public PaymentDTO getPaymentDetails(long paymentId) throws PaymentServiceException {
 		Optional<Payment> paymentTemp = paymentRepository.findById(paymentId);
@@ -78,6 +115,12 @@ public class PaymentServiceImp implements IPaymentService {
 			return PaymentUtils.convertToPaymentDto(getPayment);
 		}
 	}
+	
+	/**
+	 * Description :To fetch payment details from the database 
+	 * Return Value:List<PaymentDTO> object of the payment been fetched 
+	 * Exception : PaymentServiceException-It is raised when payment not found
+	 **/
 
 	@Override
 	public List<PaymentDTO> getAllPaymentDetails() throws PaymentServiceException {

@@ -23,8 +23,7 @@ public class UserServiceImp implements IUserService {
 
 	@Override
 	public boolean changePassword(User user, int id) {
-		User u=new User();
-		u=userRepo.save(user);
+		userRepo.save(user);
 		return true;
 	}
 

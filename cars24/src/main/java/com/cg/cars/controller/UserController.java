@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cg.cars.entities.User;
 import com.cg.cars.service.IUserService;
 
+/**
+*Author: Sarath Sathyan
+*Date:08-04-2021
+*Description:This is User Controller Layer
+**/
+
 @RestController
 @RequestMapping("/api/user")
 public class UserController {

@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.cg.cars.entities.Order;
 
 @Repository
-public interface IOrderRepository extends JpaRepository<Order, Integer> {
+public interface IOrderRepository extends JpaRepository<Order, Long> {
 
 }

@@ -10,7 +10,7 @@ public interface ICustomerService {
 
 	public CustomerDTO removeCustomer(long custId);
 
-	public CustomerDTO updateCustomer(Customer customer);
+	public CustomerDTO updateCustomer(long id, Customer customer);
 
 	public CustomerDTO getCustomer(long custId);
 

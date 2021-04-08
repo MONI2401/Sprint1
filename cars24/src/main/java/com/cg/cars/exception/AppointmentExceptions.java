@@ -1,18 +1,17 @@
 package com.cg.cars.exception;
 
-public class InvalidAppointmentDateException extends AppointmentExceptions {
-    
-    /**
-     *
-     */
-    private static final long serialVersionUID = -2951573369975639410L;
+public class AppointmentExceptions extends Exception{
 
-    private String message;
-    public InvalidAppointmentDateException(String message)
+    private static final long serialVersionUID = 1L;
+    
+
+    public AppointmentExceptions(String message)
     {
         super(message);
         this.message=message;
     }
+
+    private String message;
 
     @Override
     public String toString()
@@ -26,6 +25,7 @@ public class InvalidAppointmentDateException extends AppointmentExceptions {
         }
         return exceptionMessageBuilder.toString();
     }
+
     @Override
     public String getMessage()
     {

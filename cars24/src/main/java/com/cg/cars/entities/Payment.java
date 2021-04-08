@@ -16,9 +16,7 @@ import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "payment")
-public class Payment  {
-
-	
+public class Payment implements Comparable<Payment> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,8 +30,6 @@ public class Payment  {
 	@Column(name = "status", nullable = false)
 	@NotBlank(message = "Payment Status Should Not Be Blank")
 	private String status;
-
-	
 
 	@ManyToOne(targetEntity = Card.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "card_id", referencedColumnName = "id", nullable = false)
@@ -52,10 +48,6 @@ public class Payment  {
 		this.status = status;
 
 	}
-
-	
-
-	
 
 	public Payment(long paymentId, String type, String status, Card card) {
 		this.paymentId = paymentId;
@@ -99,5 +91,16 @@ public class Payment  {
 	@Override
 	public String toString() {
 		return "Payment [paymentId=" + paymentId + ", type=" + type + ", status=" + status + ", card=" + card + "]";
+	}
+
+	@Override
+	public int compareTo(Payment o) {
+		return (int) (this.paymentId - o.paymentId) + this.type.compareTo(o.type) +this.status.compareTo(o.status)+
+				this.card.compareTo(o.card);
+	}
+	@Override
+	public boolean equals(Object o) {
+		Payment p = (Payment) o;
+		return this.compareTo(p) == 0;
 	}
 }

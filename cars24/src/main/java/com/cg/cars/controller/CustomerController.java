@@ -21,6 +21,12 @@ import com.cg.cars.model.CustomerDTO;
 import com.cg.cars.service.CustomerServiceImp;
 import com.cg.cars.service.ICustomerService;
 
+/**
+ * Author : Monisha 
+ * Date : 08-04-2021 
+ * Description : This is Customer Controller Layer
+ **/
+
 @RestController
 @RequestMapping("/api/customer")
 public class CustomerController {
@@ -28,36 +34,62 @@ public class CustomerController {
 	@Autowired
 	private ICustomerService customerService;
 
+	/**
+	 * Description : To add the customer to the database 
+	 * Input params : customer object to be added to the database 
+	 * Return Value : CustomerDTO object
+	 * Exception : CustomerServiceException - It is raised when customer already exists
+	 **/
+
 	@PostMapping(path = "/addcustomer", consumes = "application/json")
 	public ResponseEntity<CustomerDTO> insertCustomer(@RequestBody Customer customer) {
 		if (CustomerServiceImp.ValidateUserContact(customer) && CustomerServiceImp.validateUserMail(customer)
 				&& CustomerServiceImp.validateUserName(customer)) {
 			CustomerDTO resultcustomer = customerService.addCustomer(customer);
 			return new ResponseEntity<CustomerDTO>(resultcustomer, HttpStatus.OK);
-		} 
-			return new ResponseEntity<CustomerDTO>(new CustomerDTO(), HttpStatus.EXPECTATION_FAILED);
+		}
+		return new ResponseEntity<CustomerDTO>(new CustomerDTO(), HttpStatus.EXPECTATION_FAILED);
 
 	}
+
+	/**
+	 * Description : To delete the customer to the database 
+	 * Input params : customer Id to be deleted from the database 
+	 * Return Value : CustomerDTO object of the customer been deleted 
+	 * Exception : CustomerServiceException - It is raised when customer ID doesn't exists
+	 **/
 
 	@DeleteMapping(path = "/deletecustomer/{id}", produces = "application/json")
-	public void deleteCustomer(@PathVariable long id) throws CustomerServiceException {
-		if (id != 0 && id <= 500) {
-			customerService.removeCustomer(id);
-		}
-		throw new CustomerServiceException("ID cannot be empty or greater than 500");
+	public ResponseEntity<CustomerDTO> removeCustomer(@PathVariable long id) {
+		CustomerDTO removeCustomer = customerService.removeCustomer(id);
+		return new ResponseEntity<CustomerDTO>(removeCustomer, HttpStatus.OK);
 	}
 
-	@PutMapping("/updatecustomer")
+	/**
+	 * Description : To update the customer details to the database 
+	 * Input params :customer to be updated in the database 
+	 * Return Value : CustomerDTO object of the customer been updated 
+	 * Exception : CustomerServiceException - It is raised when customer doesn't exists
+	 **/
+
+	@PutMapping(path = "/updatecustomer/{id}", produces = "application/json")
 	@ExceptionHandler(value = Exception.class)
-	public ResponseEntity<CustomerDTO> updateCustomer(@RequestBody Customer customer) {
+	public ResponseEntity<CustomerDTO> updateCustomer(@RequestBody Customer customer) throws CustomerServiceException {
 		if (CustomerServiceImp.ValidateUserContact(customer) && CustomerServiceImp.validateUserMail(customer)
 				&& CustomerServiceImp.validateUserName(customer)) {
 
-			CustomerDTO resultCustomer = customerService.updateCustomer(customer);
+			CustomerDTO resultCustomer = customerService.updateCustomer(customer.getUserId(), customer);
 			return new ResponseEntity<CustomerDTO>(resultCustomer, HttpStatus.OK);
 		}
 		throw new CustomerServiceException("Enter Valid Customer details");
 	}
+
+	/**
+	 * Description : To fetch the particular customer detail from the database 
+	 * Input params : Customer Id to be fetched from the database 
+	 * Return Value :CustomerDTO object of the customer been fetched Exception :
+	 * CustomerServiceException - It is raised when customer Id doesn't exists
+	 **/
 
 	@GetMapping("/getcustomer/{id}")
 	@ExceptionHandler(value = CustomerServiceException.class)
@@ -69,11 +101,24 @@ public class CustomerController {
 		throw new CustomerServiceException("ID cannot be empty or greater than 500");
 	}
 
+	/**
+	 * Description : To fetch all Customer details from the database 
+	 * Return Value :List<CustomerDTO> object of the customers been fetched
+	 *  Exception : CustomerServiceException - It is raised when Customer not found
+	 **/
+
 	@GetMapping(path = "/allcustomers", produces = "application/json")
 	public ResponseEntity<List<CustomerDTO>> getAllCustomer() {
 		List<CustomerDTO> resultCustomer = customerService.getAllCustomers();
 		return new ResponseEntity<List<CustomerDTO>>(resultCustomer, HttpStatus.OK);
 	}
+
+	/**
+	 * Description : To fetch the Customer details belongs to particular City from the database
+	 * Input params : City which details to be fetched from the database 
+	 * Return Value : List<CustomerDTO> object of the customers been fetched 
+	 * Exception : CustomerServiceException - It is raised when Customer not found
+	 **/
 
 	@GetMapping("/getcustomerCity/{city}")
 	public ResponseEntity<List<CustomerDTO>> getCustomerbyCity(@PathVariable String city) {

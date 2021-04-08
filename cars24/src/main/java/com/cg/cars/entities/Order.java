@@ -1,6 +1,8 @@
 package com.cg.cars.entities;
 
 import java.time.LocalDate;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Orders")
-public class Order {
+public class Order implements Comparable<Order>  {
 
 	public Order() {
 		super();
@@ -29,7 +31,7 @@ public class Order {
 	@Column(name = "billingDate", nullable = false)
 	private LocalDate billingDate;
 
-	@ManyToOne(targetEntity = Customer.class, optional = false)
+	@ManyToOne(targetEntity = Customer.class,cascade = CascadeType.ALL)
 	private Customer customer;
 
 	@OneToOne(targetEntity = Payment.class)
@@ -81,6 +83,17 @@ public class Order {
 		this.billingDate = billingDate;
 		this.customer = customer;
 
+	}
+
+	@Override
+	public int compareTo(Order o) {
+		return (int)(this.orderId-o.orderId + this.amount-o.amount + this.billingDate.compareTo(o.billingDate)+
+				this.customer.compareTo(o.customer)+this.paymentMethod.compareTo(o.paymentMethod));
+	}
+	@Override
+	public boolean equals(Object o) {
+		Order p = (Order) o;
+		return this.compareTo(p) == 0;
 	}
 
 }
