@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +36,7 @@ public class CustomerServiceImp implements ICustomerService {
 	 * Exception : CustomerServiceException - It is raised when customer already exists
 	 **/
 
-	
+	@Transactional
 	@Override
 	public CustomerDTO addCustomer(Customer customer) {
 		Customer addCustomer = new Customer();
@@ -48,7 +50,7 @@ public class CustomerServiceImp implements ICustomerService {
 	 * Return Value : CustomerDTO object of the customer been deleted 
 	 * Exception : CustomerServiceException - It is raised when customer ID doesn't exists
 	 **/
-	
+	@Transactional
 	@Override
 	public CustomerDTO removeCustomer(long custId) {
 
@@ -65,6 +67,7 @@ public class CustomerServiceImp implements ICustomerService {
 	 * Exception : CustomerServiceException - It is raised when customer doesn't exists
 	 **/
 
+	@Transactional
 	@Override
 	public CustomerDTO updateCustomer(long id,Customer customer) {
 		Customer updateCustomer = customerRepo.save(customer);
@@ -78,6 +81,7 @@ public class CustomerServiceImp implements ICustomerService {
 	 * CustomerServiceException - It is raised when customer Id doesn't exists
 	 **/
 	
+	@Transactional
 	@Override
 	public CustomerDTO getCustomer(long custId) {
 		Customer getCustomer = new Customer();
@@ -91,6 +95,7 @@ public class CustomerServiceImp implements ICustomerService {
 	 *  Exception : CustomerServiceException - It is raised when Customer not found
 	 **/
 	
+	@Transactional
 	@Override
 	public List<CustomerDTO> getAllCustomers() {
 		List<Customer> getCustomer = new ArrayList<Customer>();
@@ -106,6 +111,7 @@ public class CustomerServiceImp implements ICustomerService {
 	 * Exception : CustomerServiceException - It is raised when Customer not found
 	 **/
 	
+	@Transactional
 	@Override
 	public List<CustomerDTO> getCustomersByCity(String city) {
 		List<Customer> getCusCity = new ArrayList<Customer>();

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,6 @@ import com.cg.cars.exception.InvalidAppointmentTimeException;
 import com.cg.cars.model.AppointmentDTO;
 import com.cg.cars.utils.AppointmentUtils;
 
-
 /**
 *Author: Vivekanandhan
 *Date:08-04-2021
@@ -30,11 +30,13 @@ import com.cg.cars.utils.AppointmentUtils;
  *             and view an appointment
 **/
 
+
 @Service
 public class AppointmentServiceImpl implements IAppointmentService {
 
     @Autowired
     IAppointmentRepository repo;
+
 
     /**
      *Description	:To add Appointment to the database
@@ -43,6 +45,7 @@ public class AppointmentServiceImpl implements IAppointmentService {
      *Exception	:AppointmentException-It is raised when appointment already exist   
      **/
     
+    @Transactional
     @Override
     public AppointmentDTO addAppointment(Appointment appointment) throws AppointmentExceptions {
         if (AppointmentServiceImpl.isValidAppointment(appointment)) {
@@ -52,6 +55,7 @@ public class AppointmentServiceImpl implements IAppointmentService {
         throw new AppointmentExceptions("Invalid Appointment");
 
     }
+
     
     /**
      *Description	:To delete Appointment from the database
@@ -59,7 +63,8 @@ public class AppointmentServiceImpl implements IAppointmentService {
      *Return Value	:Object of the Appointment been deleted
      *Exception	:AppointmentException-It is raised when appointment ID doesn't exist   
      **/
-
+    
+    @Transactional
     @Override
     public AppointmentDTO removeAppointment(int id) throws AppoitnmentNotFoundException{
         try {
@@ -78,14 +83,15 @@ public class AppointmentServiceImpl implements IAppointmentService {
             throw new AppoitnmentNotFoundException("Appointment with "+ id+" is not found");
         }
     }
-
+    
     /**
      *Description	:To fetch Appointment details from the database
      *Input Params	:Appointment ID object to be fetched from the database
      *Return Value	:Object of the Appointment been fetched
      *Exception	:AppointmentException-It is raised when Appointment Id doesn't exist   
      **/
-    
+
+    @Transactional
     @Override
     public AppointmentDTO getAppointment(int id) throws AppoitnmentNotFoundException {
         try {
@@ -94,13 +100,14 @@ public class AppointmentServiceImpl implements IAppointmentService {
             throw new AppoitnmentNotFoundException("Appointment with id "+ id+ " not found");
         }
     }
-
+    
     /**
      *Description	:To fetch Appointment details from the database
      *Return Value	:List<AppointmentDTO> object of the Appointment been fetched
      *Exception	:AppointmentException-It is raised when Appointment not found  
      **/
-    
+
+    @Transactional
     @Override
     public List<AppointmentDTO> getAllAppointments() {
         return AppointmentUtils.convertToAppointmentDTOList(repo.findAll());
@@ -112,6 +119,7 @@ public class AppointmentServiceImpl implements IAppointmentService {
      *Exception	    :  AppointmentException-It is raised when appointment not found  
      **/
     
+    @Transactional
     @Override
     public List<AppointmentDTO> getOpenAppointments() {
         return AppointmentUtils.convertToAppointmentDTOList(repo.getOpenAppointments(LocalDate.now()));
@@ -119,27 +127,38 @@ public class AppointmentServiceImpl implements IAppointmentService {
 
     public static boolean isValidAppointment(Appointment appointment) throws AppointmentExceptions {
         return AppointmentServiceImpl.isValidAppointmentDate(appointment.getPreferredDate())
-                && AppointmentServiceImpl.isValidAppointmentTime(appointment.getPreferredTime())
-                && CustomerServiceImp.isValidCustomer(appointment.getCustomer());
+                && AppointmentServiceImpl.isValidAppointmentTime(appointment.getPreferredTime(),appointment.getPreferredDate())
+                && AppointmentServiceImpl.isValidInspectionType(appointment.getInspectionType())
+                && AppointmentServiceImpl.isValidLocation(appointment.getLocation());
+                //&& CustomerServiceImp.isValidCustomer(appointment.getCustomer());
     }
 
     public static boolean isValidAppointmentDate(LocalDate date) throws InvalidAppointmentDateException {
         if (LocalDate.now().compareTo(date) > 0) {
             throw new InvalidAppointmentDateException(date.toString() + " is less than today's date");
         }
+        System.out.println("Valid appointment date");
         return true;
     }
 
-    public static boolean isValidAppointmentTime(LocalTime time) throws InvalidAppointmentTimeException {
-        if (LocalTime.now().compareTo(time) < 0) {
-            throw new InvalidAppointmentTimeException(time.toString() + " is less than current Time");
-        } else
+    public static boolean isValidAppointmentTime(LocalTime time, LocalDate date) throws InvalidAppointmentTimeException {
+        if(LocalDate.now().compareTo(date)==0)
+        {
+            if(LocalTime.now().compareTo(time)<0)
+                return true;
+            else
+                return false;
+        }
+        else if(LocalDate.now().compareTo(date)<0)
             return true;
+        else
+            return false;
     }
 
     public static boolean isValidLocation(String location) throws InvalidAppointmentLocationException {
         if (!location.matches("^[a-zA-Z ]{4,}$"))
             throw new InvalidAppointmentLocationException(location + " is not of length greater than 3");
+        System.out.println("Location true");
         return true;
     }
 
@@ -147,17 +166,18 @@ public class AppointmentServiceImpl implements IAppointmentService {
             throws InvalidAppointmentInspectionTypeException {
         if (!inspectionType.matches("^[a-zA-z0-9]{1,4}$"))
             throw new InvalidAppointmentInspectionTypeException(inspectionType + " is not of length 2 or 3 ");
+        System.out.println("Inspection type true");
         return true;
     }
 
     /**
-
      *Description	:To update Appointment details to the database
      *Input Params	:Appointment to be updated in the database
      *Return Value	:Object of the Appointment been updated
      *Exception	:AppointmentException-It is raised when appointment doesn't exist   
      **/
     
+    @Transactional
     @Override
     public AppointmentDTO updateAppointment(int id, Appointment appointment) throws AppointmentExceptions {
         if(AppointmentServiceImpl.isValidAppointment(appointment))

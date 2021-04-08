@@ -33,26 +33,26 @@ public class AppointmentController {
 
     @Autowired
     private IAppointmentService service;
-
-    /**
-    *Description	:To fetch Appointment details from the database
-    *Return Value	:List<AppointmentDTO> object of the Appointment been fetched
-    *Exception	:AppointmentException-It is raised when Appointment not found  
-    **/
     
+    /**
+     *Description	:To fetch Appointment details from the database
+     *Return Value	:List<AppointmentDTO> object of the Appointment been fetched
+     *Exception	:AppointmentException-It is raised when Appointment not found  
+     **/
+
     @GetMapping(path = "/allAppointments", produces = "application/json")
     public ResponseEntity<List<Appointment>> getAllAppointment() {
         return new ResponseEntity<List<Appointment>>(
                 AppointmentUtils.convertToAppointmentList(service.getAllAppointments()), HttpStatus.OK);
     }
-    
-    /**
-    *Description	:To fetch Appointment details from the database
-    *Input Params	:Appointment ID object to be fetched from the database
-    *Return Value	:Object of the Appointment been fetched
-    *Exception	:AppointmentException-It is raised when Appointment Id doesn't exist   
-    **/
 
+    /**
+     *Description	:To fetch Appointment details from the database
+     *Input Params	:Appointment ID object to be fetched from the database
+     *Return Value	:Object of the Appointment been fetched
+     *Exception	:AppointmentException-It is raised when Appointment Id doesn't exist   
+     **/
+    
     @GetMapping(path = "/getAppointment/{id}", produces = "application/json")
     public ResponseEntity<Object> getAppointentById(@PathVariable("id") int id) {
         try {
@@ -62,14 +62,14 @@ public class AppointmentController {
                 return new ResponseEntity<Object>(e.getMessage(), HttpStatus.FAILED_DEPENDENCY);
         }
     }
-
-    /**
-    *Description	:To add Appointment to the database
-    *Input Params	:Appointment object to be added to the database
-    *Return Value	:Object
-    *Exception	:AppointmentException-It is raised when appointment already exist   
-    **/
     
+    /**
+     *Description	:To add Appointment to the database
+     *Input Params	:Appointment object to be added to the database
+     *Return Value	:Object
+     *Exception	:AppointmentException-It is raised when appointment already exist   
+     **/
+
     @PostMapping(path = "/addAppointment", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Object> addAppointment(@RequestBody Appointment appointment){
         try
@@ -78,29 +78,29 @@ public class AppointmentController {
         }
         catch(AppointmentExceptions ex)
         {
-                return new ResponseEntity<Object>(ex.toString(), HttpStatus.FAILED_DEPENDENCY);
+                return new ResponseEntity<Object>(ex.getMessage(), HttpStatus.FAILED_DEPENDENCY);
         }
     }
 
     /**
-    *Description	: To fetch all available appointment details from the database
-    *Return Value	: List<AppointmentDTO> object of the Appointment been fetched
-    *Exception	    :  AppointmentException-It is raised when appointment not found  
-    **/
+     *Description	: To fetch all available appointment details from the database
+     *Return Value	: List<AppointmentDTO> object of the Appointment been fetched
+     *Exception	    :  AppointmentException-It is raised when appointment not found  
+     **/
     
     @GetMapping(path = "getOpenAppointments", produces = "application/json")
     public ResponseEntity<List<Appointment>> getOpenAppointments() {
         return new ResponseEntity<List<Appointment>>(
                 AppointmentUtils.convertToAppointmentList(service.getOpenAppointments()), HttpStatus.OK);
     }
-    
-    /**
-    *Description	:To delete Appointment from the database
-    *Input Params	:Appointment id to be deleted from the database
-    *Return Value	:Object of the Appointment been deleted
-    *Exception	:AppointmentException-It is raised when appointment ID doesn't exist   
-    **/
 
+    /**
+     *Description	:To delete Appointment from the database
+     *Input Params	:Appointment id to be deleted from the database
+     *Return Value	:Object of the Appointment been deleted
+     *Exception	:AppointmentException-It is raised when appointment ID doesn't exist   
+     **/
+    
     @DeleteMapping(path = "deleteAppointment/{id}", produces = "application/json")
     public ResponseEntity<Object> deleteAppointment(@PathVariable("id") int id){
         try {
@@ -110,15 +110,14 @@ public class AppointmentController {
                 return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);       
         }
     }
-    
+
     /**
-
-    *Description	:To update Appointment details to the database
-    *Input Params	:Appointment to be updated in the database
-    *Return Value	:Object of the Appointment been updated
-    *Exception	:AppointmentException-It is raised when appointment doesn't exist   
-    **/
-
+     *Description	:To update Appointment details to the database
+     *Input Params	:Appointment to be updated in the database
+     *Return Value	:Object of the Appointment been updated
+     *Exception	:AppointmentException-It is raised when appointment doesn't exist   
+     **/
+    
     @PutMapping(path = "updataAppointment/{id}", produces = "application/json", consumes = "application/json")
     public ResponseEntity<Object> updateAppointment(@RequestBody Appointment appointment){
         try {

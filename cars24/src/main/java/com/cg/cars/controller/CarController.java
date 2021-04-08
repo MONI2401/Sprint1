@@ -125,5 +125,17 @@ public class CarController {
 	public ResponseEntity<List<CarDTO>> getCarsByBrand(@PathVariable String brand) {
 		return new ResponseEntity<List<CarDTO>> (carService.getCarsByBrand(brand),HttpStatus.OK); 
 	}
+	
+	/**
+	*Description	:To fetch Car details based on Location from the database
+	*Input Params	:Car brand  to be fetched from the database
+	*Return Value	:CarDTO object of the Car been fetched
+	*Exception	:CarServiceException-It is raised when car not found  
+	**/
+	
+	@GetMapping("/getCarsByLocation/{registrationState}")
+	public ResponseEntity<List<CarDTO>> getCarsByLocation(@PathVariable String registrationState) {
+		return new ResponseEntity<List<CarDTO>> (carService.getCarsByLocation(registrationState),HttpStatus.OK); 
+	}
 
 }

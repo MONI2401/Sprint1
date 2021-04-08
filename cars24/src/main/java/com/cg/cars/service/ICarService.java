@@ -19,5 +19,7 @@ public interface ICarService {
 	public List<CarDTO> getCarsByModel(String model);
 
 	public List<CarDTO> getCarsByBrand(String brand);
+	
+	public List<CarDTO> getCarsByLocation(String registrationState);
 
 }

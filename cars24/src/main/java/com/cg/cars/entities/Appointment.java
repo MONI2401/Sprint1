@@ -1,6 +1,7 @@
 package com.cg.cars.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,7 +17,7 @@ import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name="appointment")
-public class Appointment {
+public class Appointment implements Comparable<Appointment>{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,12 +39,12 @@ public class Appointment {
 	@NotBlank(message = "Preferred Time cannot be blank")
 	private LocalTime preferredTime;
 
-	@ManyToOne(targetEntity = Customer.class, optional = false)
+	@ManyToOne(targetEntity = Customer.class, optional = false, fetch = FetchType.EAGER)
 	@JoinColumn(nullable = false)
 	@NotBlank(message = "Customer cannot be blank")
 	private Customer customer;
 
-	@OneToOne(targetEntity = Payment.class)
+	@OneToOne(targetEntity = Payment.class, fetch = FetchType.EAGER)
     @JoinColumn(name="paymentId")
 	@NotBlank(message = "Payment cannot be blank")
 	private Payment payment;
@@ -167,5 +168,41 @@ public class Appointment {
 	public Appointment() {
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		return this.compareTo((Appointment)obj)==0;
+	}
+
+	@Override
+	public int compareTo(Appointment o)
+	{
+		return this.appointmentId-o.appointmentId+this.inspectionType.compareTo(o.inspectionType)+
+			this.location.compareTo(o.location)+this.customer.compareTo(o.customer)+
+			this.preferredDate.compareTo(o.preferredDate)+ this.preferredTime.compareTo(o.preferredTime)
+			+this.payment.compareTo(o.payment);
+	}
+	/**
+	 * @param appointmentId
+	 * @param location
+	 * @param inspectionType
+	 * @param preferredDate
+	 * @param preferredTime
+	 * @param customer
+	 * @param payment
+	 */
+	public Appointment(int appointmentId, @NotBlank(message = "Location cannot be blank") String location,
+			@NotBlank(message = "Inspection type cannot be blank") String inspectionType,
+			@NotBlank(message = "Preferred Date cannot be blank") LocalDate preferredDate,
+			@NotBlank(message = "Preferred Time cannot be blank") LocalTime preferredTime,
+			@NotBlank(message = "Customer cannot be blank") Customer customer,
+			@NotBlank(message = "Payment cannot be blank") Payment payment) {
+		this.appointmentId = appointmentId;
+		this.location = location;
+		this.inspectionType = inspectionType;
+		this.preferredDate = preferredDate;
+		this.preferredTime = preferredTime;
+		this.customer = customer;
+		this.payment = payment;
+	}
 	
 }

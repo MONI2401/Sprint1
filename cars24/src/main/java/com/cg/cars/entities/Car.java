@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,8 +33,8 @@ public class Car implements Comparable<Car> {
 	@Column(name = "REG_State", nullable = false)
 	private String registrationState;
 
-	@ManyToOne(targetEntity = Customer.class, fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "userId", referencedColumnName = "userid", nullable = false)
+	@ManyToOne(targetEntity = Customer.class, cascade = CascadeType.ALL)
+	@JoinColumn(name = "userId", referencedColumnName = "userid")
 	private Customer customers;
 
 	public long getCarId() {

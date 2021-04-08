@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +37,7 @@ public class PaymentServiceImp implements IPaymentService {
 	 * Exception    : PaymentServiceException - It is raised when payment already exist
 	 **/
 
+	@Transactional
 	@Override
 	public PaymentDTO addPayment(Payment payment) throws PaymentServiceException {
 		Optional<Payment> paymentTemp = paymentRepository.findById(payment.getPaymentId());
@@ -59,6 +62,7 @@ public class PaymentServiceImp implements IPaymentService {
 	 * Exception :PaymentServiceException-It is raised when payment ID doesn't exist
 	 **/
 	
+	@Transactional
 	@Override
 	public PaymentDTO removePayment(long paymentId) throws PaymentServiceException {
 		Optional<Payment> payment = paymentRepository.findById(paymentId);
@@ -82,6 +86,7 @@ public class PaymentServiceImp implements IPaymentService {
 	 * Exception :PaymentServiceException-It is raised when payment doesn't exist
 	 **/
 	
+	@Transactional
 	@Override
 	public PaymentDTO updatePayment(long paymentId, Payment payment) throws PaymentServiceException {
 		Optional<Payment> paymentTemp = paymentRepository.findById(paymentId);
@@ -105,6 +110,7 @@ public class PaymentServiceImp implements IPaymentService {
 	 * Exception :PaymentServiceException-It is raised when payment Id doesn't exist
 	 **/
 	
+	@Transactional
 	@Override
 	public PaymentDTO getPaymentDetails(long paymentId) throws PaymentServiceException {
 		Optional<Payment> paymentTemp = paymentRepository.findById(paymentId);
@@ -122,6 +128,7 @@ public class PaymentServiceImp implements IPaymentService {
 	 * Exception : PaymentServiceException-It is raised when payment not found
 	 **/
 
+	@Transactional
 	@Override
 	public List<PaymentDTO> getAllPaymentDetails() throws PaymentServiceException {
 		List<Payment> paymentTemp = paymentRepository.findAll();

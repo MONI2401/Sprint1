@@ -1,60 +1,109 @@
 package com.cg.cars;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.cg.cars.entities.Address;
 import com.cg.cars.entities.Appointment;
 import com.cg.cars.entities.Customer;
+import com.cg.cars.exception.AppointmentExceptions;
+import com.cg.cars.exception.AppoitnmentNotFoundException;
+import com.cg.cars.model.AppointmentDTO;
+import com.cg.cars.model.CustomerDTO;
+import com.cg.cars.service.IAppointmentService;
 import com.cg.cars.service.ICustomerService;
+import com.cg.cars.service.IPaymentService;
+import com.cg.cars.utils.AppointmentUtils;
+import com.cg.cars.utils.CustomerUtils;
+
 @SpringBootTest
 class AppointmentServiceImplTest {
-	static Appointment appointment = new Appointment();
+
 	@Autowired
-	private ICustomerService service;
+	IAppointmentService service;
 
+	@Autowired
+	IPaymentService paymentService;
+
+	@Autowired
+	ICustomerService customerService;
+
+	private int insertedAppointmentID;
+	private long insertedCustomerID;
+	@Disabled
 	@Test
-	void testAddAppointment() {
-		Appointment appoint=new Appointment();
-		appoint.setAppointmentId(1);
-		appoint.setInspectionType("Delivery");
-		appoint.setLocation("Pune");
-		appoint.setPreferredDate(LocalDate.parse("2021-05-01"));
-		appoint.setPreferredTime(LocalTime.parse("10:00:00"));
-		appoint.setCustomer(new Customer(19,"Monisha","monisha@gmail.com","9840712500",LocalDate.parse("2000-01-24"),"D2", "#3rd ", "Anna Nagar", "Chennai","Tamil Nadu",60001));
-		//appoint.setPayment(new Payment(38, "Card", "Pending", 12, LocalDate.parse("2030-02-28"), "Master", "1234567898765431", 121));
+	void testAddAppointment() throws AppointmentExceptions{
+		Address address=new Address("12", "My street", "Area 7", "Madurai", "Tamil Nadu", 123456);
+		CustomerDTO customerDTO=customerService.addCustomer(new Customer(12, "Vivek", "sampletecmast@mail.com", "1454789100",LocalDate.parse("2000-05-01") , address));
+		Appointment appointment=new Appointment(1, "Location ", "Talk", LocalDate.parse("2021-04-25"), LocalTime.parse("05:01:05"), CustomerUtils.convertToCustomer(customerDTO),null);
+		AppointmentDTO dto=service.addAppointment(appointment);
+		appointment.setAppointmentId(dto.getAppointmentId());
+		this.insertedAppointmentID=dto.getAppointmentId();
+		this.insertedCustomerID=customerDTO.getUserId();
+		assertEquals(dto, AppointmentUtils.convertToAppointmentDTO(appointment));
 	}
 
+
+	@Disabled
 	@Test
-	void testRemoveAppointment() {
-		fail("Not yet implemented");
+	void testRemoveAppointment() throws AppoitnmentNotFoundException {
+		CustomerDTO customerDTO=customerService.getCustomer(40);
+		AppointmentDTO dto=new AppointmentDTO(41, "Location ", "Talk", "2021-04-25", "05:01:05", customerDTO, null);
+		AppointmentDTO result=service.removeAppointment(41);
+		assertEquals(dto, result);
 	}
 
+	@Disabled
 	@Test
-	void testGetAppointment() {
-		fail("Not yet implemented");
+	void testGetAppointment() throws AppoitnmentNotFoundException {
+		CustomerDTO customerDTO=customerService.getCustomer(40);
+		AppointmentDTO dto=new AppointmentDTO(41, "Location ", "Talk", "2021-04-25", "05:01:05", customerDTO, null);
+		AppointmentDTO result=service.getAppointment(41);
+		assertEquals(dto, result);
 	}
-
+	@Disabled
 	@Test
 	void testGetAllAppointments() {
-		fail("Not yet implemented");
+		CustomerDTO customerDTO=customerService.getCustomer(9);
+		AppointmentDTO dto=new AppointmentDTO(10, "Location", "Talk", "2021-04-25", "05:01:05", customerDTO, null);
+		List<AppointmentDTO> list=new ArrayList<AppointmentDTO>();
+		list.add(dto);
+		List<AppointmentDTO> result=service.getOpenAppointments();
+		list.sort(null);
+		result.sort(null);
+		assertIterableEquals(list, result);
 	}
-
+	@Disabled
 	@Test
 	void testGetOpenAppointments() {
-		fail("Not yet implemented");
+		CustomerDTO customerDTO=customerService.getCustomer(29);
+		AppointmentDTO dto=new AppointmentDTO(10, "Locationnew", "Talk", "2021-04-25", "05:01:05", customerDTO, null);
+		List<AppointmentDTO> list=new ArrayList<AppointmentDTO>();
+		list.add(dto);
+		List<AppointmentDTO> result=service.getOpenAppointments();
+		list.sort(null);
+		result.sort(null);
+		assertIterableEquals(list, result);
 	}
-
-	@Test
-	void testIsValidAppointment() {
-		fail("Not yet implemented");
-	}
-
 	
+
+	@Disabled
+	@Test
+	void testUpdateAppointment() throws AppointmentExceptions {
+		CustomerDTO customerDTO=customerService.getCustomer(9);
+		AppointmentDTO dto=new AppointmentDTO(10, "LocationNew", "Talk", "2021-04-25", "05:01:05", customerDTO, null);
+		AppointmentDTO updated=service.updateAppointment(10, AppointmentUtils.convertToAppointment(dto));
+		assertEquals(dto, updated);
+	}
 
 }

@@ -3,6 +3,8 @@ package com.cg.cars.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +34,7 @@ public class CarServiceImp implements ICarService {
 	*Exception	:CarServiceException-It is raised when car already exist   
 	**/
 
+	@Transactional
 	@Override
 	public CarDTO addCar(Car car) {
 		Car addcar = new Car();
@@ -45,7 +48,7 @@ public class CarServiceImp implements ICarService {
 	*Return Value	:CarDTO object of the Car been deleted
 	*Exception	:CarServiceException-It is raised when car ID doesn't exist   
 	**/
-	
+	@Transactional
 	@Override
 	public CarDTO removeCar(long id) {
 		Car car = new Car();
@@ -61,7 +64,7 @@ public class CarServiceImp implements ICarService {
 	*Return Value	:CarDTO object of the Car been updated
 	*Exception	:CarServiceException-It is raised when car doesn't exist   
 	**/
-	
+	@Transactional
 	@Override
 	public CarDTO updateCar(long id,Car car) {
 		Car updcar =  carrepo.save(car);
@@ -75,6 +78,7 @@ public class CarServiceImp implements ICarService {
 	*Exception	:CarServiceException-It is raised when car Id doesn't exist   
 	**/
 
+	@Transactional
 	@Override
 	public CarDTO getCar(long id) {
 		Car getcar = new Car();
@@ -88,6 +92,7 @@ public class CarServiceImp implements ICarService {
 	*Exception	:CarServiceException-It is raised when car not found  
 	**/
 
+	@Transactional
 	@Override
 	public List<CarDTO> getAllCars() {
 		List<Car> getCar = new ArrayList<Car>();
@@ -101,7 +106,7 @@ public class CarServiceImp implements ICarService {
 	*Return Value	:CarDTO object of the Car been fetched
 	*Exception	:CarServiceException-It is raised when car not found  
 	**/
-	
+	@Transactional
 	@Override
 	public List<CarDTO> getCarsByModel(String model) {
 		return CarUtils.convertToCarDtoList(carrepo.findByModel(model));
@@ -114,9 +119,23 @@ public class CarServiceImp implements ICarService {
 	*Exception	:CarServiceException-It is raised when car not found  
 	**/
 	
+	@Transactional
 	@Override
 	public List<CarDTO> getCarsByBrand(String brand) {
 		return CarUtils.convertToCarDtoList(carrepo.findByBrand(brand));
+	}
+
+	/**
+	*Description	:To fetch Car details based on city from the database
+	*Input Params	:Car brand  to be fetched from the database
+	*Return Value	:CarDTO object of the Car been fetched
+	*Exception	:CarServiceException-It is raised when car not found  
+	**/
+	
+	@Transactional
+	@Override
+	public List<CarDTO> getCarsByLocation(String registrationState) {
+		return CarUtils.convertToCarDtoList(carrepo.findByLocation(registrationState));
 	}
 
 }

@@ -40,17 +40,17 @@ class CustomerServiceImpTest {
 		assertEquals(c,customerAdd);
 	}
 
-	@Disabled
+	
 	@Test
 	void testRemoveCustomer() {
 		Customer c=new Customer();
-		c.setUserId(68);
+		c.setUserId(1);
 		c.setName("Avinash");
 		c.setEmail("avinash@gmail.com");
 		c.setContactNo("9840712511");
 		c.setDob(LocalDate.parse("2000-12-01"));
 		c.setAddress(new Address("A2", "12 th", "Anna Nagar", "Chennai","Tamil Nadu",600012 ));
-		Customer customerRem= CustomerUtils.convertToCustomer(service.removeCustomer(68));
+		Customer customerRem= CustomerUtils.convertToCustomer(service.removeCustomer(1));
 		c.setUserId(customerRem.getUserId());
 		assertEquals(c, customerRem);
 	}
@@ -59,13 +59,13 @@ class CustomerServiceImpTest {
 	@Test
 	void testUpdateCustomer() {
 		Customer c=new Customer();
-		c.setUserId(19);
+		c.setUserId(1);
 		c.setName("Avinash Ram");
 		c.setEmail("avinash@gmail.com");
 		c.setContactNo("9840712511");
 		c.setDob(LocalDate.parse("2000-12-01"));
 		c.setAddress(new Address("A2", "12 th", "Anna Nagar", "Chennai","Tamil Nadu",600012 ));
-		Customer cUpdate=CustomerUtils.convertToCustomer(service.updateCustomer(19, c));
+		Customer cUpdate=CustomerUtils.convertToCustomer(service.updateCustomer(1, c));
 		assertEquals(c, cUpdate);
 	}
 
@@ -80,20 +80,12 @@ class CustomerServiceImpTest {
 	void testGetAllCustomers() {
 		List<Customer> list= new ArrayList<Customer>();
 		Customer c=new Customer();
-		c.setUserId(19);
+		c.setUserId(1);
 		c.setName("Avinash Ram");
 		c.setEmail("avinash@gmail.com");
 		c.setContactNo("9840712511");
 		c.setDob(LocalDate.parse("2000-12-01"));
 		c.setAddress(new Address("A2", "12 th", "Anna Nagar", "Chennai","Tamil Nadu",600012 ));
-		Customer c1=new Customer();
-		c1.setUserId(1);
-		c1.setName("moni");
-		c1.setEmail("abcd@gmail.com");
-		c1.setContactNo("9840732849");
-		c1.setDob(LocalDate.parse("2000-01-24"));
-		c1.setAddress(new Address("3", "Nehru St", "Anna Nagar", "Chennai","Tamil Nadu",600068 ));
-		list.add(c1);
 		list.add(c);
 		List<CustomerDTO> DTOlist=CustomerUtils.convertToCustomerDtoList(list);
 		List<CustomerDTO> result= service.getAllCustomers();
@@ -106,7 +98,7 @@ class CustomerServiceImpTest {
 	void testGetCustomersByCity() {
 		List<Customer> list= new ArrayList<Customer>();
 		Customer c=new Customer();
-		c.setUserId(19);
+		c.setUserId(1);
 		c.setName("Avinash Ram");
 		c.setEmail("avinash@gmail.com");
 		c.setContactNo("9840712511");

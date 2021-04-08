@@ -14,10 +14,11 @@ public class AppointmentUtils {
     {
         AppointmentDTO dto=new AppointmentDTO();
         dto.setAppointmentId(appointment.getAppointmentId());
-        dto.setCustomer(appointment.getCustomer());
+        dto.setCustomer(CustomerUtils.convertToCustomerDto(appointment.getCustomer()));
         dto.setInspectionType(appointment.getInspectionType());
         dto.setLocation(appointment.getLocation());
-        dto.setPayment(appointment.getPayment());
+        if(appointment.getPayment()!=null)
+            dto.setPayment(PaymentUtils.convertToPaymentDto(appointment.getPayment()));
         dto.setPreferredDate(appointment.getPreferredDate().toString());
         dto.setPreferredTime(appointment.getPreferredTime().toString());
         return dto;
@@ -27,10 +28,11 @@ public class AppointmentUtils {
     {
         Appointment appointment=new Appointment();
         appointment.setAppointmentId(appointmentDTO.getAppointmentId());
-        appointment.setCustomer(appointmentDTO.getCustomer());
+        appointment.setCustomer(CustomerUtils.convertToCustomer(appointmentDTO.getCustomer()));
         appointment.setInspectionType(appointmentDTO.getInspectionType());
         appointment.setLocation(appointmentDTO.getLocation());
-        appointment.setPayment(appointmentDTO.getPayment());
+        if(appointment.getPayment()!=null)
+        appointment.setPayment(PaymentUtils.convertToPayment(appointmentDTO.getPayment()));
         appointment.setPreferredDate(LocalDate.parse(appointmentDTO.getPreferredDate()));
         appointment.setPreferredTime(LocalTime.parse(appointmentDTO.getPreferredTime()));
         return appointment;

@@ -3,6 +3,8 @@ package com.cg.cars.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +34,7 @@ public class OrderServiceImp implements IOrderService {
 	*Exception	    :OrderServiceException-It is raised when order already exist   
 	**/
 	
+	@Transactional
 	@Override
 	public OrderDTO addOrder(Order order) {
 		Order addOrder = new Order();
@@ -46,6 +49,7 @@ public class OrderServiceImp implements IOrderService {
 	*Exception	    :OrderServiceException-It is raised when order ID doesn't exist   
 	**/
 
+	@Transactional
 	@Override
 	public OrderDTO removeOrder(long id) {
 
@@ -63,6 +67,7 @@ public class OrderServiceImp implements IOrderService {
 	*Exception	    :OrderServiceException-It is raised when order doesn't exist   
 	**/
 
+	@Transactional
 	@Override
 	public OrderDTO updateOrder(long id, Order order) {
 		Order updateOrder = orderRepo.save(order);
@@ -76,6 +81,7 @@ public class OrderServiceImp implements IOrderService {
 	*Exception	    :OrderServiceException-It is raised when order id doesn't exist   
 	**/
 
+	@Transactional
 	@Override
 	public OrderDTO getOrderDetails(long id) {
 		Order getOrderDetails = new Order();
@@ -97,6 +103,7 @@ public class OrderServiceImp implements IOrderService {
 	*Exception	:OrderServiceException-It is raised when order not found  
 	**/
 
+	@Transactional
 	@Override
 	public List<OrderDTO> getAllOrders() {
 		List<Order> getorder = new ArrayList<Order>();
