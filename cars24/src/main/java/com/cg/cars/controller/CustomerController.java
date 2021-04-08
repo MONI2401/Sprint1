@@ -42,15 +42,18 @@ public class CustomerController {
 	 **/
 
 	@PostMapping(path = "/addcustomer", consumes = "application/json")
-	public ResponseEntity<CustomerDTO> insertCustomer(@RequestBody Customer customer) {
-		if (CustomerServiceImp.ValidateUserContact(customer) && CustomerServiceImp.validateUserMail(customer)
-				&& CustomerServiceImp.validateUserName(customer)) {
-			CustomerDTO resultcustomer = customerService.addCustomer(customer);
-			return new ResponseEntity<CustomerDTO>(resultcustomer, HttpStatus.OK);
-		}
-		return new ResponseEntity<CustomerDTO>(new CustomerDTO(), HttpStatus.EXPECTATION_FAILED);
-
+	public ResponseEntity<Object> insertCustomer(@RequestBody Customer customer) {
+			CustomerDTO resultcustomer;
+			try {
+				resultcustomer = customerService.addCustomer(customer);
+				return new ResponseEntity<Object>(resultcustomer, HttpStatus.OK);
+				
+			}catch (CustomerServiceException e) {
+					return new ResponseEntity<Object>(e.toString(), HttpStatus.BAD_REQUEST);
+				}
 	}
+			
+		
 
 	/**
 	 * Description : To delete the customer to the database 
@@ -60,9 +63,10 @@ public class CustomerController {
 	 **/
 
 	@DeleteMapping(path = "/deletecustomer/{id}", produces = "application/json")
-	public ResponseEntity<CustomerDTO> removeCustomer(@PathVariable long id) {
-		CustomerDTO removeCustomer = customerService.removeCustomer(id);
-		return new ResponseEntity<CustomerDTO>(removeCustomer, HttpStatus.OK);
+	public ResponseEntity<CustomerDTO> deleteCustomer(@PathVariable long id) throws CustomerServiceException {
+		CustomerDTO resultcustomer = customerService.removeCustomer(id);
+		return new ResponseEntity<CustomerDTO>(resultcustomer, HttpStatus.OK);
+
 	}
 
 	/**
@@ -108,9 +112,10 @@ public class CustomerController {
 	 **/
 
 	@GetMapping(path = "/allcustomers", produces = "application/json")
-	public ResponseEntity<List<CustomerDTO>> getAllCustomer() {
-		List<CustomerDTO> resultCustomer = customerService.getAllCustomers();
-		return new ResponseEntity<List<CustomerDTO>>(resultCustomer, HttpStatus.OK);
+	public ResponseEntity<List<CustomerDTO>> getAllCustomer() throws CustomerServiceException{
+		    List<CustomerDTO> resultCustomer;
+			resultCustomer = customerService.getAllCustomers();
+			return new ResponseEntity<List<CustomerDTO>>(resultCustomer, HttpStatus.OK);
 	}
 
 	/**
@@ -121,7 +126,7 @@ public class CustomerController {
 	 **/
 
 	@GetMapping("/getcustomerCity/{city}")
-	public ResponseEntity<List<CustomerDTO>> getCustomerbyCity(@PathVariable String city) {
+	public ResponseEntity<List<CustomerDTO>> getCustomerbyCity(@PathVariable String city) throws CustomerServiceException{
 		List<CustomerDTO> resultCustomer = customerService.getCustomersByCity(city);
 		return new ResponseEntity<List<CustomerDTO>>(resultCustomer, HttpStatus.OK);
 	}

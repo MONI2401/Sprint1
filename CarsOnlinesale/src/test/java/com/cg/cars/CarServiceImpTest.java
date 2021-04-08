@@ -12,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.cg.cars.entities.Car;
 import com.cg.cars.entities.Customer;
-import com.cg.cars.exception.CarServiceException;
 import com.cg.cars.model.CarDTO;
 import com.cg.cars.service.ICarService;
 import com.cg.cars.utils.CarUtils;
@@ -27,7 +26,7 @@ class CarServiceImpTest {
 	
 	@Disabled
 	@Test
-	void testAddCar() throws CarServiceException {
+	void testAddCar() {
 		Car c= new Car();
 		c.setCarId(4);
 		c.setBrand("Audi");
@@ -44,7 +43,7 @@ class CarServiceImpTest {
 
 	@Disabled
 	@Test
-	void testRemoveCar() throws CarServiceException {
+	void testRemoveCar() {
 		Car c= new Car();
 		c.setCarId(8);
 		c.setBrand("Audi");
@@ -59,7 +58,7 @@ class CarServiceImpTest {
 
 	@Disabled
 	@Test
-	void testUpdateCar() throws CarServiceException {
+	void testUpdateCar() {
 		Car c= new Car();
 		c.setCarId(36);
 		c.setBrand("Audi");
@@ -74,14 +73,14 @@ class CarServiceImpTest {
 
 	@Disabled
 	@Test
-	void testGetCar() throws CarServiceException {
+	void testGetCar() {
 		CarDTO getcarId=service.getCar(36);
 		assertEquals("Audi", getcarId.getBrand());
 	}
 
 	@Disabled
 	@Test
-	void testGetAllCars() throws CarServiceException {
+	void testGetAllCars() {
 		List<Car>list = new ArrayList<Car>();
 		Car c= new Car();
 		c.setCarId(36);
@@ -101,7 +100,7 @@ class CarServiceImpTest {
 
 	@Disabled
 	@Test
-	void testGetCarsByModel() throws CarServiceException {
+	void testGetCarsByModel() {
 		List<Car>list = new ArrayList<Car>();
 		Car c= new Car();
 		c.setCarId(36);
@@ -121,7 +120,7 @@ class CarServiceImpTest {
 
 	@Disabled
 	@Test
-	void testGetCarsByBrand() throws CarServiceException {
+	void testGetCarsByBrand() {
 		List<Car>list = new ArrayList<Car>();
 		Car c= new Car();
 		c.setCarId(36);
@@ -139,7 +138,7 @@ class CarServiceImpTest {
 
 	@Disabled
 	@Test
-	void testGetCarsByLocation() throws CarServiceException {
+	void testGetCarsByLocation() {
 		List<Car>list = new ArrayList<Car>();
 		Car c= new Car();
 		c.setCarId(8);

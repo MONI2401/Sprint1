@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.cg.cars.entities.Address;
 import com.cg.cars.entities.Customer;
+import com.cg.cars.exception.CustomerServiceException;
 import com.cg.cars.model.CustomerDTO;
 import com.cg.cars.service.ICustomerService;
 import com.cg.cars.utils.CustomerUtils;
@@ -26,7 +27,7 @@ class CustomerServiceImpTest {
 
 	@Disabled
 	@Test
-	void testAddCustomer() {
+	void testAddCustomer() throws CustomerServiceException {
 		
 		Customer c=new Customer();
 		c.setUserId(13);
@@ -42,7 +43,7 @@ class CustomerServiceImpTest {
 
 	
 	@Test
-	void testRemoveCustomer() {
+	void testRemoveCustomer() throws CustomerServiceException {
 		Customer c=new Customer();
 		c.setUserId(1);
 		c.setName("Avinash");
@@ -57,7 +58,7 @@ class CustomerServiceImpTest {
 
 	@Disabled
 	@Test
-	void testUpdateCustomer() {
+	void testUpdateCustomer() throws CustomerServiceException {
 		Customer c=new Customer();
 		c.setUserId(1);
 		c.setName("Avinash Ram");
@@ -70,14 +71,14 @@ class CustomerServiceImpTest {
 	}
 
 	@Test
-	void testGetCustomer() {
+	void testGetCustomer() throws CustomerServiceException {
 		CustomerDTO getCusId = service.getCustomer(1);
 		assertEquals("moni", getCusId.getName());
 
 	}
 
 	@Test
-	void testGetAllCustomers() {
+	void testGetAllCustomers() throws CustomerServiceException {
 		List<Customer> list= new ArrayList<Customer>();
 		Customer c=new Customer();
 		c.setUserId(1);
@@ -95,7 +96,7 @@ class CustomerServiceImpTest {
 	}
 
 	@Test
-	void testGetCustomersByCity() {
+	void testGetCustomersByCity() throws CustomerServiceException {
 		List<Customer> list= new ArrayList<Customer>();
 		Customer c=new Customer();
 		c.setUserId(1);

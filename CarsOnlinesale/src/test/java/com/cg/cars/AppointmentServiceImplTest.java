@@ -43,15 +43,9 @@ class AppointmentServiceImplTest {
 	private long insertedCustomerID;
 	@Disabled
 	@Test
-	void testAddAppointment() throws AppointmentExceptions {
+	void testAddAppointment() throws AppointmentExceptions{
 		Address address=new Address("12", "My street", "Area 7", "Madurai", "Tamil Nadu", 123456);
-		CustomerDTO customerDTO = null;
-		try {
-			customerDTO = customerService.addCustomer(new Customer(12, "Vivek", "sampletecmast@mail.com", "1454789100",LocalDate.parse("2000-05-01") , address));
-		} catch (CustomerServiceException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		CustomerDTO customerDTO=customerService.addCustomer(new Customer(12, "Vivek", "sampletecmast@mail.com", "1454789100",LocalDate.parse("2000-05-01") , address));
 		Appointment appointment=new Appointment(1, "Location ", "Talk", LocalDate.parse("2021-04-25"), LocalTime.parse("05:01:05"), CustomerUtils.convertToCustomer(customerDTO),null);
 		AppointmentDTO dto=service.addAppointment(appointment);
 		appointment.setAppointmentId(dto.getAppointmentId());
@@ -63,7 +57,7 @@ class AppointmentServiceImplTest {
 
 	@Disabled
 	@Test
-	void testRemoveAppointment() throws AppoitnmentNotFoundException, CustomerServiceException {
+	void testRemoveAppointment() throws AppoitnmentNotFoundException {
 		CustomerDTO customerDTO=customerService.getCustomer(40);
 		AppointmentDTO dto=new AppointmentDTO(41, "Location ", "Talk", "2021-04-25", "05:01:05", customerDTO, null);
 		AppointmentDTO result=service.removeAppointment(41);
@@ -72,7 +66,7 @@ class AppointmentServiceImplTest {
 
 	@Disabled
 	@Test
-	void testGetAppointment() throws AppoitnmentNotFoundException, CustomerServiceException {
+	void testGetAppointment() throws AppoitnmentNotFoundException {
 		CustomerDTO customerDTO=customerService.getCustomer(40);
 		AppointmentDTO dto=new AppointmentDTO(41, "Location ", "Talk", "2021-04-25", "05:01:05", customerDTO, null);
 		AppointmentDTO result=service.getAppointment(41);
@@ -80,7 +74,7 @@ class AppointmentServiceImplTest {
 	}
 	@Disabled
 	@Test
-	void testGetAllAppointments() throws CustomerServiceException {
+	void testGetAllAppointments() {
 		CustomerDTO customerDTO=customerService.getCustomer(9);
 		AppointmentDTO dto=new AppointmentDTO(10, "Location", "Talk", "2021-04-25", "05:01:05", customerDTO, null);
 		List<AppointmentDTO> list=new ArrayList<AppointmentDTO>();
@@ -92,7 +86,7 @@ class AppointmentServiceImplTest {
 	}
 	@Disabled
 	@Test
-	void testGetOpenAppointments() throws CustomerServiceException {
+	void testGetOpenAppointments() {
 		CustomerDTO customerDTO=customerService.getCustomer(29);
 		AppointmentDTO dto=new AppointmentDTO(10, "Locationnew", "Talk", "2021-04-25", "05:01:05", customerDTO, null);
 		List<AppointmentDTO> list=new ArrayList<AppointmentDTO>();
@@ -107,7 +101,7 @@ class AppointmentServiceImplTest {
 
 	@Disabled
 	@Test
-	void testUpdateAppointment() throws AppointmentExceptions, CustomerServiceException {
+	void testUpdateAppointment() throws AppointmentExceptions {
 		CustomerDTO customerDTO=customerService.getCustomer(9);
 		AppointmentDTO dto=new AppointmentDTO(10, "LocationNew", "Talk", "2021-04-25", "05:01:05", customerDTO, null);
 		AppointmentDTO updated=service.updateAppointment(10, AppointmentUtils.convertToAppointment(dto));

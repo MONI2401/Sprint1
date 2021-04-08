@@ -2,9 +2,7 @@ package com.cg.cars.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
+import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.cg.cars.dao.ICustomerRepository;
 import com.cg.cars.entities.Customer;
+import com.cg.cars.exception.CustomerServiceException;
 import com.cg.cars.model.CustomerDTO;
 import com.cg.cars.utils.CustomerUtils;
 
@@ -34,14 +33,20 @@ public class CustomerServiceImp implements ICustomerService {
 	 * Input params : Customer object to be added to the database 
 	 * Return Value : CustomerDTO object
 	 * Exception : CustomerServiceException - It is raised when customer already exists
+	 * @throws CustomerServiceException 
 	 **/
 
 	@Transactional
 	@Override
-	public CustomerDTO addCustomer(Customer customer) {
-		Customer addCustomer = new Customer();
-		addCustomer = customerRepo.save(customer);
-		return CustomerUtils.convertToCustomerDto(addCustomer);
+	public CustomerDTO addCustomer(Customer customer) throws CustomerServiceException {
+		Optional<Customer> addCustomerTemp = customerRepo.findById(customer.getUserId());
+		if (addCustomerTemp.isEmpty() && CustomerServiceImp.isValidCustomer(customer)
+				&& CustomerServiceImp.ValidateUserContact(customer) && CustomerServiceImp.validateUserMail(customer)) {
+			Customer addCustomer = customerRepo.save(customer);
+			return CustomerUtils.convertToCustomerDto(addCustomer);
+		} else {
+			throw new CustomerServiceException("Customer already exists or invalid inputs");
+		}
 	}
 
 	/**
@@ -52,12 +57,20 @@ public class CustomerServiceImp implements ICustomerService {
 	 **/
 	@Transactional
 	@Override
-	public CustomerDTO removeCustomer(long custId) {
+	public CustomerDTO removeCustomer(long custId) throws CustomerServiceException{
 
-		CustomerDTO customertemp ;
-		customertemp = CustomerUtils.convertToCustomerDto(customerRepo.getOne(custId));
-		customerRepo.deleteById((long) custId);
-		return customertemp;
+		Optional<Customer> customerTemp = customerRepo.findById(custId);
+		if (customerTemp.isEmpty()) {
+			throw new CustomerServiceException("Customer does not exist");
+		} else {
+			customerRepo.deleteById(custId);
+			if (customerTemp.isPresent()) {
+				return CustomerUtils.convertToCustomerDto(customerTemp.get());
+			} else {
+				throw new CustomerServiceException("Customer is not present");
+			}
+
+		}
 	}
 	
 	/**
@@ -69,9 +82,15 @@ public class CustomerServiceImp implements ICustomerService {
 
 	@Transactional
 	@Override
-	public CustomerDTO updateCustomer(long id,Customer customer) {
-		Customer updateCustomer = customerRepo.save(customer);
-		return CustomerUtils.convertToCustomerDto(updateCustomer);
+	public CustomerDTO updateCustomer(long id,Customer customer)throws CustomerServiceException {
+		Optional<Customer> updateCustomerTemp = customerRepo.findById(customer.getUserId());
+		if (updateCustomerTemp.isEmpty() && CustomerServiceImp.validateUserName(customer)
+				&& CustomerServiceImp.ValidateUserContact(customer) && CustomerServiceImp.validateUserMail(customer)) {
+			throw new CustomerServiceException("Customer not found or invalid inputs");
+		} else {
+			Customer updateCustomer = customerRepo.save(customer);
+			return CustomerUtils.convertToCustomerDto(updateCustomer);
+		}
 	}
 
 	/**
@@ -83,10 +102,15 @@ public class CustomerServiceImp implements ICustomerService {
 	
 	@Transactional
 	@Override
-	public CustomerDTO getCustomer(long custId) {
-		Customer getCustomer = new Customer();
-		getCustomer = customerRepo.findById((long) custId).orElse(null);
-		return CustomerUtils.convertToCustomerDto(getCustomer);
+	public CustomerDTO getCustomer(long custId)throws CustomerServiceException {
+		Optional<Customer> getCustomerTemp = customerRepo.findById(custId);
+		if (getCustomerTemp.isEmpty()) {
+			throw new CustomerServiceException("Customer does not exist");
+		} else {
+			Customer getCustomer = customerRepo.findById(custId).orElse(null);
+			return CustomerUtils.convertToCustomerDto(getCustomer);
+
+		}
 	}
 
 	/**
@@ -97,7 +121,7 @@ public class CustomerServiceImp implements ICustomerService {
 	
 	@Transactional
 	@Override
-	public List<CustomerDTO> getAllCustomers() {
+	public List<CustomerDTO> getAllCustomers() throws CustomerServiceException{
 		List<Customer> getCustomer = new ArrayList<Customer>();
 		getCustomer = customerRepo.findAll();
 		return CustomerUtils.convertToCustomerDtoList(getCustomer);
@@ -113,10 +137,14 @@ public class CustomerServiceImp implements ICustomerService {
 	
 	@Transactional
 	@Override
-	public List<CustomerDTO> getCustomersByCity(String city) {
-		List<Customer> getCusCity = new ArrayList<Customer>();
-		getCusCity = customerRepo.findByCity(city);
-		return CustomerUtils.convertToCustomerDtoList(getCusCity);
+	public List<CustomerDTO> getCustomersByCity(String city)throws CustomerServiceException {
+		List<Customer> getCustomer = new ArrayList<Customer>();
+		getCustomer = customerRepo.findAll();
+		if (getCustomer.isEmpty()) {
+			throw new CustomerServiceException("Customers not found");
+		} else {
+			return CustomerUtils.convertToCustomerDtoList(getCustomer);
+		}
 
 	}
 
@@ -124,41 +152,26 @@ public class CustomerServiceImp implements ICustomerService {
 		return validateUserMail(cus) && validateUserName(cus) && ValidateUserContact(cus);
 	}
 
-	public static boolean validateUserName(Customer cus) {
-
-		boolean flag = false;
-
-		if (cus.getName().length() > 3 && cus.getName().matches("^[a-zA-Z]*$")) {
-
-			flag = true;
-
-		}
-
-		return flag;
-	}
-
-	public static boolean validateUserMail(Customer cus) {
-		boolean flag = false;
-
-		String regex = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$";
-		boolean result = cus.getEmail().matches(regex);
-		if (result) {
-			flag = true;
-		}
-		return flag;
-
-	}
-
-	public static boolean ValidateUserContact(Customer cus) {
-		boolean flag = false;
-		String regex = "^\\d{10}$";
-		Pattern pattern = Pattern.compile(regex);
-		Matcher matcher = pattern.matcher(cus.getContactNo());
-		boolean result = matcher.matches();
-		if (result) {
-			flag = true;
+	public static boolean validateUserName(Customer customer) {
+		boolean flag = true;
+		if (customer.getName().length() < 3 || customer.getName().length() > 20 || customer.getName().isEmpty()) {
+			flag = false;
 		}
 		return flag;
 	}
 
-}
+	public static boolean ValidateUserContact(Customer customer) {
+		boolean flag = true;
+		if (customer.getContactNo().length() != 10 || customer.getContactNo().isEmpty()) {
+			flag = false;
+		}
+		return flag;
+	}
+
+	public static boolean validateUserMail(Customer customer) {
+		boolean flag = true;
+		if (customer.getEmail().length() < 8 || customer.getEmail().length() > 30 || customer.getEmail().isEmpty()) {
+			flag = false;
+		}
+		return flag;
+	}}

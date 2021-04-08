@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.cars.entities.Car;
+import com.cg.cars.exception.CarServiceException;
 import com.cg.cars.model.CarDTO;
 import com.cg.cars.service.ICarService;
 
@@ -35,10 +36,11 @@ public class CarController {
 	*Input Params	:Car object to be added to the database
 	*Return Value	:CarDTO object
 	*Exception	:CarServiceException-It is raised when car already exist   
+	 * @throws CarServiceException 
 	**/
 
 	@PostMapping(path = "/addCar", consumes = "application/json")
-	public ResponseEntity<CarDTO> addCar(@RequestBody Car car) {
+	public ResponseEntity<CarDTO> addCar(@RequestBody Car car) throws CarServiceException {
 		CarDTO resultCar = carService.addCar(car);
 		return new ResponseEntity<CarDTO>(resultCar, HttpStatus.OK);
 	}
@@ -48,11 +50,12 @@ public class CarController {
 	*Input Params	:Car id to be deleted from the database
 	*Return Value	:CarDTO object of the Car been deleted
 	*Exception	:CarServiceException-It is raised when car ID doesn't exist   
+	 * @throws CarServiceException 
 	**/
 	
 	@DeleteMapping(path = "/deleteCar/{carId}", produces = "application/json")
 
-	public CarDTO removeCar(@PathVariable long carId) {
+	public CarDTO removeCar(@PathVariable long carId) throws CarServiceException {
 		return carService.removeCar(carId);
 	}
 	
@@ -62,10 +65,11 @@ public class CarController {
 	*Input Params	:Car to be updated in the database
 	*Return Value	:CarDTO object of the Car been updated
 	*Exception	:CarServiceException-It is raised when car doesn't exist   
+	 * @throws CarServiceException 
 	**/
 
 	@PutMapping("/updateCar/{id}")
-	public ResponseEntity<CarDTO> updateCar(@RequestBody Car car) {
+	public ResponseEntity<CarDTO> updateCar(@RequestBody Car car) throws CarServiceException {
 
 		CarDTO resultCar = carService.updateCar(car.getCarId(), car);
 		return new ResponseEntity<CarDTO>(resultCar, HttpStatus.OK);
@@ -77,10 +81,11 @@ public class CarController {
 	*Input Params	:Car ID object to be fetched from the database
 	*Return Value	:CarDTO object of the Car been fetched
 	*Exception	:CarServiceException-It is raised when car Id doesn't exist   
+	 * @throws CarServiceException 
 	**/
 
 	@GetMapping(path = "/getCarDetails/{carId}", produces = "application/json")
-	public ResponseEntity<CarDTO> GetCarDetails(@PathVariable long carId) {
+	public ResponseEntity<CarDTO> getCarDetails(@PathVariable long carId) throws CarServiceException {
 		CarDTO resultCar = carService.getCar(carId);
 
 		return new ResponseEntity<CarDTO>(resultCar, HttpStatus.OK);
@@ -91,10 +96,11 @@ public class CarController {
 	*Description	:To fetch all Car details from the database
 	*Return Value	:List<CarDTO> object of the Order been fetched
 	*Exception	:CarServiceException-It is raised when car not found  
+	 * @throws CarServiceException 
 	**/
 
 	@GetMapping(path = "/getAllCarDetails", produces = "application/json")
-	public ResponseEntity<List<CarDTO>> getAllCars() {
+	public ResponseEntity<List<CarDTO>> getAllCars() throws CarServiceException {
 
 		List<CarDTO> resultCar = carService.getAllCars();
 
@@ -107,10 +113,11 @@ public class CarController {
 	*Input Params	:Car Model  to be fetched from the database
 	*Return Value	:CarDTO object of the Car been fetched
 	*Exception	:CarServiceException-It is raised when car not found  
+	 * @throws CarServiceException 
 	**/
 	
 	@GetMapping("/getCarsByModel/{model}")
-	public ResponseEntity <List<CarDTO>> getCarsByModel(@PathVariable String model) {
+	public ResponseEntity <List<CarDTO>> getCarsByModel(@PathVariable String model) throws CarServiceException {
 		return new ResponseEntity<List<CarDTO>> (carService.getCarsByModel(model),HttpStatus.OK); 
 	}
 	
@@ -119,10 +126,11 @@ public class CarController {
 	*Input Params	:Car brand  to be fetched from the database
 	*Return Value	:CarDTO object of the Car been fetched
 	*Exception	:CarServiceException-It is raised when car not found  
+	 * @throws CarServiceException 
 	**/
 
 	@GetMapping("/getCarsByBrand/{brand}")
-	public ResponseEntity<List<CarDTO>> getCarsByBrand(@PathVariable String brand) {
+	public ResponseEntity<List<CarDTO>> getCarsByBrand(@PathVariable String brand) throws CarServiceException {
 		return new ResponseEntity<List<CarDTO>> (carService.getCarsByBrand(brand),HttpStatus.OK); 
 	}
 	
@@ -131,10 +139,11 @@ public class CarController {
 	*Input Params	:Car brand  to be fetched from the database
 	*Return Value	:CarDTO object of the Car been fetched
 	*Exception	:CarServiceException-It is raised when car not found  
+	 * @throws CarServiceException 
 	**/
 	
 	@GetMapping("/getCarsByLocation/{registrationState}")
-	public ResponseEntity<List<CarDTO>> getCarsByLocation(@PathVariable String registrationState) {
+	public ResponseEntity<List<CarDTO>> getCarsByLocation(@PathVariable String registrationState) throws CarServiceException {
 		return new ResponseEntity<List<CarDTO>> (carService.getCarsByLocation(registrationState),HttpStatus.OK); 
 	}
 

@@ -1,78 +1,117 @@
 package com.cg.cars;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
 
-import org.junit.jupiter.api.BeforeAll;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
+import com.cg.cars.entities.Address;
 import com.cg.cars.entities.Customer;
-import com.cg.cars.service.CustomerServiceImp;
+import com.cg.cars.model.CustomerDTO;
+import com.cg.cars.service.ICustomerService;
+import com.cg.cars.utils.CustomerUtils;
 
+@SpringBootTest
 class CustomerServiceImpTest {
-@Autowired	
-CustomerServiceImp service;
 
-static Customer  customer = new Customer();	
-@BeforeAll
-public  static void beforeAll() {
-	customer.setName("Monisha");
-}
+	static Customer customer = new Customer();
+	@Autowired
+	private ICustomerService service;
 
+
+	@Disabled
 	@Test
 	void testAddCustomer() {
-		customer.setName("Monisha");
-		//customer.setDob("2000-01-24");
 		
-		assertEquals("Monisha", customer.getName());
-		
+		Customer c=new Customer();
+		c.setUserId(13);
+		c.setName("Avinash");
+		c.setEmail("avinash@gmail.com");
+		c.setContactNo("9840712511");
+		c.setDob(LocalDate.parse("2000-12-01"));
+		c.setAddress(new Address("A2", "12 th", "Anna Nagar", "Chennai","Tamil Nadu",600012 ));
+		Customer customerAdd= CustomerUtils.convertToCustomer(service.addCustomer(c));
+		c.setUserId(customerAdd.getUserId());
+		assertEquals(c,customerAdd);
 	}
 
+	
 	@Test
 	void testRemoveCustomer() {
-		fail("Not yet implemented");
+		Customer c=new Customer();
+		c.setUserId(1);
+		c.setName("Avinash");
+		c.setEmail("avinash@gmail.com");
+		c.setContactNo("9840712511");
+		c.setDob(LocalDate.parse("2000-12-01"));
+		c.setAddress(new Address("A2", "12 th", "Anna Nagar", "Chennai","Tamil Nadu",600012 ));
+		Customer customerRem= CustomerUtils.convertToCustomer(service.removeCustomer(1));
+		c.setUserId(customerRem.getUserId());
+		assertEquals(c, customerRem);
 	}
 
+	@Disabled
 	@Test
 	void testUpdateCustomer() {
-		fail("Not yet implemented");
+		Customer c=new Customer();
+		c.setUserId(1);
+		c.setName("Avinash Ram");
+		c.setEmail("avinash@gmail.com");
+		c.setContactNo("9840712511");
+		c.setDob(LocalDate.parse("2000-12-01"));
+		c.setAddress(new Address("A2", "12 th", "Anna Nagar", "Chennai","Tamil Nadu",600012 ));
+		Customer cUpdate=CustomerUtils.convertToCustomer(service.updateCustomer(1, c));
+		assertEquals(c, cUpdate);
 	}
 
 	@Test
 	void testGetCustomer() {
-		fail("Not yet implemented");
+		CustomerDTO getCusId = service.getCustomer(1);
+		assertEquals("moni", getCusId.getName());
+
 	}
 
 	@Test
 	void testGetAllCustomers() {
-		fail("Not yet implemented");
+		List<Customer> list= new ArrayList<Customer>();
+		Customer c=new Customer();
+		c.setUserId(1);
+		c.setName("Avinash Ram");
+		c.setEmail("avinash@gmail.com");
+		c.setContactNo("9840712511");
+		c.setDob(LocalDate.parse("2000-12-01"));
+		c.setAddress(new Address("A2", "12 th", "Anna Nagar", "Chennai","Tamil Nadu",600012 ));
+		list.add(c);
+		List<CustomerDTO> DTOlist=CustomerUtils.convertToCustomerDtoList(list);
+		List<CustomerDTO> result= service.getAllCustomers();
+		DTOlist.sort(null);
+		result.sort(null);
+		assertEquals(DTOlist, result);
 	}
 
 	@Test
 	void testGetCustomersByCity() {
-		fail("Not yet implemented");
+		List<Customer> list= new ArrayList<Customer>();
+		Customer c=new Customer();
+		c.setUserId(1);
+		c.setName("Avinash Ram");
+		c.setEmail("avinash@gmail.com");
+		c.setContactNo("9840712511");
+		c.setDob(LocalDate.parse("2000-12-01"));
+		c.setAddress(new Address("A2", "12 th", "Anna Nagar", "Chennai","Tamil Nadu",600012 ));
+		list.add(c);
+		List<CustomerDTO> DTOlist=CustomerUtils.convertToCustomerDtoList(list);
+		List<CustomerDTO> result=service.getCustomersByCity("Chennai");
+		assertEquals(DTOlist,result );
+		
+		
+		
 	}
 
-	@Test
-	void testIsValidCustomer() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testValidateUserName() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testValidateUserMail() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testValidateUserContact() {
-		fail("Not yet implemented");
-	}
-
+	
 }
