@@ -1,6 +1,5 @@
 package com.cg.cars.service;
 
-<<<<<<< HEAD
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -116,7 +115,7 @@ public class PaymentServiceImp implements IPaymentService {
 	public PaymentDTO getPaymentDetails(long paymentId) throws PaymentServiceException {
 		Optional<Payment> paymentTemp = paymentRepository.findById(paymentId);
 		if (paymentTemp.isEmpty()) {
-			throw new PaymentServiceException("Payment does not exist fro paymentId");
+			throw new PaymentServiceException("Payment does not exist for paymentId");
 		} else {
 			Payment getPayment = paymentRepository.findById(paymentId).orElse(null);
 			return PaymentUtils.convertToPaymentDto(getPayment);
@@ -145,7 +144,9 @@ public class PaymentServiceImp implements IPaymentService {
 		boolean flag = false;
 		Pattern pattern = Pattern.compile("^[A-Za-z]*$");
 		CharSequence cs = payment.getType();
-		if (pattern.matcher(cs).matches() && !payment.getType().isBlank()) {
+		String type="CreditCard";
+		String type1="DebitCard";
+		if (pattern.matcher(cs).matches() && !payment.getType().isBlank() && (payment.getType().equals(type)||payment.getType().equals(type1))) {
 			flag = true;
 		} else {
 			flag = false;
@@ -157,7 +158,11 @@ public class PaymentServiceImp implements IPaymentService {
 		boolean flag = false;
 		Pattern pattern = Pattern.compile("^[A-Za-z]*$");
 		CharSequence cs = payment.getStatus();
-		if (pattern.matcher(cs).matches() && !payment.getStatus().isBlank()) {
+		String status="Failure";
+		String status1="Success";
+		String status2="Pending";
+		if (pattern.matcher(cs).matches() && !payment.getStatus().isBlank()&& 
+				(payment.getStatus().equals(status) || payment.getStatus().equals(status1)||payment.getStatus().equals(status2))) {
 			flag = true;
 		} else {
 			flag = false;
@@ -168,7 +173,7 @@ public class PaymentServiceImp implements IPaymentService {
 	public boolean validateCardName(Payment payment) {
 		boolean flag = false;
 		Pattern pattern = Pattern.compile("^[a-zA-Z ]*$");
-		CharSequence cs = payment.getCard().getCardName();
+		CharSequence cs = payment.getCard().getCardName();		
 		if (pattern.matcher(cs).matches() && !payment.getCard().getCardName().isBlank()) {
 			flag = true;
 		} else {
@@ -214,79 +219,3 @@ public class PaymentServiceImp implements IPaymentService {
 	}
 
 }
-=======
-import java.util.ArrayList;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.cg.cars.dao.IPaymentRepository;
-import com.cg.cars.entities.Payment;
-import com.cg.cars.model.PaymentDTO;
-import com.cg.cars.utils.PaymentUtils;
-
-@Service
-public class PaymentServiceImp implements IPaymentService{
-	
-	@Autowired
-	IPaymentRepository paymentRepository;
-
-	@Override
-	public PaymentDTO addPayment(Payment payment)  {
-		
-		
-			Payment addPayment = paymentRepository.save(payment);
-			return PaymentUtils.convertToPaymentDto(addPayment);
-			
-	}
-
-	@Override
-	public PaymentDTO removePayment(int id)  {
-		Payment payment = new Payment();
-		payment=paymentRepository.getOne(id);
-		paymentRepository.deleteById(id);
-		return PaymentUtils.convertToPaymentDto(payment);
-		}
-	
-
-	@Override
-	public PaymentDTO updatePayment(Payment payment)  {
-		Payment updPayment = paymentRepository.save(payment);
-		return PaymentUtils.convertToPaymentDto(updPayment);
-	}
-
-	@Override
-	public PaymentDTO getPaymentDetails(int id)  {
-		Payment getPayment= new Payment();
-		getPayment=paymentRepository.findById(id).orElse(null);
-		return PaymentUtils.convertToPaymentDto(getPayment);
-	}
-
-	@Override
-	public List<PaymentDTO> getAllPaymentDetails()  {
-		List<Payment> paymentTemp = new ArrayList<Payment> ();
-		paymentTemp=paymentRepository.findAll();
-		return PaymentUtils.convertToPaymentDtoList(paymentTemp);
-		
-	}
-
-	public static boolean validatePaymentType(Payment payment) {
-		boolean flag = false;
-		if (payment.getType()=="Cash" || payment.getType()=="Card") {
-			flag = true;
-		}
-		return flag;
-	}
-
-	public static boolean validatePaymentStatus(Payment payment) {
-		boolean flag = false;
-		if (payment.getStatus()=="Success" || payment.getStatus()== "Failure" || payment.getStatus()== "Pending" ) {
-			flag = true;
-		}
-		return flag;
-	}
-
-		
-
-}
->>>>>>> refs/remotes/origin/master

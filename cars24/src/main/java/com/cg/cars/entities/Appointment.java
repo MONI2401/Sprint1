@@ -16,26 +16,27 @@ import java.time.LocalTime;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name="appointment")
-public class Appointment implements Comparable<Appointment>{
+@Table(name = "appointment")
+public class Appointment  {
+
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int appointmentId;
 
-	@Column(name="location",nullable=false)
+	@Column(name = "location", nullable = false)
 	@NotBlank(message = "Location cannot be blank")
 	private String location;
 
-	@Column(name="inspectionType",nullable = false)
+	@Column(name = "inspectionType", nullable = false)
 	@NotBlank(message = "Inspection type cannot be blank")
 	private String inspectionType;
 
-	@Column(name="preferredDate",nullable = false)
+	@Column(name = "preferredDate", nullable = false)
 	@NotBlank(message = "Preferred Date cannot be blank")
 	private LocalDate preferredDate;
 
-	@Column(name="preferredTime",nullable = false)
+	@Column(name = "preferredTime", nullable = false)
 	@NotBlank(message = "Preferred Time cannot be blank")
 	private LocalTime preferredTime;
 
@@ -45,87 +46,101 @@ public class Appointment implements Comparable<Appointment>{
 	private Customer customer;
 
 	@OneToOne(targetEntity = Payment.class, fetch = FetchType.EAGER)
-    @JoinColumn(name="paymentId")
+	@JoinColumn(name = "paymentId")
 	@NotBlank(message = "Payment cannot be blank")
 	private Payment payment;
+
 	/**
 	 * @return the appointmentId
 	 */
 	public int getAppointmentId() {
 		return appointmentId;
 	}
+
 	/**
 	 * @param appointmentId the appointmentId to set
 	 */
 	public void setAppointmentId(int appointmentId) {
 		this.appointmentId = appointmentId;
 	}
+
 	/**
 	 * @return the location
 	 */
 	public String getLocation() {
 		return location;
 	}
+
 	/**
 	 * @param location the location to set
 	 */
 	public void setLocation(String location) {
 		this.location = location;
 	}
+
 	/**
 	 * @return the inspectionType
 	 */
 	public String getInspectionType() {
 		return inspectionType;
 	}
+
 	/**
 	 * @param inspectionType the inspectionType to set
 	 */
 	public void setInspectionType(String inspectionType) {
 		this.inspectionType = inspectionType;
 	}
+
 	/**
 	 * @return the preferredDate
 	 */
 	public LocalDate getPreferredDate() {
 		return preferredDate;
 	}
+
 	/**
 	 * @param preferredDate the preferredDate to set
 	 */
 	public void setPreferredDate(LocalDate preferredDate) {
 		this.preferredDate = preferredDate;
 	}
+
 	/**
 	 * @return the preferredTime
 	 */
 	public LocalTime getPreferredTime() {
 		return preferredTime;
 	}
+
 	/**
 	 * @param preferredTime the preferredTime to set
 	 */
 	public void setPreferredTime(LocalTime preferredTime) {
 		this.preferredTime = preferredTime;
 	}
+
 	/**
 	 * @return the customer
 	 */
 	public Customer getCustomer() {
 		return customer;
 	}
+
 	/**
 	 * @param customer the customer to set
 	 */
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
+
 	/**
 	 * @return the payment
 	 */
 	public Payment getPayment() {
 		return payment;
 	}
+
 	/**
 	 * @param payment the payment to set
 	 */
@@ -143,8 +158,8 @@ public class Appointment implements Comparable<Appointment>{
 	 * @param payment
 	 */
 	public Appointment(int appointmentId, String location, String inspectionType, LocalDate preferredDate,
-			LocalTime preferredTime,  Payment payment) {
-				super();
+			LocalTime preferredTime, Payment payment) {
+		super();
 		this.appointmentId = appointmentId;
 		this.location = location;
 		this.inspectionType = inspectionType;
@@ -152,35 +167,23 @@ public class Appointment implements Comparable<Appointment>{
 		this.preferredTime = preferredTime;
 		this.payment = payment;
 	}
-    /* (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
-    
-    @Override
-    public String toString() {
-        return "Appointment [appointmentId=" + appointmentId + ", customer=" + customer + ", inspectionType="
-                + inspectionType + ", location=" + location + ", payment=" + payment + ", preferredDate="
-                + preferredDate + ", preferredTime=" + preferredTime + "]";
-    }
+	
+
+	@Override
+	public String toString() {
+		return "Appointment [appointmentId=" + appointmentId + ", customer=" + customer + ", inspectionType="
+				+ inspectionType + ", location=" + location + ", payment=" + payment + ", preferredDate="
+				+ preferredDate + ", preferredTime=" + preferredTime + "]";
+	}
+
 	/**
 	 * 
 	 */
 	public Appointment() {
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		return this.compareTo((Appointment)obj)==0;
-	}
-
-	@Override
-	public int compareTo(Appointment o)
-	{
-		return this.appointmentId-o.appointmentId+this.inspectionType.compareTo(o.inspectionType)+
-			this.location.compareTo(o.location)+this.customer.compareTo(o.customer)+
-			this.preferredDate.compareTo(o.preferredDate)+ this.preferredTime.compareTo(o.preferredTime)
-			+this.payment.compareTo(o.payment);
-	}
+	
+	
 	/**
 	 * @param appointmentId
 	 * @param location

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.cars.entities.Order;
+import com.cg.cars.exception.OrderServiceException;
 import com.cg.cars.model.OrderDTO;
 import com.cg.cars.service.IOrderService;
 
@@ -38,10 +39,16 @@ public class OrderController {
 	*Exception	    :OrderServiceException-It is raised when order already exist   
 	**/
 	
-	@PostMapping("/addOrder")
-	public ResponseEntity<OrderDTO> addOrder(@RequestBody Order order) {
-		OrderDTO resultorder = orderService.addOrder(order);
-		return new ResponseEntity<OrderDTO>(resultorder, HttpStatus.OK);
+	@PostMapping(path = "/addOrder", consumes = "application/json")
+	public ResponseEntity<Object> addOrder(@RequestBody Order order) {
+		OrderDTO resultorder;
+		try {
+			System.out.println(order.toString()+" Order");
+			resultorder = orderService.addOrder(order);
+			return new ResponseEntity<Object>(resultorder, HttpStatus.OK);
+		} catch (OrderServiceException e) {
+			return new ResponseEntity<Object>(e.toString(), HttpStatus.BAD_REQUEST);       
+		}
 	}
 
 	/**
@@ -51,9 +58,13 @@ public class OrderController {
 	*Exception	    :OrderServiceException-It is raised when order ID doesn't exist   
 	**/
 	
-	@DeleteMapping("/removeOrder/{orderId}")
-	public OrderDTO removeOrder(@PathVariable long orderId) {
-		return orderService.removeOrder(orderId);
+	@DeleteMapping(path = "/deleteOrder/{OrderId}", produces = "application/json")
+	public ResponseEntity<Object> removeOrder(@PathVariable long orderId) {
+		try {
+			return new ResponseEntity<Object>(orderService.removeOrder(orderId),HttpStatus.OK);
+		} catch (OrderServiceException e) {
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);       
+		}
 	}
 
 	/**
@@ -64,11 +75,17 @@ public class OrderController {
 	*Exception	    :OrderServiceException-It is raised when order doesn't exist   
 	**/
 	
-	@PutMapping("/updateOrder/{id}")
-	public ResponseEntity<OrderDTO> updateOrder(@RequestBody  Order order) {
-		OrderDTO resultOrder = orderService.updateOrder(order.getOrderId(), order);
-		return new ResponseEntity<OrderDTO>(resultOrder, HttpStatus.OK);
+	@PutMapping("/updateOrder")
+	public ResponseEntity<Object> updateOrder(@RequestBody Order order) {
+		OrderDTO resultOrder;
+		try {
+			resultOrder = orderService.updateOrder(order.getOrderId(),order);
+			return new ResponseEntity<Object>(resultOrder, HttpStatus.OK);
+		} catch (OrderServiceException e) {
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
 	}
+
 
 	/**
 	*Description	:To fetch Order details from the database
@@ -77,10 +94,15 @@ public class OrderController {
 	*Exception	    :OrderServiceException-It is raised when order id doesn't exist   
 	**/
 	
-	@GetMapping("/getOrderDetails/{orderId}")
-	public ResponseEntity<OrderDTO> GetOrderDetails(@PathVariable long orderId) {
-		OrderDTO resultOrder = orderService.getOrderDetails(orderId);
-		return new ResponseEntity<OrderDTO>(resultOrder, HttpStatus.OK);
+	@GetMapping(path = "/getOrderDetails/{orderId}", produces = "application/json")
+	public ResponseEntity<Object> GetOrderDetails(@PathVariable long orderId) {
+		OrderDTO resultOrder;
+		try {
+			resultOrder = orderService.getOrderDetails(orderId);
+			return new ResponseEntity<Object>(resultOrder, HttpStatus.OK);
+		} catch (OrderServiceException e) {
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
 	}
 	
 	/**
@@ -89,10 +111,12 @@ public class OrderController {
 	*Exception	:OrderServiceException-It is raised when order not found  
 	**/
 
-	@GetMapping("/getAllOrders")
-	public ResponseEntity<List<OrderDTO>> getAllOrders() {
+	@GetMapping(path = "/getAllOrders", produces = "application/json")
+	public ResponseEntity<List<OrderDTO> > getAllOrder() throws OrderServiceException {
 		List<OrderDTO> resultOrder = orderService.getAllOrders();
-		return new ResponseEntity<List<OrderDTO>>(resultOrder, HttpStatus.OK);
+		return new ResponseEntity<List<OrderDTO> >(resultOrder, HttpStatus.OK);
 	}
+
+
 
 }

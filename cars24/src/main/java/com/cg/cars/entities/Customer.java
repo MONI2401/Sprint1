@@ -13,8 +13,7 @@ import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "Customers")
-public class Customer  implements Comparable<Customer>
-{
+public class Customer  {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -137,17 +136,10 @@ public class Customer  implements Comparable<Customer>
 		this.address = address;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		Customer c = (Customer) o;
-		return this.compareTo(c) == 0;
-	}
+	
 
-	@Override
-	public int compareTo(Customer o) {
+	
 
-		return (int) (this.userId - o.userId) + this.contactNo.compareTo(o.contactNo) +this.email.compareTo(o.email)+
-				this.dob.compareTo(o.dob)+this.address.compareTo(o.address);
-	}
+	
 
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +27,7 @@ import com.cg.cars.service.IPaymentService;
  **/
 
 @RestController
-@RequestMapping("/api/cars")
+@RequestMapping("/api/payment")
 public class PaymentController {
 
 	@Autowired
@@ -37,10 +38,12 @@ public class PaymentController {
 	 * Input Params :Payment object to be added to the database 
 	 * Return Value :PaymentDTO object 
 	 * Exception    : PaymentServiceException-It is raised when payment already exist
+	 * @throws PaymentServiceException 
 	 **/
 
 	@PostMapping("/addPayment")
-	public ResponseEntity<PaymentDTO> addPayment(@RequestBody Payment payment) {
+	@ExceptionHandler()
+	public ResponseEntity<PaymentDTO> addPayment(@RequestBody Payment payment) throws PaymentServiceException {
 		PaymentDTO addPayment = paymentService.addPayment(payment);
 		return new ResponseEntity<PaymentDTO>(addPayment, HttpStatus.OK);
 	}
@@ -50,10 +53,11 @@ public class PaymentController {
 	 * Input Params :Payment id to be deleted from the database 
 	 * Return Value :PaymentDTO object of the payment been deleted 
 	 * Exception :PaymentServiceException-It is raised when payment ID doesn't exist
+	 * @throws PaymentServiceException 
 	 **/
 
 	@DeleteMapping("/removePayment/{paymentId}")
-	public ResponseEntity<PaymentDTO> removePayment(@PathVariable long paymentId) {
+	public ResponseEntity<PaymentDTO> removePayment(@PathVariable long paymentId) throws PaymentServiceException {
 		PaymentDTO removePayment = paymentService.removePayment(paymentId);
 		return new ResponseEntity<PaymentDTO>(removePayment, HttpStatus.OK);
 	}
@@ -64,10 +68,11 @@ public class PaymentController {
 	 * Input Params :Payment to be updated in the database 
 	 * Return Value :PaymentDTO object of the payment been updated 
 	 * Exception :PaymentServiceException-It is raised when payment doesn't exist
+	 * @throws PaymentServiceException 
 	 **/
 
 	@PutMapping("/updatePayment/{paymentId}")
-	public ResponseEntity<PaymentDTO> updatePayment(@RequestBody Payment payment) {
+	public ResponseEntity<PaymentDTO> updatePayment(@RequestBody Payment payment) throws PaymentServiceException {
 		PaymentDTO updatePayment = paymentService.updatePayment(payment.getPaymentId(), payment);
 		return new ResponseEntity<PaymentDTO>(updatePayment, HttpStatus.OK);
 	}
@@ -89,12 +94,13 @@ public class PaymentController {
 	 * Description :To fetch payment details from the database 
 	 * Return Value:List<PaymentDTO> object of the payment been fetched 
 	 * Exception : PaymentServiceException-It is raised when payment not found
+	 * @throws PaymentServiceException 
 	 **/
 
 	@GetMapping("/getAllPayment")
-	public ResponseEntity<List<PaymentDTO>> getAllPayment() {
+	public ResponseEntity<List<PaymentDTO> > getAllPayment() throws PaymentServiceException {
 		List<PaymentDTO> getAllPayment = paymentService.getAllPaymentDetails();
-		return new ResponseEntity<List<PaymentDTO>>(getAllPayment, HttpStatus.OK);
+		return new ResponseEntity<List<PaymentDTO> >(getAllPayment, HttpStatus.OK);
 	}
 
 }

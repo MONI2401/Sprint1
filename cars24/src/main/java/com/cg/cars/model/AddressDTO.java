@@ -88,15 +88,61 @@ public class AddressDTO implements Comparable<AddressDTO> {
 
 	@Override
 	public int compareTo(AddressDTO o) {
-		
-		return this.pincode-o.pincode+this.area.compareTo(o.area)+this.city.compareTo(o.city)+this.doorNo.compareTo(o.doorNo)
-		+this.state.compareTo(o.state)+this.street.compareTo(o.street);
-	}
-	
-	@Override
-	public boolean equals(Object o) {
-		return this.compareTo((AddressDTO)o)==0;
+
+		return this.pincode - o.pincode + this.area.compareTo(o.area) + this.city.compareTo(o.city)
+				+ this.doorNo.compareTo(o.doorNo) + this.state.compareTo(o.state) + this.street.compareTo(o.street);
 	}
 
-	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((area == null) ? 0 : area.hashCode());
+		result = prime * result + ((city == null) ? 0 : city.hashCode());
+		result = prime * result + ((doorNo == null) ? 0 : doorNo.hashCode());
+		result = prime * result + pincode;
+		result = prime * result + ((state == null) ? 0 : state.hashCode());
+		result = prime * result + ((street == null) ? 0 : street.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AddressDTO other = (AddressDTO) obj;
+		if (area == null) {
+			if (other.area != null)
+				return false;
+		} else if (!area.equals(other.area))
+			return false;
+		if (city == null) {
+			if (other.city != null)
+				return false;
+		} else if (!city.equals(other.city))
+			return false;
+		if (doorNo == null) {
+			if (other.doorNo != null)
+				return false;
+		} else if (!doorNo.equals(other.doorNo))
+			return false;
+		if (pincode != other.pincode)
+			return false;
+		if (state == null) {
+			if (other.state != null)
+				return false;
+		} else if (!state.equals(other.state))
+			return false;
+		if (street == null) {
+			if (other.street != null)
+				return false;
+		} else if (!street.equals(other.street))
+			return false;
+		return true;
+	}
+
 }

@@ -19,7 +19,7 @@ import com.cg.cars.service.IUserService;
 
 
 @RestController
-@RequestMapping("/api/oss")
+@RequestMapping("/api/cars24")
 public class UserController {
 	
 	@Autowired

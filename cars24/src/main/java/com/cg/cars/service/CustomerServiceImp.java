@@ -139,7 +139,7 @@ public class CustomerServiceImp implements ICustomerService {
 	@Override
 	public List<CustomerDTO> getCustomersByCity(String city)throws CustomerServiceException {
 		List<Customer> getCustomer = new ArrayList<Customer>();
-		getCustomer = customerRepo.findAll();
+		getCustomer = customerRepo.findByCity(city);
 		if (getCustomer.isEmpty()) {
 			throw new CustomerServiceException("Customers not found");
 		} else {
@@ -154,7 +154,8 @@ public class CustomerServiceImp implements ICustomerService {
 
 	public static boolean validateUserName(Customer customer) {
 		boolean flag = true;
-		if (customer.getName().length() < 3 || customer.getName().length() > 20 || customer.getName().isEmpty()) {
+		if (customer.getName().length() < 3 || customer.getName().length() > 20 || customer.getName().isEmpty()
+				|| !(customer.getName().matches("^[a-zA-Z]*$"))) {
 			flag = false;
 		}
 		return flag;
@@ -162,7 +163,8 @@ public class CustomerServiceImp implements ICustomerService {
 
 	public static boolean ValidateUserContact(Customer customer) {
 		boolean flag = true;
-		if (customer.getContactNo().length() != 10 || customer.getContactNo().isEmpty()) {
+		if (customer.getContactNo().length() != 10 || customer.getContactNo().isEmpty()|| 
+				!(customer.getContactNo().matches("^\\d{10}$"))) {
 			flag = false;
 		}
 		return flag;
@@ -170,7 +172,8 @@ public class CustomerServiceImp implements ICustomerService {
 
 	public static boolean validateUserMail(Customer customer) {
 		boolean flag = true;
-		if (customer.getEmail().length() < 8 || customer.getEmail().length() > 30 || customer.getEmail().isEmpty()) {
+		if (customer.getEmail().length() < 8 || customer.getEmail().length() > 30 || customer.getEmail().isEmpty()
+				|| !(customer.getEmail().matches("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$"))) {
 			flag = false;
 		}
 		return flag;

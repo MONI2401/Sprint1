@@ -100,11 +100,11 @@ public class CarController {
 	**/
 
 	@GetMapping(path = "/getAllCarDetails", produces = "application/json")
-	public ResponseEntity<List<CarDTO>> getAllCars() throws CarServiceException {
+	public ResponseEntity<List<CarDTO> > getAllCars() throws CarServiceException {
 
 		List<CarDTO> resultCar = carService.getAllCars();
 
-		return new ResponseEntity<List<CarDTO>>(resultCar, HttpStatus.OK);
+		return new ResponseEntity<List<CarDTO> >(resultCar, HttpStatus.OK);
 
 	}
 
@@ -117,8 +117,8 @@ public class CarController {
 	**/
 	
 	@GetMapping("/getCarsByModel/{model}")
-	public ResponseEntity <List<CarDTO>> getCarsByModel(@PathVariable String model) throws CarServiceException {
-		return new ResponseEntity<List<CarDTO>> (carService.getCarsByModel(model),HttpStatus.OK); 
+	public ResponseEntity <List<CarDTO> > getCarsByModel(@PathVariable String model) throws CarServiceException {
+		return new ResponseEntity<List<CarDTO> > (carService.getCarsByModel(model),HttpStatus.OK); 
 	}
 	
 	/**
@@ -130,8 +130,8 @@ public class CarController {
 	**/
 
 	@GetMapping("/getCarsByBrand/{brand}")
-	public ResponseEntity<List<CarDTO>> getCarsByBrand(@PathVariable String brand) throws CarServiceException {
-		return new ResponseEntity<List<CarDTO>> (carService.getCarsByBrand(brand),HttpStatus.OK); 
+	public ResponseEntity<List<CarDTO> > getCarsByBrand(@PathVariable String brand) throws CarServiceException {
+		return new ResponseEntity<List<CarDTO> > (carService.getCarsByBrand(brand),HttpStatus.OK); 
 	}
 	
 	/**
@@ -143,8 +143,8 @@ public class CarController {
 	**/
 	
 	@GetMapping("/getCarsByLocation/{registrationState}")
-	public ResponseEntity<List<CarDTO>> getCarsByLocation(@PathVariable String registrationState) throws CarServiceException {
-		return new ResponseEntity<List<CarDTO>> (carService.getCarsByLocation(registrationState),HttpStatus.OK); 
+	public ResponseEntity<List<CarDTO> > getCarsByLocation(@PathVariable String registrationState) throws CarServiceException {
+		return new ResponseEntity<List<CarDTO> > (carService.getCarsByLocation(registrationState),HttpStatus.OK); 
 	}
 
 }

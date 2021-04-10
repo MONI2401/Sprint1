@@ -15,7 +15,7 @@ import javax.persistence.GenerationType;
 
 
 @Entity
-@Table(name="Users")
+@Table(name="Users_Login")
 public class User implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

@@ -41,8 +41,8 @@ public class AppointmentController {
      **/
 
     @GetMapping(path = "/allAppointments", produces = "application/json")
-    public ResponseEntity<List<Appointment>> getAllAppointment() {
-        return new ResponseEntity<List<Appointment>>(
+    public ResponseEntity< List< Appointment > > getAllAppointment() {
+        return new ResponseEntity< List<Appointment > >(
                 AppointmentUtils.convertToAppointmentList(service.getAllAppointments()), HttpStatus.OK);
     }
 
@@ -56,10 +56,10 @@ public class AppointmentController {
     @GetMapping(path = "/getAppointment/{id}", produces = "application/json")
     public ResponseEntity<Object> getAppointentById(@PathVariable("id") int id) {
         try {
-                return new ResponseEntity<Object>(AppointmentUtils.convertToAppointment(service.getAppointment(id)),
+                return new ResponseEntity < Object > (AppointmentUtils.convertToAppointment(service.getAppointment(id)),
                         HttpStatus.OK);
         } catch (AppoitnmentNotFoundException e) {
-                return new ResponseEntity<Object>(e.getMessage(), HttpStatus.FAILED_DEPENDENCY);
+                return new ResponseEntity < Object > (e.getMessage(), HttpStatus.FAILED_DEPENDENCY);
         }
     }
     
@@ -71,14 +71,14 @@ public class AppointmentController {
      **/
 
     @PostMapping(path = "/addAppointment", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Object> addAppointment(@RequestBody Appointment appointment){
+    public ResponseEntity < Object > addAppointment(@RequestBody Appointment appointment){
         try
         {
-                return new ResponseEntity<Object>(AppointmentUtils.convertToAppointment(service.addAppointment(appointment)), HttpStatus.OK);
+                return new ResponseEntity < Object > (AppointmentUtils.convertToAppointment(service.addAppointment(appointment)), HttpStatus.OK);
         }
         catch(AppointmentExceptions ex)
         {
-                return new ResponseEntity<Object>(ex.getMessage(), HttpStatus.FAILED_DEPENDENCY);
+                return new ResponseEntity < Object > (ex.getMessage(), HttpStatus.FAILED_DEPENDENCY);
         }
     }
 
@@ -89,8 +89,8 @@ public class AppointmentController {
      **/
     
     @GetMapping(path = "getOpenAppointments", produces = "application/json")
-    public ResponseEntity<List<Appointment>> getOpenAppointments() {
-        return new ResponseEntity<List<Appointment>>(
+    public ResponseEntity < List < Appointment > > getOpenAppointments() {
+        return new ResponseEntity < List < Appointment > >(
                 AppointmentUtils.convertToAppointmentList(service.getOpenAppointments()), HttpStatus.OK);
     }
 
@@ -102,12 +102,12 @@ public class AppointmentController {
      **/
     
     @DeleteMapping(path = "deleteAppointment/{id}", produces = "application/json")
-    public ResponseEntity<Object> deleteAppointment(@PathVariable("id") int id){
+    public ResponseEntity < Object > deleteAppointment(@PathVariable("id") int id){
         try {
                 return new ResponseEntity<Object>(AppointmentUtils.convertToAppointment(service.removeAppointment(id)),
                         HttpStatus.OK);
         } catch (AppoitnmentNotFoundException e) {
-                return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);       
+                return new ResponseEntity < Object > (e.getMessage(), HttpStatus.BAD_REQUEST);       
         }
     }
 
@@ -119,15 +119,15 @@ public class AppointmentController {
      **/
     
     @PutMapping(path = "updataAppointment/{id}", produces = "application/json", consumes = "application/json")
-    public ResponseEntity<Object> updateAppointment(@RequestBody Appointment appointment){
+    public ResponseEntity < Object > updateAppointment(@RequestBody Appointment appointment){
         try {
                 if (AppointmentServiceImpl.isValidAppointment(appointment))
-                    return new ResponseEntity<Object>(AppointmentUtils.convertToAppointment(
+                    return new ResponseEntity < Object > (AppointmentUtils.convertToAppointment(
                             service.updateAppointment(appointment.getAppointmentId(), appointment)), HttpStatus.OK);
 
                 throw new AppointmentExceptions("Given appointment is not in valid format");
         } catch (AppointmentExceptions e) {
-                return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);       
+                return new ResponseEntity < Object > (e.getMessage(), HttpStatus.BAD_REQUEST);       
         }
     }
 }

@@ -12,19 +12,11 @@ import com.cg.cars.exception.UserServiceException;
 import com.cg.cars.model.UserDTO;
 import com.cg.cars.utils.UserUtil;
 
-
-
-
-
-
 @Service
 public class UserServiceImpl implements IUserService {
 
 	@Autowired
 	private IUserRepository userrepo;
-
-
-	
 
 	@Override
 	public UserDTO addUser(User user) throws UserServiceException {

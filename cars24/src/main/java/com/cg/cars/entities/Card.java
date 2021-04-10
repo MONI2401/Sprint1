@@ -11,11 +11,10 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-
 @Entity
 @Table(name = "card")
-public class Card implements Serializable,Comparable<Card> {
-	
+public class Card implements Serializable, Comparable<Card> {
+
 	
 	private static final long serialVersionUID = 1L;
 
@@ -23,23 +22,23 @@ public class Card implements Serializable,Comparable<Card> {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private long id;
-	
-	@Column(name = "card_name",nullable = false)
+
+	@Column(name = "card_name", nullable = false)
 	@NotBlank(message = "Card Name Should Not Be Blank")
 	private String cardName;
-	
-	@Column(name = "card_number",nullable = false,unique = true)
+
+	@Column(name = "card_number", nullable = false, unique = true)
 	@NotNull(message = "Card Number Should Not Be Null")
 	private String cardNumber;
-    
-	@Column(name = "card_expiry_date",nullable = false)
+
+	@Column(name = "card_expiry_date", nullable = false)
 	@NotNull(message = "Card Expiry Date Should Not Be Null")
 	private LocalDate cardExpiry;
-    
-	@Column(name = "cvv",nullable = false)
+
+	@Column(name = "cvv", nullable = false)
 	@NotNull(message = "Card Cvv Number Should Not Be Null")
 	private int cvv;
-	
+
 	public Card() {
 		super();
 	}
@@ -52,8 +51,6 @@ public class Card implements Serializable,Comparable<Card> {
 		this.cardExpiry = cardExpiry;
 		this.cvv = cvv;
 	}
-	
-	
 
 	public long getId() {
 		return id;
@@ -103,15 +100,50 @@ public class Card implements Serializable,Comparable<Card> {
 
 	@Override
 	public int compareTo(Card o) {
-		return (int) (this.id - o.id) + this.cardName.compareTo(o.cardName) +this.cardNumber.compareTo(o.cardNumber)+
-				this.cardExpiry.compareTo(o.cardExpiry)+this.cvv - o.cvv;
+		return (int) (this.id - o.id) + this.cardName.compareTo(o.cardName) + this.cardNumber.compareTo(o.cardNumber)
+				+ this.cardExpiry.compareTo(o.cardExpiry) + this.cvv - o.cvv;
 	}
-	
+
 	@Override
-	public boolean equals(Object o) {
-		Card c = (Card) o;
-		return this.compareTo(c) == 0;
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((cardExpiry == null) ? 0 : cardExpiry.hashCode());
+		result = prime * result + ((cardName == null) ? 0 : cardName.hashCode());
+		result = prime * result + ((cardNumber == null) ? 0 : cardNumber.hashCode());
+		result = prime * result + cvv;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		return result;
 	}
-	
-	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Card other = (Card) obj;
+		if (cardExpiry == null) {
+			if (other.cardExpiry != null)
+				return false;
+		} else if (!cardExpiry.equals(other.cardExpiry))
+			return false;
+		if (cardName == null) {
+			if (other.cardName != null)
+				return false;
+		} else if (!cardName.equals(other.cardName))
+			return false;
+		if (cardNumber == null) {
+			if (other.cardNumber != null)
+				return false;
+		} else if (!cardNumber.equals(other.cardNumber))
+			return false;
+		if (cvv != other.cvv)
+			return false;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+
 }

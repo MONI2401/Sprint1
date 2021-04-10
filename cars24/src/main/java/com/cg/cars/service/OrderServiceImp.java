@@ -13,7 +13,6 @@ import com.cg.cars.dao.ICustomerRepository;
 import com.cg.cars.dao.IOrderRepository;
 import com.cg.cars.entities.Customer;
 import com.cg.cars.entities.Order;
-import com.cg.cars.entities.Payment;
 import com.cg.cars.exception.OrderServiceException;
 import com.cg.cars.model.OrderDTO;
 import com.cg.cars.utils.OrderUtils;
@@ -28,13 +27,12 @@ import com.cg.cars.utils.OrderUtils;
 
 @Service
 public class OrderServiceImp implements IOrderService {
-	
-	@Autowired
-	private ICustomerRepository customerRepo;
-	
 
 	@Autowired
 	private IOrderRepository orderRepo;
+	
+	@Autowired
+	private ICustomerRepository customerRepo;
 
 	/**
 	*Description	:To add Order to the database
@@ -58,6 +56,7 @@ public class OrderServiceImp implements IOrderService {
 			throw new OrderServiceException("Order already exists");
 		}
 	}
+
 	
 	/**
 	*Description	:To delete Order from the database
@@ -70,14 +69,16 @@ public class OrderServiceImp implements IOrderService {
 	@Override
 	public OrderDTO removeOrder(long id) throws OrderServiceException {
 		Optional<Order> order = orderRepo.findById(id);
-		if (order.isEmpty()) {
-			throw new OrderServiceException("orderId does not exist to delete");
-		} 
-		else {
+		if (order.isPresent()) {
 			orderRepo.delete(order.get());
 			return OrderUtils.convertToOrderDto(order.get());
+		} 
+		else {
+			throw new OrderServiceException("orderId does not exist to delete");
 		}
 	}
+
+
 	
 	/**
 
@@ -101,6 +102,8 @@ public class OrderServiceImp implements IOrderService {
 			return OrderUtils.convertToOrderDto(orderRepo.save(order));
 		}
 	}
+
+
 	
 	/**
 	*Description	:To fetch Order details from the database
@@ -121,7 +124,6 @@ public class OrderServiceImp implements IOrderService {
 			return OrderUtils.convertToOrderDto(getOrder);
 		}
 	}
-
 	
 	/**
 	*Description	:To fetch Order details from the database
@@ -141,27 +143,19 @@ public class OrderServiceImp implements IOrderService {
 			return OrderUtils.convertToOrderDtoList(getAllOrders);
 		}
 	}
-	
+
 	public boolean isValidOrder(Order order) throws OrderServiceException
 	{
-		if(isValidPaymentMethod(order.getPaymentMethod()) &&  isValidBillingDate(order.getBillingDate()) 
+		if( isValidBillingDate(order.getBillingDate()) 
 				&& isValidAmount(order.getAmount()) && isValidCustomer(order.getCustomer()))
 			return true;
 		throw new OrderServiceException("This is not a valid order. Order failed");
 	}
 	
-	public boolean isValidPaymentMethod(Payment payment) throws OrderServiceException
-	{
-		if(payment.equals("Cash") || payment.equals("Card"))
-			return true;
-		throw new OrderServiceException("Payment is not valid");
-	}
-	
+		
 	public boolean isValidBillingDate(LocalDate date) throws OrderServiceException
 	{
 		//Return true only if billing date is today's date
-		
-		
 		if(date.compareTo(LocalDate.now())==0)
 			return true;
 		throw new OrderServiceException("Billing date is not valid");
@@ -181,7 +175,6 @@ public class OrderServiceImp implements IOrderService {
 			return true;
 		throw new OrderServiceException("Customer is not available");
 	}
-	
 	
 
 }

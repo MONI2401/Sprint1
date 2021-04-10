@@ -14,9 +14,14 @@ import com.cg.cars.exception.UserNotFoundException;
 import com.cg.cars.service.ILoginService;
 
 
-
+/*
+ * Author : Sarath Sathyan
+ * Version : 1.0
+ * Date : 06-04-2021
+ * Description : This is Login Controller
+*/
 @RestController
-@RequestMapping("/api/car")
+@RequestMapping("/api/cars")
 public class LoginController {
 	
 

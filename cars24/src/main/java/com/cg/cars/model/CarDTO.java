@@ -11,7 +11,7 @@ import com.cg.cars.entities.Car;
 import com.cg.cars.entities.Customer;
 
 @Component
-public class CarDTO implements Comparable<CarDTO>{
+public class CarDTO  {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long carId;
 	private String brand;
@@ -86,7 +86,7 @@ public class CarDTO implements Comparable<CarDTO>{
 
 	public CarDTO() {
 		super();
-		
+
 	}
 
 	public Customer getCustomer() {
@@ -101,20 +101,5 @@ public class CarDTO implements Comparable<CarDTO>{
 		this.registrationState = registrationState;
 	}
 
-	@Override
-	public int compareTo(CarDTO o) {
-		
-		return (int) (this.carId-o.carId + this.brand.compareTo(o.brand) + this.model.compareTo(o.model)
-		+ this.variant.compareTo(o.variant) + this.registrationYear.compareTo(o.registrationYear) +
-		this.registrationState.compareTo(o.registrationState)+ this.customer.compareTo(o.customer));
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		CarDTO c = (CarDTO) o;
-		return this.compareTo(c) == 0;
-	}
-
 	
-
 }

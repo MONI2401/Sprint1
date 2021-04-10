@@ -13,7 +13,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Car")
-public class Car implements Comparable<Car> {
+public class Car  {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long carId;
@@ -117,18 +118,6 @@ public class Car implements Comparable<Car> {
 				+ customers + "]";
 	}
 
-	@Override
-	public int compareTo(Car o) {
-		
-		return (int) (this.carId-o.carId + this.brand.compareTo(o.brand) + this.model.compareTo(o.model)
-		+ this.variant.compareTo(o.variant) + this.registrationYear.compareTo(o.registrationYear) +
-		this.registrationState.compareTo(o.registrationState)+ this.customers.compareTo(o.customers));
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		Car c = (Car) o;
-		return this.compareTo(c) == 0;
-	}
 	
-}
+
+	}
