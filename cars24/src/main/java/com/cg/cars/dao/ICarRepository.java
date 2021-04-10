@@ -2,16 +2,21 @@ package com.cg.cars.dao;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
 import com.cg.cars.entities.Car;
 
-public interface ICarRepository {
-	public Car addCar(Car car);
-	public Car removeCar(long id);
-	public Car updateCar(long id, Car car);
-	public Car getCar(long id);
-	public List<Car> getAllCars();
-	public List<Car> getCarsByLocation();
-	public List<Car> getCarsByModel();
-	public List<Car> getCarsByBrand();
+public interface ICarRepository extends JpaRepository<Car, Long> {
+
+	@Query("select c from Car c where c.model LIKE :model")
+	public List<Car> findByModel(@Param("model") String model);
+
+	@Query("select c from Car c where c.brand LIKE :brand")
+	public List<Car> findByBrand(@Param("brand")String brand);
+	
+	@Query("select c from Car c where c.registrationState LIKE :registrationState")
+	public List<Car> findByLocation(@Param("registrationState")String registrationState);
 
 }

@@ -1,10 +1,16 @@
 package com.cg.cars.dao;
 
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import org.springframework.stereotype.Repository;
+
+
 import com.cg.cars.entities.User;
 
-public interface IUserRepository {
-	public User signIn(User user);
-	public User signOut(User user);
-	public User changePassword(long id, User user);
+
+@Repository
+
+public interface IUserRepository extends JpaRepository<User, Long> {
 
 }

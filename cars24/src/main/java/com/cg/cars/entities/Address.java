@@ -1,44 +1,35 @@
 package com.cg.cars.entities;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.Embeddable;
 import javax.validation.constraints.NotBlank;
 
-@Entity
-@Table(name="address")
-public class Address {
+@Embeddable
+public class Address implements Comparable<Address> {
 
-	@Id
-	@Column(name = "addressId")
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int addressId;
 	
-	@Column(name="doorno",nullable=false)
-	@NotBlank(message="DoorNo should not be blank")
+	@Column(name = "doorno", nullable = false)
+	@NotBlank(message = "DoorNo should not be blank")
 	private String doorNo;
-	
-	@Column(name="street",length=20,nullable=false)
-	@NotBlank(message="Street should not be blank")
+
+	@Column(name = "street", length = 20, nullable = false)
+	@NotBlank(message = "Street should not be blank")
 	private String street;
-	
-	@Column(name="area",length=20,nullable=false)
-	@NotBlank(message="Area should not be blank")
+
+	@Column(name = "area", length = 20, nullable = false)
+	@NotBlank(message = "Area should not be blank")
 	private String area;
-	
-	@Column(name="city",length=20,nullable=false)
-	@NotBlank(message="City should not be blank")
+
+	@Column(name = "city", length = 20, nullable = false)
+	@NotBlank(message = "City should not be blank")
 	private String city;
-	
-	@Column(name="state",length=20,nullable=false)
-	@NotBlank(message="State should not be blank")
+
+	@Column(name = "state", length = 20, nullable = false)
+	@NotBlank(message = "State should not be blank")
 	private String state;
-	
-	@Column(name="pincode",length=6,nullable=false)
-	@NotBlank(message="PinCode should not be blank")
+
+	@Column(name = "pincode", length = 6, nullable = false)
+	@NotBlank(message = "PinCode should not be blank")
 	private int pinCode;
 
 	public String getDoorNo() {
@@ -89,11 +80,7 @@ public class Address {
 		this.pinCode = pinCode;
 	}
 
-	public int getAddressId() {
-		return addressId;
-	}
-
-	public Address(String doorNo, String street, String area, String city, String state,int pinCode) {
+	public Address(String doorNo, String street, String area, String city, String state, int pinCode) {
 		super();
 		this.doorNo = doorNo;
 		this.street = street;
@@ -113,4 +100,12 @@ public class Address {
 				+ state + ", pinCode=" + pinCode + "]";
 	}
 
+	@Override
+	public int compareTo(Address o) {
+
+		return this.pinCode - o.pinCode + this.area.compareTo(o.area) + this.city.compareTo(o.city)
+				+ this.doorNo.compareTo(o.doorNo) + this.state.compareTo(o.state) + this.street.compareTo(o.street);
+	}
+
+	
 }

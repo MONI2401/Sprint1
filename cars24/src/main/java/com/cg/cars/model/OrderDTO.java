@@ -1,27 +1,22 @@
 package com.cg.cars.model;
 
-
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
+import java.time.LocalDate;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
 import org.springframework.stereotype.Component;
 
 import com.cg.cars.entities.Customer;
+import com.cg.cars.entities.Payment;
 
 @Component
-public class OrderDTO {
-
+public class OrderDTO implements Comparable<OrderDTO> {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long orderId;
 	private Double amount;
-	private Date billingDate;
-	private List<Customer> customer;
-    private String paymentMethod;
+	private LocalDate billingDate;
+	private Customer customer;
+	private Payment paymentMethod;
 
 	public long getOrderId() {
 		return orderId;
@@ -39,56 +34,56 @@ public class OrderDTO {
 		this.amount = amount;
 	}
 
-	
-
-	public Date getBillingDate() {
+	public LocalDate getBillingDate() {
 		return billingDate;
 	}
 
-	public void setBillingDate(Date billingDate){
+	public void setBillingDate(LocalDate billingDate) {
 		this.billingDate = billingDate;
 	}
-	 
-                 
 
-	public List<Customer> getCustomer() {
+	public Customer getCustomer() {
 		return customer;
 	}
 
-	public void setCustomer(List<Customer>customer) {
+	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
 
-                 public String getPaymentMethod() {
+	public Payment getPaymentMethod() {
 		return paymentMethod;
 	}
 
-	public void setPaymentMethod(String paymentMethod){
+	public void setPaymentMethod(Payment paymentMethod) {
 		this.paymentMethod = paymentMethod;
 	}
 
-
-	public OrderDTO(long orderId, Double amount, Date billingDate, Customer cus, String paymentMethod) {
+	public OrderDTO(long orderId, Double amount, LocalDate billingLocalDate, Customer customer, Payment paymentMethod) {
 		super();
-		this.customer=new ArrayList<Customer>();
 		this.orderId = orderId;
 		this.amount = amount;
-		this.billingDate = billingDate;
-		customer.add(cus);
-        this.paymentMethod =paymentMethod;
+		this.billingDate = billingLocalDate;
+		this.customer = customer;
+		this.paymentMethod = paymentMethod;
 	}
 
 	public OrderDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public String toString() {
-		return "Order[orderId=" + orderId + ", amount=" + amount+ ", billingDate=" + billingDate + ", customer=" + customer + ", paymentMethod=" + paymentMethod + "]";
+		return "Order[orderId=" + orderId + ", amount=" + amount + ", billingLocalDate=" + billingDate + ", customer="
+				+ customer + ", paymentMethod=" + paymentMethod + "]";
 
-}
+	}
+
+	@Override
+	public int compareTo(OrderDTO o) {
+
+		return (int) (this.orderId - o.orderId + this.amount - o.amount + this.billingDate.compareTo(o.billingDate)
+				+ this.customer.compareTo(o.customer) + this.paymentMethod.compareTo(o.paymentMethod));
+	}
 
 	
-		
-	}
+}
