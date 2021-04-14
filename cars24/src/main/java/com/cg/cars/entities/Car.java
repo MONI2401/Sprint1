@@ -1,59 +1,61 @@
 package com.cg.cars.entities;
 
-import java.util.Date;
-import java.util.List;
-
+import java.time.LocalDate;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="Car")
-public class Car {
+@Table(name = "Car")
+public class Car  {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int carId;
-	
-	@Column(name="Brand",nullable=false,length=50)
+	private long carId;
+
+	@Column(name = "Brand", nullable = false, length = 50)
 	private String brand;
-	
-	@Column(name="Model",nullable=false,length=50)
+
+	@Column(name = "Model", nullable = false, length = 50)
 	private String model;
-	
-	@Column(name="Variant",nullable=false,length=50)
+
+	@Column(name = "Variant", nullable = false, length = 50)
 	private String variant;
-	
-	@Column(name="REG_YR",nullable = false)
-	@Temporal(TemporalType.DATE)
-	private Date registrationYear;
-	
-	@Column(name="REG_State",nullable = false)
+
+	@Column(name = "REG_YR", nullable = false)
+	private LocalDate registrationYear;
+
+	@Column(name = "REG_State", nullable = false)
 	private String registrationState;
 
-	
-	@ManyToOne(targetEntity = Customer.class,fetch = FetchType.EAGER,cascade = CascadeType.REFRESH)
-	@JoinColumn(name="userId",nullable=false)
-	private List<Customer> customers;
+	@ManyToOne(targetEntity = Customer.class, cascade = CascadeType.ALL)
+	@JoinColumn(name = "userId", referencedColumnName = "userid")
+	private Customer customers;
 
-	public int getCarId() {
+	public long getCarId() {
 		return carId;
 	}
 
-	public void setCarId(int carId) {
+	public void setCarId(long carId) {
 		this.carId = carId;
 	}
 
 	public String getBrand() {
 		return brand;
+	}
+
+	public Customer getCustomers() {
+		return customers;
+	}
+
+	public void setCustomers(Customer customers) {
+		this.customers = customers;
 	}
 
 	public void setBrand(String brand) {
@@ -76,11 +78,11 @@ public class Car {
 		this.variant = variant;
 	}
 
-	public Date getRegistrationYear() {
+	public LocalDate getRegistrationYear() {
 		return registrationYear;
 	}
 
-	public void setRegistrationYear(Date registrationYear) {
+	public void setRegistrationYear(LocalDate registrationYear) {
 		this.registrationYear = registrationYear;
 	}
 
@@ -94,11 +96,11 @@ public class Car {
 
 	public Car() {
 		super();
-		
+
 	}
 
-	public Car(int carId, String brand, String model, String variant, Date registrationYear,
-			String registrationState) {
+	public Car(long carId, String brand, String model, String variant, LocalDate registrationYear,
+			String registrationState, Customer customers) {
 		super();
 		this.carId = carId;
 		this.brand = brand;
@@ -106,14 +108,16 @@ public class Car {
 		this.variant = variant;
 		this.registrationYear = registrationYear;
 		this.registrationState = registrationState;
+		this.customers = customers;
 	}
 
 	@Override
 	public String toString() {
 		return "Car [carId=" + carId + ", brand=" + brand + ", model=" + model + ", variant=" + variant
-				+ ", registrationYear=" + registrationYear + ", registrationState=" + registrationState + "]";
+				+ ", registrationYear=" + registrationYear + ", registrationState=" + registrationState + ", customers="
+				+ customers + "]";
 	}
-	
+
 	
 
-}
+	}
