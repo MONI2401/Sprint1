@@ -93,10 +93,4 @@ public class Address {
 		super();
 	}
 
-	@Override
-	public String toString() {
-		return "Address [doorNo=" + doorNo + ", street=" + street + ", area=" + area + ", city=" + city + ", state="
-				+ state + ", pinCode=" + pinCode + "]";
-	}
-
 }
