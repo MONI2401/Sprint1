@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import com.cg.cars.entities.Address;
 
 @Component
-public class CustomerDTO {
+public class CustomerDTO  {
 
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long userId;
@@ -88,5 +88,9 @@ public class CustomerDTO {
 		return "Customer [userId=" + userId + ", name=" + name + ", email=" + email + ", contactNo=" + contactNo
 				+ ", dob=" + dob + ", address=" + address + "]";
 	}
+
+	
+
+	
 
 }
