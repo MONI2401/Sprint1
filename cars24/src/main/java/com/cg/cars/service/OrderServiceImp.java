@@ -146,13 +146,13 @@ public class OrderServiceImp implements IOrderService {
 
 	public boolean isValidOrder(Order order) throws OrderServiceException
 	{
-		if(isValidBillingDate(order.getBillingDate()) 
+		if( isValidBillingDate(order.getBillingDate()) 
 				&& isValidAmount(order.getAmount()) && isValidCustomer(order.getCustomer()))
 			return true;
 		throw new OrderServiceException("This is not a valid order. Order failed");
 	}
 	
-	
+		
 	public boolean isValidBillingDate(LocalDate date) throws OrderServiceException
 	{
 		//Return true only if billing date is today's date
