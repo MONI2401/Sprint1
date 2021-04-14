@@ -102,5 +102,4 @@ public class PaymentController {
 		List<PaymentDTO> getAllPayment = paymentService.getAllPaymentDetails();
 		return new ResponseEntity<List<PaymentDTO> >(getAllPayment, HttpStatus.OK);
 	}
-
 }
