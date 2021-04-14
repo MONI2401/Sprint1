@@ -1,63 +1,35 @@
 package com.cg.cars.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import javax.validation.constraints.NotBlank;
 
-import com.sun.istack.NotNull;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.ManyToMany;
-import javax.persistence.JoinColumn;
-import java.util.List;
-
-@Entity
-@Table(name="Address")
+@Embeddable
 public class Address {
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int addressId;
-
-	@NotBlank(message = "Customer Door No Should NOT be Blank")
-	@Column(name="doorno")
+	@Column(name = "doorno", nullable = false)
+	@NotBlank(message = "DoorNo should not be blank")
 	private String doorNo;
 
-	@NotBlank(message = "Street name Should NOT be Blank")
-	@Column(name="street")
+	@Column(name = "street", length = 20, nullable = false)
+	@NotBlank(message = "Street should not be blank")
 	private String street;
 
-	@Column(name="area")
+	@Column(name = "area", length = 20, nullable = false)
+	@NotBlank(message = "Area should not be blank")
 	private String area;
 
-	@NotBlank(message = "Area name Should NOT be Blank")
-	@Column(name="city",nullable=false)
+	@Column(name = "city", length = 20, nullable = false)
+	@NotBlank(message = "City should not be blank")
 	private String city;
 
-	@NotBlank(message = "Customer name Should NOT be Blank")
-	@Column(name="state",nullable = false)
+	@Column(name = "state", length = 20, nullable = false)
+	@NotBlank(message = "State should not be blank")
 	private String state;
 
-	@NotBlank(message = "Pincode Should NOT be Blank")
-	@Column(name="pincode",nullable=false)
-	private int pincode;
-
-	@ManyToMany(targetEntity = Customer.class,fetch = FetchType.EAGER, mappedBy = "userId",cascade = CascadeType.REFRESH)
-	@JoinColumn(name="userId",nullable=false)
-	private List<Customer> customers;
-
-	public int getAddressId() {
-		return addressId;
-	}
-
-	public void setAddressId(int addressId) {
-		this.addressId = addressId;
-	}
+	@Column(name = "pincode", length = 6, nullable = false)
+	@NotBlank(message = "PinCode should not be blank")
+	private int pinCode;
 
 	public String getDoorNo() {
 		return doorNo;
@@ -95,29 +67,30 @@ public class Address {
 		return state;
 	}
 
-
 	public void setState(String state) {
 		this.state = state;
 	}
 
-	public int getPincode() {
-		return pincode;
+	public int getPinCode() {
+		return pinCode;
 	}
 
-	
-	public void setPincode(int pincode) {
-		this.pincode = pincode;
+	public void setPinCode(int pinCode) {
+		this.pinCode = pinCode;
 	}
 
-	
-	public List<Customer> getCustomers() {
-		return customers;
+	public Address(String doorNo, String street, String area, String city, String state, int pinCode) {
+		super();
+		this.doorNo = doorNo;
+		this.street = street;
+		this.area = area;
+		this.city = city;
+		this.state = state;
+		this.pinCode = pinCode;
 	}
 
-	
-	public void setCustomers(List<Customer> customers) {
-		this.customers = customers;
+	public Address() {
+		super();
 	}
-
 
 }
