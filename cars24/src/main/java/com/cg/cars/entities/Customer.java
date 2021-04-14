@@ -1,115 +1,139 @@
 package com.cg.cars.entities;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDate;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 
-
-
 @Entity
-@Table(name="Customer")
+@Table(name = "Customers")
 public class Customer {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int userId;
-	
-	@NotBlank(message = "Customer name Should NOT be Blank")
-	@Column(name="name",length=50)
+	@Column(name = "userid")
+	private long userId;
+
+	@Column(name = "name", nullable = false, length = 20)
+	@NotBlank(message = "Name should not be blank")
 	private String name;
 
-	@NotBlank(message = "Customer Mail ID Should NOT be Blank")
-	@Column(name="email",unique=true,length = 255)
+	@Column(name = "email", unique = true, nullable = false, length = 25)
+	@NotBlank(message = "EmailId should not be blank")
 	private String email;
 
-	@NotBlank(message = "Customer Phone number Should NOT be Blank")
-	@Column(name="contactno",unique=true,length = 10)
+	@Column(name = "contactno", unique = true, nullable = false, length = 10)
+	@NotBlank(message = "ContactNo should not be blank")
 	private String contactNo;
 
-	@NotBlank(message = "Customer DOB Should NOT be Blank")
-	@Column(name="dob")
-	@Temporal(TemporalType.DATE)
-	private  Date dob;
+	@Column(name = "dob", nullable = false)
+	@NotBlank(message = "LocalDate of Birth should not be blank")
 
-	
-	@ManyToMany(targetEntity = Address.class,fetch = FetchType.EAGER,mappedBy = "addressId",cascade = CascadeType.REFRESH)
-	@JoinColumn(name="addressId",nullable = false)
-	private List<Address> addresses;
+	private LocalDate dob;
 
+	@Embedded
+	private Address address;
 
-	public int getUserId() {
+	public Customer(String name, String email, String contactNo, LocalDate dob, String doorNo, String street,
+			String area, String city, String state, int pinCode) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.contactNo = contactNo;
+		this.dob = dob;
+		this.address = new Address(doorNo, street, area, city, state, pinCode);
+	}
+
+	public Customer() {
+		super();
+	}
+
+	public Customer(long userId, String name, String email, String contactNo, LocalDate dob, String doorNo,
+			String street, String area, String city, String state, int pinCode) {
+		super();
+		this.userId = userId;
+		this.name = name;
+		this.email = email;
+		this.contactNo = contactNo;
+		this.dob = dob;
+		this.address = new Address(doorNo, street, area, city, state, pinCode);
+	}
+
+	public long getUserId() {
 		return userId;
 	}
-	public void setUserId(int userId) {
+
+	public void setUserId(long userId) {
 		this.userId = userId;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public String getContactNo() {
 		return contactNo;
 	}
+
 	public void setContactNo(String contactNo) {
 		this.contactNo = contactNo;
 	}
-	public Date getDob() {
+
+	public LocalDate getDob() {
 		return dob;
 	}
-	public void setDob(Date dob) {
+
+	public void setDob(LocalDate dob) {
 		this.dob = dob;
 	}
-	
-	public List<Address> getAddresses() {
-		return addresses;
+
+	public Address getAddress() {
+		return address;
 	}
-	public void setAddresses(List<Address> addresses) {
-		this.addresses = addresses;
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
-	
-	
-	public Customer() {
-		super();
-		// TODO Auto-generated constructor stub
+
+	@Override
+	public String toString() {
+		return "Customer [userId=" + userId + ", name=" + name + ", email=" + email + ", contactNo=" + contactNo + ", "
+				+ "dob=" + dob + ", address=" + address + "]";
 	}
-	public Customer(int userId, String name, String email, String contactNo, Date dob, Address address) {
-		super();
-		this.addresses=new ArrayList<Address>();
+
+	public Customer(long userId, String name, String email, String contactNo, LocalDate dob, Address address) {
 		this.userId = userId;
 		this.name = name;
 		this.email = email;
 		this.contactNo = contactNo;
 		this.dob = dob;
-		addresses.add(address);
+		this.address = address;
 	}
-	@Override
-	public String toString() {
-		return "Customer [userId=" + userId + ", name=" + name + ", email=" + email + ", contactNo=" + contactNo
-				+ ", dob=" + dob + ", address=" + addresses + "]";
-	}
-	
 
+	public Customer(String name, String email, String contactNo, LocalDate dob, Address address) {
+		this.name = name;
+		this.email = email;
+		this.contactNo = contactNo;
+		this.dob = dob;
+		this.address = address;
+	}
 
 }
