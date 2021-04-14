@@ -21,6 +21,11 @@ import com.cg.cars.exception.OrderServiceException;
 import com.cg.cars.model.OrderDTO;
 import com.cg.cars.service.OrderServiceImp;
 import com.cg.cars.utils.OrderUtils;
+
+/**
+ * @author Dhivya
+ *
+ */
 @SpringBootTest
 class OrderServiceImpTest {
 	
@@ -29,6 +34,9 @@ class OrderServiceImpTest {
 	@Autowired
 	OrderServiceImp service;
 
+	/**
+	 * Test method for {@link com.cg.cars.service.OrderServiceImp #addOrder (com.cg.cars.entities.Order)}.
+	 */
 	@Test
 	void testAddOrder() {
 		LocalDate expiryDate = LocalDate.parse("2025-05-25");
@@ -59,6 +67,9 @@ class OrderServiceImpTest {
 		LOGGER.info("Add Order executed");
 	}
 	
+	/**
+	 * Test method for {@link com.cg.cars.service.OrderServiceImp #removeOrder(long)}.
+	 */
 	@Test
 	void testRemoveOrder() {
 		try {
@@ -76,6 +87,9 @@ class OrderServiceImpTest {
 		LOGGER.info("Remove Order exceuted");
 	}
 
+	/**
+	 * Test method for {@link com.cg.cars.service.OrderServiceImp #updateOrder(long,com.cg.cars.entities.Order)}.
+	 */
 	@Test
 	void testUpdateOrder() {
 		LocalDate expiryDate = LocalDate.parse("2025-04-10");
@@ -108,7 +122,9 @@ class OrderServiceImpTest {
 
 	}
 	
-	
+	/**
+	 * Test method for {@link com.cg.cars.service.OrderServiceImp #getOrderDetails (long)}.
+	 */
 	@Test
 	void testGetOrderDetails() {
 		OrderDTO order = service.getOrderDetails(102);
@@ -128,7 +144,9 @@ class OrderServiceImpTest {
 		LOGGER.info("Get Order Details caused exception");
 	}
 
-
+	/**
+	 * Test method for {@link com.cg.cars.service.OrderServiceImp #getAllOrders ()}.
+	 */
 	@Test
 	void testGetAllOrderDetails() {
 		List<Order> list = new ArrayList<>();
