@@ -35,15 +35,13 @@ public class OrderController {
 	/**
 	*Description	:To add Order to the database
 	*Input Params	:Order object to be added to the database
-	*Return Value	:OrderDTO object
-	*Exception	    :OrderServiceException-It is raised when order already exist   
+	*Return Value	:OrderDTO object 
 	**/
 	
 	@PostMapping(path = "/addOrder", consumes = "application/json")
 	public ResponseEntity<Object> addOrder(@RequestBody Order order) {
 		OrderDTO resultorder;
 		try {
-			System.out.println(order.toString()+" Order");
 			resultorder = orderService.addOrder(order);
 			return new ResponseEntity<Object>(resultorder, HttpStatus.OK);
 		} catch (OrderServiceException e) {
@@ -55,10 +53,9 @@ public class OrderController {
 	*Description	:To delete Order from the database
 	*Input Params	:Order id to be deleted from the database
 	*Return Value	:OrderDTO object of the Order been deleted
-	*Exception	    :OrderServiceException-It is raised when order ID doesn't exist   
 	**/
 	
-	@DeleteMapping(path = "/deleteOrder/{OrderId}", produces = "application/json")
+	@DeleteMapping(path = "/deleteOrder/{orderId}", produces = "application/json")
 	public ResponseEntity<Object> removeOrder(@PathVariable long orderId) {
 		try {
 			return new ResponseEntity<Object>(orderService.removeOrder(orderId),HttpStatus.OK);
@@ -72,11 +69,10 @@ public class OrderController {
 	*Description	:To update Order details to the database
 	*Input Params	:Order to be updated in the database
 	*Return Value	:OrderDTO object of the Order been updated
-	*Exception	    :OrderServiceException-It is raised when order doesn't exist   
 	**/
 	
-	@PutMapping("/updateOrder")
-	public ResponseEntity<Object> updateOrder(@RequestBody Order order) {
+	@PutMapping("/updateOrder/{id}")
+	public ResponseEntity<Object> updateOrder(@RequestBody  Order order) {
 		OrderDTO resultOrder;
 		try {
 			resultOrder = orderService.updateOrder(order.getOrderId(),order);
@@ -91,7 +87,6 @@ public class OrderController {
 	*Description	:To fetch Order details from the database
 	*Input Params	:Order ID object to be fetched from the database
 	*Return Value	:OrderDTO object of the Order been fetched
-	*Exception	    :OrderServiceException-It is raised when order id doesn't exist   
 	**/
 	
 	@GetMapping(path = "/getOrderDetails/{orderId}", produces = "application/json")
