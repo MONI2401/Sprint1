@@ -10,7 +10,7 @@ import com.cg.cars.entities.Customer;
 import com.cg.cars.entities.Payment;
 
 @Component
-public class OrderDTO implements Comparable<OrderDTO> {
+public class OrderDTO  {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long orderId;
 	private Double amount;
@@ -78,12 +78,5 @@ public class OrderDTO implements Comparable<OrderDTO> {
 
 	}
 
-	@Override
-	public int compareTo(OrderDTO o) {
-
-		return (int) (this.orderId - o.orderId + this.amount - o.amount + this.billingDate.compareTo(o.billingDate)
-				+ this.customer.compareTo(o.customer) + this.paymentMethod.compareTo(o.paymentMethod));
-	}
-
-	
+		
 }
