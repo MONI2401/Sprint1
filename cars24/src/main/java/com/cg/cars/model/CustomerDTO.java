@@ -2,7 +2,9 @@ package com.cg.cars.model;
 
 
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,18 +17,18 @@ import com.cg.cars.entities.Address;
 public class CustomerDTO {
 
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String userId;
+	private int userId;
 	private String name;
 	private String email;
 	private String contactNo;
 	private Date dob;
-	private Address address;
+	private List<Address> address;
 
-	public String getUserId() {
+	public int getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 
@@ -61,23 +63,25 @@ public class CustomerDTO {
 	public void setDob(Date dob) {
 		this.dob = dob;
 	}
+	
 
-	public Address getAddress() {
+	public List<Address> getAddress() {
 		return address;
 	}
 
-	public void setAddress(Address address) {
+	public void setAddress(List<Address> address) {
 		this.address = address;
 	}
 
-	public CustomerDTO(String userId, String name, String email, String contactNo, Date dob, Address address) {
+	public CustomerDTO(int userId, String name, String email, String contactNo, Date dob, Address add) {
 		super();
+		this.address=new ArrayList<Address>();
 		this.userId = userId;
 		this.name = name;
 		this.email = email;
 		this.contactNo = contactNo;
 		this.dob = dob;
-		this.address = address;
+		address.add(add);
 	}
 
 	public CustomerDTO() {

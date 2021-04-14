@@ -3,16 +3,17 @@ package com.cg.cars.service;
 import java.util.List;
 
 import com.cg.cars.entities.Car;
+import com.cg.cars.model.CarDTO;
 
 public interface ICarService {
-	public Car addCar(Car car);
-	public Car removeCar(long id);
-	public Car updateCar(long id, Car car);
-	public Car getCar(long id);
-	public List<Car> getAllCars();
-	public List<Car> getCarsByLocation();
-	public List<Car> getCarsByModel();
-	public List<Car> getCarsByBrand();
+	public CarDTO addCar(Car car);
+	public CarDTO removeCar(int id);
+	public CarDTO updateCar(Car car);
+	public CarDTO getCar(int id);
+	public List<CarDTO> getAllCars();
+	public CarDTO getCarsByCity(String city);
+	public CarDTO getCarsByModel(String model);
+	public CarDTO getCarsByBrand(String brand);
 
 
 	

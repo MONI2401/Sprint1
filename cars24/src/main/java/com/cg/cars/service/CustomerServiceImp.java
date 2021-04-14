@@ -1,5 +1,6 @@
 package com.cg.cars.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,49 +15,56 @@ import com.cg.cars.utils.CustomerUtils;
 
 @Service
 public class CustomerServiceImp implements ICustomerService {
-
+	
 	@Autowired
-	ICustomerRepository repo;
-
+	ICustomerRepository customerRepo;
+	
 	@Override
-	public Customer addCustomer(Customer customer) {
-		return repo.save(customer);
+	public CustomerDTO addCustomer(Customer customer) 
+	{
+		Customer addCustomer=new Customer();
+		addCustomer=customerRepo.save(customer);
+		return CustomerUtils.convertToCustomerDto(addCustomer);
 	}
 
 	@Override
-	public List<CustomerDTO> removeCustomer(long custId) {
-		repo.deleteById((int) custId);
-		List<Customer> list = repo.findAll();
-		return CustomerUtils.convertToCustomerDtoList(list);
-
+	public CustomerDTO removeCustomer(int custId) {
+		
+		Customer customertemp=new Customer();
+		customertemp=customerRepo.getOne((int) custId);
+		customerRepo.deleteById((int) custId);
+		return CustomerUtils.convertToCustomerDto(customertemp);
 	}
 
 	@Override
-	public CustomerDTO updateCustomer(long custId, Customer cus) {
-		Customer customer = repo.save(cus);
-
-		return CustomerUtils.convertToCustomerDto(customer);
+	public CustomerDTO updateCustomer(Customer customer) {
+		Customer updateCustomer=new Customer();
+		updateCustomer=customerRepo.save(customer);
+		return CustomerUtils.convertToCustomerDto(updateCustomer);
 	}
 
+	
 	@Override
-	public List<CustomerDTO> getCustomer(long custId) {
-		// need to do
-		return null;
-
+	public CustomerDTO getCustomer(int custId) {
+		Customer getCustomer=new Customer();
+		getCustomer=customerRepo.findById((int) custId).orElse(null);
+		return CustomerUtils.convertToCustomerDto(getCustomer);
 	}
 
 	@Override
 	public List<CustomerDTO> getAllCustomers() {
-		List<Customer> list = repo.findAll();
-
-		return CustomerUtils.convertToCustomerDtoList(list);
-	}
-
-	@Override
-	public List<CustomerDTO> getCustomersByLocation() {
-		// need to do
+		List<Customer> getCustomer=new ArrayList<Customer>();
+		getCustomer=customerRepo.findAll();
+		return CustomerUtils.convertToCustomerDtoList(getCustomer);
 		
-		return null;
+	}
+	
+	@Override
+	public CustomerDTO getCustomersByCity(String city) {
+		Customer getCusCity=new Customer();
+		getCusCity= customerRepo.findByCity(city);
+		return CustomerUtils.convertToCustomerDto(getCusCity);
+		
 	}
 
 	public static boolean validateUserName(Customer cus) {
@@ -107,4 +115,6 @@ public class CustomerServiceImp implements ICustomerService {
 		}
 		return flag;
 	}
+
+	
 }
