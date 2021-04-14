@@ -1,6 +1,5 @@
 package com.cg.cars.entities;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,35 +10,32 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-@SuppressWarnings("serial")
 @Entity
 @Table(name = "card")
-public class Card implements Serializable {
-	
-	
-	
+public class Card {
 
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private long id;
-	
-	@Column(name = "card_name",nullable = false)
+
+	@Column(name = "card_name", nullable = false)
 	@NotBlank(message = "Card Name Should Not Be Blank")
 	private String cardName;
-	
-	@Column(name = "card_number",nullable = false,unique = true)
+
+	@Column(name = "card_number", nullable = false, unique = true)
 	@NotNull(message = "Card Number Should Not Be Null")
 	private String cardNumber;
-    
-	@Column(name = "card_expiry_date",nullable = false)
+
+	@Column(name = "card_expiry_date", nullable = false)
 	@NotNull(message = "Card Expiry Date Should Not Be Null")
 	private LocalDate cardExpiry;
-    
-	@Column(name = "cvv",nullable = false)
+
+	@Column(name = "cvv", nullable = false)
 	@NotNull(message = "Card Cvv Number Should Not Be Null")
 	private int cvv;
-	
+
 	public Card() {
 		super();
 	}
@@ -98,6 +94,5 @@ public class Card implements Serializable {
 		return "Card [id=" + id + ", cardName=" + cardName + ", cardNumber=" + cardNumber + ", cardExpiry=" + cardExpiry
 				+ ", cvv=" + cvv + "]";
 	}
-	
-	
+
 }
