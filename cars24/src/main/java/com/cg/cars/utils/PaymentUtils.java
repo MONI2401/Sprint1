@@ -7,21 +7,22 @@ import com.cg.cars.entities.Payment;
 import com.cg.cars.model.PaymentDTO;
 
 public class PaymentUtils {
-
+	
 	public static List<PaymentDTO> convertToPaymentDtoList(List<Payment> list)
 	{
-		List<PaymentDTO> cardDtoList = new ArrayList<PaymentDTO>();
+		List<PaymentDTO> paymentDtoList = new ArrayList<PaymentDTO>();
 		for (Payment payment : list)
-			cardDtoList.add(convertToPaymentDto(payment));
-	    return cardDtoList;
+			paymentDtoList.add(convertToPaymentDto(payment));
+	    return paymentDtoList;
 	}
 	
-	public static Payment convertToPaymnet(PaymentDTO paymentDto) {
+	public static Payment convertToPayment(PaymentDTO paymentDto) {
 		Payment payment = new Payment();
 		
 		payment.setPaymentId(paymentDto.getPaymentId());
 		payment.setType(paymentDto.getType());
 		payment.setStatus(paymentDto.getStatus());
+		payment.setCard(paymentDto.getCard());
 		
 		return payment;
 	}
@@ -30,11 +31,11 @@ public class PaymentUtils {
 		PaymentDTO paymentDto = new PaymentDTO();
 		
 		paymentDto.setPaymentId(payment.getPaymentId());
-		paymentDto.setType(payment.getStatus());
+		paymentDto.setType(payment.getType());
 		paymentDto.setStatus(payment.getStatus());
+		paymentDto.setCard(payment.getCard());
 		
 		return paymentDto;
 	}
 
-	
 }
