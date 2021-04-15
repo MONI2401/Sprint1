@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
  */
 @TestMethodOrder(OrderAnnotation.class)
 @SpringBootTest
-class LoginServiceImplTests {
+class LoginServiceImplTest {
 
 	@Autowired
 	private ILoginService service;
