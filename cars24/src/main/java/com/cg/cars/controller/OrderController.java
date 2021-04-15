@@ -90,7 +90,7 @@ public class OrderController {
 	**/
 	
 	@GetMapping(path = "/getOrderDetails/{orderId}", produces = "application/json")
-	public ResponseEntity<Object> GetOrderDetails(@PathVariable long orderId) {
+	public ResponseEntity<Object> getOrderDetails(@PathVariable long orderId) {
 		OrderDTO resultOrder;
 		try {
 			resultOrder = orderService.getOrderDetails(orderId);
