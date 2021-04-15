@@ -85,7 +85,7 @@ public class PaymentController {
 	 **/
 
 	@GetMapping("/getPayment/{paymentId}")
-	public ResponseEntity<PaymentDTO> GetPaymentDetails(@PathVariable long paymentId) throws PaymentServiceException {
+	public ResponseEntity<PaymentDTO> getPaymentDetails(@PathVariable long paymentId) throws PaymentServiceException {
 		PaymentDTO getByPaymentId = paymentService.getPaymentDetails(paymentId);
 		return new ResponseEntity<PaymentDTO>(getByPaymentId, HttpStatus.OK);
 	}
