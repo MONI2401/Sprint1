@@ -1,0 +1,44 @@
+2021-04-15 09:35:40.318  INFO 14188 --- [main] com.cg.cars.Cars24Application            : Starting Cars24Application on LAPTOP-1ML961FN with PID 14188 (C:\Users\friday\Downloads\cars24\cars24\bin\main started by friday in C:\Users\friday\Downloads\cars24\cars24)
+2021-04-15 09:35:40.326  INFO 14188 --- [main] com.cg.cars.Cars24Application            : No active profile set, falling back to default profiles: default
+2021-04-15 09:35:42.495  INFO 14188 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-04-15 09:35:42.701  INFO 14188 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 181ms. Found 7 JPA repository interfaces.
+2021-04-15 09:35:44.080  INFO 14188 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9191 (http)
+2021-04-15 09:35:44.123  INFO 14188 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-04-15 09:35:44.123  INFO 14188 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.43]
+2021-04-15 09:35:44.415  INFO 14188 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-04-15 09:35:44.416  INFO 14188 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4008 ms
+2021-04-15 09:35:44.967  INFO 14188 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-04-15 09:35:45.081  INFO 14188 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.28.Final
+2021-04-15 09:35:45.470  INFO 14188 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-04-15 09:35:45.755  INFO 14188 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-04-15 09:35:46.440  INFO 14188 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-04-15 09:35:46.481  INFO 14188 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2021-04-15 09:35:49.141  WARN 14188 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2021-04-15 09:35:49.142  WARN 14188 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : constraint "uk_by1nk98m2hq5onhl68bo09sc1" of relation "card" does not exist, skipping
+2021-04-15 09:35:49.185  WARN 14188 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2021-04-15 09:35:49.186  WARN 14188 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : constraint "uk_hg42un7hjecdwrwoe8jy8j87o" of relation "customers" does not exist, skipping
+2021-04-15 09:35:49.235  WARN 14188 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2021-04-15 09:35:49.235  WARN 14188 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : constraint "uk_rfbvkrffamfql7cjmen8v976v" of relation "customers" does not exist, skipping
+2021-04-15 09:35:49.284  WARN 14188 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2021-04-15 09:35:49.285  WARN 14188 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : constraint "uk_pf8wyrtoia4iu4pb61m8753h7" of relation "users_login" does not exist, skipping
+2021-04-15 09:35:49.413  INFO 14188 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-04-15 09:35:49.448  INFO 14188 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-04-15 09:35:50.626  WARN 14188 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-04-15 09:35:50.897  INFO 14188 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2021-04-15 09:35:51.109  INFO 14188 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-15 09:35:51.401  INFO 14188 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9191 (http) with context path ''
+2021-04-15 09:35:51.402  INFO 14188 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2021-04-15 09:35:51.450  INFO 14188 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2021-04-15 09:35:51.513  INFO 14188 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2021-04-15 09:35:51.925  INFO 14188 --- [main] com.cg.cars.Cars24Application            : Started Cars24Application in 12.505 seconds (JVM running for 14.138)
+2021-04-15 09:57:08.757  INFO 14188 --- [http-nio-9191-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-04-15 09:57:08.758  INFO 14188 --- [http-nio-9191-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-04-15 09:57:08.785  INFO 14188 --- [http-nio-9191-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 25 ms
+2021-04-15 09:57:08.933  WARN 14188 --- [http-nio-9191-exec-1] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpMediaTypeNotSupportedException: Content type 'text/plain;charset=UTF-8' not supported]
+2021-04-15 09:57:51.239  WARN 14188 --- [http-nio-9191-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpMediaTypeNotSupportedException: Content type 'text/plain;charset=UTF-8' not supported]
+2021-04-15 10:30:12.202  WARN 14188 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m24s270ms238µs200ns).
+2021-04-15 10:45:19.372  INFO 14188 --- [RMI TCP Connection(77)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2021-04-15 10:45:21.072  INFO 14188 --- [RMI TCP Connection(77)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2021-04-15 10:45:21.121  INFO 14188 --- [RMI TCP Connection(77)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-04-15 10:45:21.934  INFO 14188 --- [RMI TCP Connection(77)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-04-15 10:45:22.044  INFO 14188 --- [RMI TCP Connection(77)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
