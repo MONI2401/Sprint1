@@ -9,6 +9,10 @@ import com.cg.cars.entities.Appointment;
 import com.cg.cars.model.AppointmentDTO;
 
 public class AppointmentUtils {
+    private AppointmentUtils()
+    {
+        super();
+    }
     
     public static AppointmentDTO convertToAppointmentDTO(Appointment appointment)
     {
@@ -32,7 +36,7 @@ public class AppointmentUtils {
         appointment.setInspectionType(appointmentDTO.getInspectionType());
         appointment.setLocation(appointmentDTO.getLocation());
         if(appointment.getPayment()!=null)
-        appointment.setPayment(PaymentUtils.convertToPayment(appointmentDTO.getPayment()));
+            appointment.setPayment(PaymentUtils.convertToPayment(appointmentDTO.getPayment()));
         appointment.setPreferredDate(LocalDate.parse(appointmentDTO.getPreferredDate()));
         appointment.setPreferredTime(LocalTime.parse(appointmentDTO.getPreferredTime()));
         return appointment;
