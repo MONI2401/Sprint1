@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Scope(value = "prototype")
-public class AppointmentDTO {
+public class AppointmentDTO implements Comparable<AppointmentDTO>{
 
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int appointmentId;
@@ -153,6 +153,43 @@ public class AppointmentDTO {
 		this.preferredTime = localTime;
 		this.customer = customer;
 		this.payment = payment;
+	}
+
+	@Override
+	public int compareTo(AppointmentDTO o) {
+		return this.appointmentId-o.appointmentId + this.inspectionType.compareTo(o.inspectionType) + this.location.compareTo(o.location)
+			+ this.preferredDate.compareTo(o.preferredDate) + this.preferredTime.compareTo(o.preferredTime);
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + appointmentId;
+		result = prime * result + ((customer == null) ? 0 : customer.hashCode());
+		result = prime * result + ((inspectionType == null) ? 0 : inspectionType.hashCode());
+		result = prime * result + ((location == null) ? 0 : location.hashCode());
+		result = prime * result + ((payment == null) ? 0 : payment.hashCode());
+		result = prime * result + ((preferredDate == null) ? 0 : preferredDate.hashCode());
+		result = prime * result + ((preferredTime == null) ? 0 : preferredTime.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj == null)
+			return false;
+		if(obj.getClass().isAssignableFrom(AppointmentDTO.class))
+			return this.compareTo((AppointmentDTO)obj)==0;
+		return false;
 	}
 
 	
