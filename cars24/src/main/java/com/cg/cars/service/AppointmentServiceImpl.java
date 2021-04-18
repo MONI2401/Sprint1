@@ -37,6 +37,8 @@ public class AppointmentServiceImpl implements IAppointmentService {
     @Autowired
     IAppointmentRepository repo;
 
+    private final String message= "Appointment with id %d not found";
+
 
     /**
      *Description	:To add Appointment to the database
@@ -73,14 +75,14 @@ public class AppointmentServiceImpl implements IAppointmentService {
                 repo.deleteById(id);
                 return AppointmentUtils.convertToAppointmentDTO(appointment);
             }
-            throw new AppoitnmentNotFoundException("Appointment with "+ id+" is not found");
+            throw new AppoitnmentNotFoundException(String.format(message, id));
         }
         catch (AppoitnmentNotFoundException ex) {
             throw ex;
         }
         catch(EntityNotFoundException ex)
         {
-            throw new AppoitnmentNotFoundException("Appointment with "+ id+" is not found");
+            throw new AppoitnmentNotFoundException(String.format(message, id));
         }
     }
     
@@ -97,7 +99,7 @@ public class AppointmentServiceImpl implements IAppointmentService {
         try {
             return AppointmentUtils.convertToAppointmentDTO(repo.getOne(id));
         } catch (EntityNotFoundException ex) {
-            throw new AppoitnmentNotFoundException("Appointment with id "+ id+ " not found");
+            throw new AppoitnmentNotFoundException(String.format(message,id));
         }
     }
     
@@ -130,35 +132,29 @@ public class AppointmentServiceImpl implements IAppointmentService {
                 && AppointmentServiceImpl.isValidAppointmentTime(appointment.getPreferredTime(),appointment.getPreferredDate())
                 && AppointmentServiceImpl.isValidInspectionType(appointment.getInspectionType())
                 && AppointmentServiceImpl.isValidLocation(appointment.getLocation());
-                //&& CustomerServiceImp.isValidCustomer(appointment.getCustomer());
     }
 
     public static boolean isValidAppointmentDate(LocalDate date) throws InvalidAppointmentDateException {
         if (LocalDate.now().compareTo(date) > 0) {
             throw new InvalidAppointmentDateException(date.toString() + " is less than today's date");
         }
-        System.out.println("Valid appointment date");
         return true;
     }
 
     public static boolean isValidAppointmentTime(LocalTime time, LocalDate date) throws InvalidAppointmentTimeException {
         if(LocalDate.now().compareTo(date)==0)
         {
-            if(LocalTime.now().compareTo(time)<0)
-                return true;
-            else
-                return false;
+            return (LocalTime.now().compareTo(time)<0);
         }
         else if(LocalDate.now().compareTo(date)<0)
             return true;
         else
-            return false;
+            throw new InvalidAppointmentTimeException("Appointment date is past. So appointment time is not valid");
     }
 
     public static boolean isValidLocation(String location) throws InvalidAppointmentLocationException {
         if (!location.matches("^[a-zA-Z ]{4,}$"))
             throw new InvalidAppointmentLocationException(location + " is not of length greater than 3");
-        System.out.println("Location true");
         return true;
     }
 
@@ -166,7 +162,6 @@ public class AppointmentServiceImpl implements IAppointmentService {
             throws InvalidAppointmentInspectionTypeException {
         if (!inspectionType.matches("^[a-zA-z0-9]{1,4}$"))
             throw new InvalidAppointmentInspectionTypeException(inspectionType + " is not of length 2 or 3 ");
-        System.out.println("Inspection type true");
         return true;
     }
 
